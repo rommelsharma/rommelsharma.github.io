@@ -63,7 +63,8 @@
     <article class="article-body">
         <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
         
-        <header>
+        <header class="project-hero" style="background-image: url('../assets/images/train.jpg');">
+	    <div class="container">
             <h1>Stocks Value Investor: Quantitative Equity Screener</h1>
             
             <div class="meta-strip">
@@ -80,6 +81,7 @@
                 <span class="tech-pill">Docker & GCP</span>
                 <span class="tech-pill">Rules Engine Design</span>
             </div>
+     </div>
         </header>
 
         <div class="regulatory-box">
@@ -129,7 +131,9 @@
             <p>The system is packaged via Docker and utilizes a single-image strategy deployable across local environments, GCP Cloud Run, and AWS ECS Fargate. Environment variables isolate all operational behaviors (auth, logging, LLM provider routing).</p>
             <p>To respect third-party financial API rate limits, the system implements a persistent SQLite-backed Time-To-Live (TTL) caching layer combined with <code>tenacity</code> exponential backoff, ensuring robust data retrieval without API throttling during broad 500-stock sweeps.</p>
         </section>
-
+<p>
+    <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
+</p>
         <section style="margin-top: 60px; padding: 40px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
             <h2 style="margin-top: 0; border-bottom: none; color: var(--text-main);">Let's Connect</h2>
             <p>If you are interested in discussing the systemic design of rules engines, LLM integration patterns in FinTech, or secure multi-cloud deployment strategies, I would be glad to connect professionally.</p>
