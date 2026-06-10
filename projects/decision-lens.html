@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Decision Lens: Evidence-Grounded Decision Intelligence | Rommel Sharma</title>
+    
+    <meta name="description" content="Technical deep dive into Decision Lens, a decision intelligence system architected by Rommel Sharma. Learn how Proxy-Pointer RAG and dual-inference comparison mitigate cognitive bias in executive strategy.">
+    <meta name="keywords" content="Rommel Sharma, Rommel Sharma Sydney, Decision Intelligence, RAG Architecture, Proxy-Pointer RAG, Cognitive Bias Mitigation, Behavioral Science AI, Claude for Legal Plugin, MLOps Australia">
+    <meta name="author" content="Rommel Sharma">
+    <meta name="geo.region" content="AU-NSW">
+    <meta name="geo.placename" content="Sydney">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .article-body { max-width: 850px; margin: 40px auto; padding: 0 20px; color: var(--text-main); }
+        .back-btn { color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; margin-bottom: 30px; }
+        h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); letter-spacing: -0.03em; line-height: 1.2; }
+        h2 { font-size: 1.5rem; color: var(--accent); margin-top: 40px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+        h3 { font-size: 1.15rem; color: var(--text-main); margin-top: 25px; margin-bottom: 10px; }
+        p { color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem; line-height: 1.7; }
+        ul { margin-left: 20px; margin-bottom: 20px; color: var(--text-muted); }
+        li { margin-bottom: 8px; font-size: 1rem; line-height: 1.6; }
+        .meta-strip { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .tech-pill-box { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; margin-bottom: 25px; }
+        .tech-pill { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .highlight-box { background: var(--card-bg); border-left: 4px solid var(--accent); padding: 20px; border-radius: 0 8px 8px 0; margin: 25px 0; }
+        .example-tag { background: #334155; color: #f8fafc; font-size: 0.75rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+    <article class="article-body">
+        <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
+        
+        <header>
+            <h1>Decision Lens: Evidence-Grounded Decision Intelligence</h1>
+            <div class="meta-strip">
+                <div class="meta-item"><strong>Architect:</strong> Rommel Sharma</div>
+                <div class="meta-item"><strong>Location:</strong> Sydney, NSW, Australia</div>
+                <div class="meta-item"><strong>Domain:</strong> Decision Intelligence & Applied Behavioral Science</div>
+            </div>
+
+            <div class="tech-pill-box">
+                <span class="tech-pill">Proxy-Pointer RAG</span>
+                <span class="tech-pill">Dual-Inference Comparison</span>
+                <span class="tech-pill">Hybrid Retrieval (RRF/MMR)</span>
+                <span class="tech-pill">Human-in-the-Loop Curation</span>
+                <span class="tech-pill">Evidence Provenance</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>1. Introduction & Objective</h2>
+            <p>Decision Lens is an advisory system designed to ground AI-generated recommendations in peer-reviewed behavioral science and cognitive psychology literature. It assists professionals facing high-stakes decisions—such as executive strategy, governance, and investment—where the quality and consistency of judgment directly impact outcomes.</p>
+            <p>The system moves beyond generic AI responses by performing a <strong>dual-inference comparison</strong>: it generates a baseline answer (using the model's internal knowledge) alongside an evidence-grounded answer (retrieved from a curated corpus). This creates a measurable "bias lift," ensuring every recommendation is backed by traceable, verbatim source attribution.</p>
+        </section>
+
+        <section>
+            <h2>2. The Challenge: Managing High-Stakes Judgment</h2>
+            <p>High-stakes decision-making is often plagued by cognitive biases, such as confirmation bias or overconfidence. Traditional AI models may provide confident-sounding but unverified advice. The core challenges addressed include:</p>
+            <ul>
+                <li><strong>Lack of Provenance:</strong> AI models typically struggle to explain *why* they suggest a specific intervention, leaving the human decision-maker without a defensible audit trail.</li>
+                <li><strong>Ingestion Noise:</strong> Broad knowledge bases often contain repetitive boilerplate, making it difficult to retrieve specific frameworks or study results efficiently.</li>
+                <li><strong>Context Blindness:</strong> Generic advice often fails to account for the specific organizational risk posture or practice profiles of the user.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Technical Architecture</h2>
+            <p>The system architecture integrates three distinct layers to ensure output reliability and domain relevance:</p>
+            
+            <h3>A. Evidence-Grounded RAG Pipeline</h3>
+            <p>The inference engine employs a hybrid retrieval strategy, combining dense vector search (Amazon Titan v2) with sparse keyword retrieval (BM25). These are merged using <strong>Reciprocal Rank Fusion (RRF)</strong> and <strong>MMR diversification</strong> to ensure that retrieved evidence is both highly relevant and structurally diverse.</p>
+
+            <h3>B. Proxy-Pointer RAG & Knowledge Curation</h3>
+            <p>To optimize performance, the system employs <strong>Proxy-Pointer RAG</strong>. Instead of blindly indexing raw text, a structure-guided pipeline parses and classifies passages (e.g., classifying text as "Studies," "Frameworks," or "Prescriptions"). This allows the retriever to prioritize high-yield content and prevents ingestion noise from diluting the retrieval precision.</p>
+
+            <h3>C. Governance & Plugin Integration</h3>
+            <p>Packaging the engine as a first-party plugin for platforms like <strong>Claude for Legal</strong> enables the use of strict practice-profile onboarding and reviewer-note discipline. This creates a governed workflow where output guardrails and taxonomic tagging make every advisory note auditable and defensible.</p>
+        </section>
+
+        <div class="highlight-box">
+            <p><strong>Curation Strategy:</strong> By creating a human-in-the-loop <em>Corpus Curator</em> interface, the system ensures that only vetted knowledge enters the index. This shifts knowledge base maintenance from an automated (and error-prone) task to a deliberate engineering workflow that focuses on high-fidelity, trusted content.</p>
+        </div>
+
+        <section>
+            <h2>4. Engineering Insights</h2>
+            <p>Development cycles focused heavily on making the "value of evidence" transparent and measurable. Key learnings included:</p>
+            <ul>
+                <li><strong>Bias Lift Measurement:</strong> By comparing baseline inference against grounded retrieval, the system provides a clear metric of how much external evidence improved the decision-making context.</li>
+                <li><strong>Structured Chunking:</strong> The most significant retrieval gains came not from tuning embeddings, but from implementing structure-aware chunking that respects chapters and section logic rather than arbitrary word counts.</li>
+                <li><strong>Traceability Requirements:</strong> Implementing strict JSON schemas for run cards ensured that all findings are linked to specific provenance tags, preventing the system from producing unsupported "hallucinated" advice.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Broader Applications</h2>
+            <p>Decision Lens establishes a blueprint for governed decision intelligence that can be adapted for any domain requiring measurable, audit-trail-backed judgment:</p>
+            <ul>
+                <li><strong>Clinical and Medical Diagnostics:</strong> Adapting the curation engine to index clinical guidelines and peer-reviewed journals, allowing doctors to surface evidence-based treatment protocols alongside diagnostic suggestions.</li>
+                <li><strong>HR and Talent Acquisition:</strong> Leveraging the intervention playbook to help hiring managers mitigate unconscious bias during interview assessments by surfacing objective evaluation rubrics.</li>
+                <li><strong>Supply Chain and Risk Management:</strong> Using the RAG pipeline to ingest operational policy documents and risk frameworks, enabling supply chain leaders to generate structured, evidence-backed impact assessments when faced with logistics disruptions.</li>
+            </ul>
+        </section>
+
+        <section style="margin-top: 60px; padding: 40px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
+            <h2 style="margin-top: 0; border-bottom: none; color: var(--text-main);">Let's Connect</h2>
+            <p>I am keen to discuss the intersections of behavioral science, RAG architecture, and governed AI advisory systems. If you have inquiries regarding these technical design patterns or are exploring collaborative opportunities, feel free to reach out.</p>
+            <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" style="display: inline-block; background-color: var(--accent); color: var(--bg-color); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px;">Connect on LinkedIn</a>
+        </section>
+
+        <footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+            <p>&copy; 2026 Rommel Sharma. Advancing applied intelligence to solve complex real-world problems.</p>
+        </footer>
+    </article>
+
+</body>
+</html>
