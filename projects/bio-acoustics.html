@@ -68,8 +68,24 @@
         <ul>
             <li><strong>Phase 1 (The Baseline):</strong> We began with a standard supervised training approach using EfficientNet backbones. Early versions suffered from training instability (BatchNorm/AMP collapses), resulting in a baseline AUC of ~0.50.</li>
             <li><strong>Phase 2 (Self-Training):</strong> To scale, we implemented a "Noisy Student" self-training loop. By generating pseudo-labels on unlabeled data, we introduced the model to a wider variety of acoustic conditions, bringing the system to a ~0.72 AUC.</li>
-            <li><strong>Phase 3 (The Distillation Pivot):</strong> The final breakthrough came from incorporating teacher distillation using Perch v2 cosine embeddings. This provided the largest performance lift, specifically aiding the identification of weaker taxa (such as Aves) that were previously difficult to distinguish from background noise.</li>
+            <li><strong>Phase 3 (The Distillation Pivot):</strong> The final breakthrough came from incorporating teacher distillation using Perch v2 cosine embeddings. This provided the largest performance lift, specifically aiding the identification of weaker taxa (such as Aves) that were previously difficult to distinguish from background noise.
+Kaggle final submission score: Public 0.79672, Private 0.80297. 
+</li>
         </ul>
+
+<p>
+
+        <img src="images/bio_perch_train_sup.png" alt="Supervised Training Results"/>
+</p>
+<p>
+
+        <img src="images/bio_perch_train_iter1.png" alt="Iteration 1 Training Results. Multi-iterative Noisy Student self-training"/>
+</p>
+<p>
+
+        <img src="images/bio_perch_train_iter2.png" alt="Iteration 2 Training Results. Multi-iterative Noisy Student self-training"/>
+</p>
+
     </section>
 
     <section>
@@ -78,6 +94,8 @@
             <p><strong>1. Leaderboard vs. Internal Benchmarks:</strong> Early in the project, I observed a divergence between the leaderboard score and internal validation (the "Site-22" proxy). I learned to treat the leaderboard as a directional signal rather than an absolute ground truth, relying instead on a deliberate, leak-free held-out subset (Site-22) to validate generalization.</p>
             <p><strong>2. Fixing Failure Modes > Tuning Hyperparameters:</strong> Much of the project's success was not the result of exhaustive hyperparameter searching, but rather the systematic elimination of "silent" failure modes—such as improper checkpointing during resumes or tensor layout mismatches in the SED head.</p>
             <p><strong>3. Distillation as an Architecture:</strong> Integrating Perch v2 was the most significant technical lever. It taught me that in complex classification tasks, leveraging a "teacher" that already understands the domain is often more effective than attempting to train a "student" from scratch on noisy data alone.</p>
+
+
         </div>
     </section>
 
