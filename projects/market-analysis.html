@@ -1,75 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Stocks Value Investor: Quantitative Equity Screener | Rommel Sharma</title>
-    
     <meta name="description" content="Technical overview of the India Value Investor platform, a rules-driven quantitative stock screener built by Rommel Sharma. Explores Benjamin Graham principles, JSON rules engines, and LLM thesis validation.">
     <meta name="keywords" content="Rommel Sharma, Quantitative Analysis, Stock Screener, NSE, Benjamin Graham, Peter Lynch, Python, Streamlit, Groq LLM, FinTech Architecture, Sydney">
     <meta name="author" content="Rommel Sharma">
     <meta name="geo.region" content="AU-NSW">
     <meta name="geo.placename" content="Sydney">
-    
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "India Value Investor: Quantitative Equity Screener Architecture",
-      "description": "An architectural breakdown of a rules-driven quantitative stock screener utilizing dynamic JSON configuration and LLM-powered thesis analysis.",
-      "keywords": "Quantitative Finance, Python, Streamlit, LLaMA-3.3, yfinance, Financial Modeling",
-      "inLanguage": "en-US",
-      "author": {
-        "@type": "Person",
-        "name": "Rommel Sharma",
-        "jobTitle": "Senior AI Leader & Enterprise Architect",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Sydney",
-          "addressRegion": "NSW",
-          "addressCountry": "Australia"
-        },
-        "url": "https://rommelsharma.github.io"
-      }
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "India Value Investor: Quantitative Equity Screener Architecture",
+        "description": "An architectural breakdown of a rules-driven quantitative stock screener utilizing dynamic JSON configuration and LLM-powered thesis analysis.",
+        "keywords": "Quantitative Finance, Python, Streamlit, LLaMA-3.3, yfinance, Financial Modeling",
+        "inLanguage": "en-US",
+        "author": {
+            "@type": "Person",
+            "name": "Rommel Sharma",
+            "jobTitle": "Senior AI Leader & Enterprise Architect",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Sydney",
+                "addressRegion": "NSW",
+                "addressCountry": "Australia"
+            },
+            "url": "https://rommelsharma.github.io"
+        }
     }
     </script>
-
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        .article-body { max-width: 850px; margin: 40px auto; padding: 0 20px; color: var(--text-main); }
-        .back-btn { color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; margin-bottom: 30px; }
-        .back-btn:hover { color: var(--accent-hover); text-decoration: underline; }
-        h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); letter-spacing: -0.03em; line-height: 1.2; }
-        h2 { font-size: 1.5rem; color: var(--accent); margin-top: 40px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
-        h3 { font-size: 1.15rem; color: var(--text-main); margin-top: 25px; margin-bottom: 10px; }
-        p { color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem; line-height: 1.7; }
-        ul, ol { margin-left: 20px; margin-bottom: 20px; color: var(--text-muted); }
-        li { margin-bottom: 8px; font-size: 1rem; line-height: 1.6; }
-        .meta-strip { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
-        .meta-item strong { color: var(--text-main); }
-        .tech-pill-box { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; margin-bottom: 25px; }
-        .tech-pill { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
-        .highlight-box { background: var(--card-bg); border-left: 4px solid var(--accent); padding: 20px; border-radius: 0 8px 8px 0; margin: 25px 0; }
-        .highlight-box p { margin-bottom: 0; font-size: 0.95rem; }
-        .regulatory-box { background: rgba(244, 63, 94, 0.05); border-left: 4px solid #f43f5e; padding: 20px; border-radius: 0 8px 8px 0; margin: 25px 0; }
-        .regulatory-box p { margin-bottom: 0; font-size: 0.95rem; color: #fecdd3; }
+    .article-body {
+        max-width: 850px;
+        margin: 40px auto;
+        padding: 0 20px;
+        color: var(--text-main);
+    }
+
+    .back-btn {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .back-btn:hover {
+        color: var(--accent-hover);
+        text-decoration: underline;
+    }
+
+    h1 {
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text-main);
+        letter-spacing: -0.03em;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        color: var(--accent);
+        margin-top: 40px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 8px;
+    }
+
+    h3 {
+        font-size: 1.15rem;
+        color: var(--text-main);
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: var(--text-muted);
+        margin-bottom: 20px;
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }
+
+    ul,
+    ol {
+        margin-left: 20px;
+        margin-bottom: 20px;
+        color: var(--text-muted);
+    }
+
+    li {
+        margin-bottom: 8px;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .meta-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 30px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 15px;
+    }
+
+    .meta-item strong {
+        color: var(--text-main);
+    }
+
+    .tech-pill-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .tech-pill {
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        color: var(--accent);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .highlight-box {
+        background: var(--card-bg);
+        border-left: 4px solid var(--accent);
+        padding: 20px;
+        border-radius: 0 8px 8px 0;
+        margin: 25px 0;
+    }
+
+    .highlight-box p {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+    }
+
+    .regulatory-box {
+        background: rgba(244, 63, 94, 0.05);
+        border-left: 4px solid #f43f5e;
+        padding: 20px;
+        border-radius: 0 8px 8px 0;
+        margin: 25px 0;
+    }
+
+    .regulatory-box p {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+        color: #fecdd3;
+    }
     </style>
 </head>
-<body>
 
-        <header class="project-hero" style="background-image: url('../assets/images/market.jpg');">
-	    <div class="container">
+<body>
+    <header class="project-hero" style="background-image: url('../assets/images/market.jpg');">
+        <div class="container">
             <h1>Stocks Value Investor: Quantitative Equity Screener</h1>
-            
             <div class="meta-strip">
                 <div class="meta-item"><strong>Solution Design:</strong> Rommel Sharma</div>
                 <div class="meta-item"><strong>Location:</strong> Sydney, NSW, Australia</div>
                 <div class="meta-item"><strong>Domain:</strong> Quantitative Finance & LLM Integration</div>
             </div>
-
             <div class="tech-pill-box">
                 <span class="tech-pill">Python (Streamlit)</span>
                 <span class="tech-pill">yfinance API</span>
@@ -78,30 +180,25 @@
                 <span class="tech-pill">Docker & GCP</span>
                 <span class="tech-pill">Rules Engine Design</span>
             </div>
-     </div>
-        </header>
+        </div>
+    </header>
     <article class="article-body">
         <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-
         <div class="regulatory-box">
             <p><strong>Regulatory Notice:</strong> The Stocks Value Investor platform is a fully active, cloud-hosted application utilized exclusively for personal investment research. Due to strict financial regulatory requirements regarding algorithmic investment advice (e.g., SEBI, ASIC, SEC), the live platform cannot be released to the general public. However, I welcome professional discussions regarding its system architecture, MLOps deployment, and quantitative engineering design.</p>
         </div>
-
         <section>
             <h2>1. Introduction & Market Objective</h2>
             <p>Navigating broad equity markets, such as the NIFTY 500, presents a structural challenge: standard brokerage reports are calibrated for institutional audiences, while consumer-grade screeners lack cohesive philosophical frameworks. Rigid "value" screens often miss high-growth compounders, and "growth" screens blindly purchase overvalued assets.</p>
             <p><strong>India Value Investor</strong> was architected to solve this problem by computationally applying the investment principles of Benjamin Graham (<em>The Intelligent Investor</em>) and Peter Lynch (<em>One Up on Wall Street</em>). The system automatically evaluates broad market data, generating unified 0–100 quality scores and generating human-readable theses for every evaluated asset.</p>
         </section>
-
         <section>
             <h2>2. The "No Black Box" JSON Rules Engine</h2>
             <p>Standard quantitative algorithms hardcode thresholds into Python, requiring full code reviews for minor financial tuning. This architecture decouples the financial logic entirely from the application codebase.</p>
             <p>All evaluation criteria, scoring weights, and verdict bands live in a standalone <code>rules.json</code> configuration file. The Python engine simply parses the logic. This enables dynamic recalibration of complex financial metrics—such as trailing P/E ceilings, PEG ratio bounds, and historical cash flow positive years—without touching the underlying source code.</p>
-            
             <h3>Sector-Aware Intelligence</h3>
             <p>Financial modeling often fails when applying uniform metrics to fundamentally different business structures. The rules engine implements an <code>applies_to</code> abstraction layer. Metrics like Return on Capital Employed (ROCE) or Debt-to-Equity natively skip financial institutions (banks, NBFCs), seamlessly replacing them with Return on Equity (ROE) quality tiers, preventing the algorithm from penalizing sectors due to structural misalignments.</p>
         </section>
-
         <section>
             <h2>3. The Multi-Gate Evaluation Pipeline</h2>
             <p>Assets are processed through a sequential, four-tier evaluation pipeline before a verdict is rendered:</p>
@@ -112,7 +209,6 @@
                 <li><strong>Gate 4: Balanced Scoring:</strong> A hybrid soft-scoring model that applies granular point values based on tiered profitability metrics, generating a final conviction verdict ranging from AVOID to STRONG BUY.</li>
             </ul>
         </section>
-
         <section>
             <h2>4. LLM-Powered 'My Thesis' Integration</h2>
             <p>Quantitative data alone lacks narrative context. To bridge this gap, the platform features a 'My Thesis' module powered by large language models. Users input their natural-language investment rationale, and the LLM cross-references it against the live quantitative scorecard.</p>
@@ -124,30 +220,25 @@
             </ol>
             <p>The prompt architecture strictly instructs the LLM to assess if the quantitative data supports or contradicts the user's thesis, surface overlooked structural risks, and prevent hallucinated financial advice.</p>
         </section>
-
         <section>
             <h2>5. MLOps & Cloud Deployment Architecture</h2>
             <p>The system is packaged via Docker and utilizes a single-image strategy deployable across local environments, GCP Cloud Run, and AWS ECS Fargate. Environment variables isolate all operational behaviors (auth, logging, LLM provider routing).</p>
             <p>To respect third-party financial API rate limits, the system implements a persistent SQLite-backed Time-To-Live (TTL) caching layer combined with <code>tenacity</code> exponential backoff, ensuring robust data retrieval without API throttling during broad 500-stock sweeps.</p>
         </section>
-<p>
-    <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-</p>
+        <p>
+            <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
+        </p>
         <section style="margin-top: 60px; padding: 40px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
             <h2 style="margin-top: 0; border-bottom: none; color: var(--text-main);">Let's Connect</h2>
             <p>If you are interested in discussing the systemic design of rules engines, LLM integration patterns in FinTech, or secure multi-cloud deployment strategies, I would be glad to connect professionally.</p>
-            <a href="https://www.linkedin.com/in/rommelsharma" 
-               target="_blank" 
-               rel="noopener" 
-               style="display: inline-block; background-color: var(--accent); color: var(--bg-color); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px;">
-               Connect on LinkedIn
+            <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" style="display: inline-block; background-color: var(--accent); color: var(--bg-color); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px;">
+                Connect on LinkedIn
             </a>
         </section>
-
         <footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-            <p>&copy; 2026 Rommel Sharma. Advancing applied intelligence to solve complex real-world problems.</p>
+            <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful impact."</p>
         </footer>
     </article>
-
 </body>
+
 </html>

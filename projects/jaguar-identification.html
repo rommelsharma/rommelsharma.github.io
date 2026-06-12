@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Jaguar Re-Identification via Deep Learning & Metric Learning | Rommel Sharma</title>
-    
     <meta name="description" content="Technical deep dive into an automated jaguar re-identification system architected by Rommel Sharma in Sydney, Australia. Discover how fine-tuning MegaDescriptor backbones solves critical wildlife computer vision challenges.">
     <meta name="keywords" content="Rommel Sharma, Rommel Sharma Sydney, Machine Learning Leader APAC, Jaguar Re-Identification, Computer Vision Conservation, MegaDescriptor, Layer-wise Learning Rate Decay, LLRD, Triplet Loss PyTorch, MLOps Australia">
     <meta name="author" content="Rommel Sharma">
@@ -13,71 +12,180 @@
     <meta name="geo.placename" content="Sydney">
     <meta name="geo.position" content="-33.8688;151.2093">
     <meta name="ICBM" content="-33.8688, 151.2093">
-
     <meta property="og:type" content="article">
     <meta property="og:title" content="Jaguar Re-ID via Deep Learning & Metric Learning | Rommel Sharma">
     <meta property="og:description" content="An engineering deep dive into wildlife computer vision, balancing complex embeddings with layer-wise regularization and robust inference caching.">
     <meta property="og:url" content="https://rommelsharma.github.io/applied-ai-for-societal-impact/projects/jaguar-identification.html">
     <meta property="og:site_name" content="Rommel Sharma Applied AI Portfolio">
-    
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "Jaguar Re-Identification via Deep Learning and Metric Learning",
-      "description": "A technical analysis of high-accuracy computer vision workflows using fine-tuned MegaDescriptor neural networks for fine-grained animal retrieval.",
-      "keywords": "Computer Vision, PyTorch, MegaDescriptor, LLRD, Metric Learning, Triplet Loss, MLOps",
-      "inLanguage": "en-US",
-      "author": {
-        "@type": "Person",
-        "name": "Rommel Sharma",
-        "jobTitle": "Senior AI Leader & Enterprise Architect",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Sydney",
-          "addressRegion": "NSW",
-          "addressCountry": "Australia"
-        },
-        "url": "https://rommelsharma.github.io"
-      }
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Jaguar Re-Identification via Deep Learning and Metric Learning",
+        "description": "A technical analysis of high-accuracy computer vision workflows using fine-tuned MegaDescriptor neural networks for fine-grained animal retrieval.",
+        "keywords": "Computer Vision, PyTorch, MegaDescriptor, LLRD, Metric Learning, Triplet Loss, MLOps",
+        "inLanguage": "en-US",
+        "author": {
+            "@type": "Person",
+            "name": "Rommel Sharma",
+            "jobTitle": "Senior AI Leader & Enterprise Architect",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Sydney",
+                "addressRegion": "NSW",
+                "addressCountry": "Australia"
+            },
+            "url": "https://rommelsharma.github.io"
+        }
     }
     </script>
-
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        .article-body { max-width: 850px; margin: 40px auto; padding: 0 20px; color: var(--text-main); }
-        .back-btn { color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; margin-bottom: 30px; }
-        .back-btn:hover { color: var(--accent-hover); text-decoration: underline; }
-        h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); letter-spacing: -0.03em; line-height: 1.2; }
-        h2 { font-size: 1.5rem; color: var(--accent); margin-top: 40px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
-        h3 { font-size: 1.15rem; color: var(--text-main); margin-top: 25px; margin-bottom: 10px; }
-        p { color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem; line-height: 1.7; }
-        ul, ol { margin-left: 20px; margin-bottom: 20px; color: var(--text-muted); }
-        li { margin-bottom: 8px; font-size: 1rem; line-height: 1.6; }
-        .meta-strip { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
-        .meta-item strong { color: var(--text-main); }
-        .tech-pill-box { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; margin-bottom: 25px; }
-        .tech-pill { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
-        .highlight-box { background: var(--card-bg); border-left: 4px solid var(--accent); padding: 20px; border-radius: 0 8px 8px 0; margin: 25px 0; }
-        .highlight-box p { margin-bottom: 0; font-size: 0.95rem; }
-        code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9rem; color: #f43f5e; }
-        .example-tag { background: #334155; color: #f8fafc; font-size: 0.75rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; margin-right: 5px; vertical-align: middle; }
+    .article-body {
+        max-width: 850px;
+        margin: 40px auto;
+        padding: 0 20px;
+        color: var(--text-main);
+    }
+
+    .back-btn {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .back-btn:hover {
+        color: var(--accent-hover);
+        text-decoration: underline;
+    }
+
+    h1 {
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text-main);
+        letter-spacing: -0.03em;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        color: var(--accent);
+        margin-top: 40px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 8px;
+    }
+
+    h3 {
+        font-size: 1.15rem;
+        color: var(--text-main);
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: var(--text-muted);
+        margin-bottom: 20px;
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }
+
+    ul,
+    ol {
+        margin-left: 20px;
+        margin-bottom: 20px;
+        color: var(--text-muted);
+    }
+
+    li {
+        margin-bottom: 8px;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .meta-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 30px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 15px;
+    }
+
+    .meta-item strong {
+        color: var(--text-main);
+    }
+
+    .tech-pill-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .tech-pill {
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        color: var(--accent);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .highlight-box {
+        background: var(--card-bg);
+        border-left: 4px solid var(--accent);
+        padding: 20px;
+        border-radius: 0 8px 8px 0;
+        margin: 25px 0;
+    }
+
+    .highlight-box p {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+    }
+
+    code {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 0.9rem;
+        color: #f43f5e;
+    }
+
+    .example-tag {
+        background: #334155;
+        color: #f8fafc;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
     </style>
 </head>
-<body>
 
-        
-        <header class="project-hero" style="background-image: url('../assets/images/jaguar.jpg');">
-	    <div class="container">
-	            <h1>Jaguar Identification via Deep Learning & Metric Learning</h1>
-            
-        	    <div class="meta-strip">
-                	<div class="meta-item"><strong>Solution Design:</strong> Rommel Sharma</div>
-	                <div class="meta-item"><strong>Location:</strong> Sydney, NSW, Australia</div>
-        	        <div class="meta-item"><strong>Domain:</strong> Computer Vision & Deep Learning for Conservation</div>
-	            </div>
+<body>
+    <header class="project-hero" style="background-image: url('../assets/images/jaguar.jpg');">
+        <div class="container">
+            <h1>Jaguar Identification via Deep Learning & Metric Learning</h1>
+            <div class="meta-strip">
+                <div class="meta-item"><strong>Solution Design:</strong> Rommel Sharma</div>
+                <div class="meta-item"><strong>Location:</strong> Sydney, NSW, Australia</div>
+                <div class="meta-item"><strong>Domain:</strong> Computer Vision & Deep Learning for Conservation</div>
+            </div>
             <div class="tech-pill-box">
                 <span class="tech-pill">MegaDescriptor-L (DINOv2)</span>
                 <span class="tech-pill">ArcFace Margin</span>
@@ -86,18 +194,15 @@
                 <span class="tech-pill">GeM Pooling</span>
                 <span class="tech-pill">k-Reciprocal Re-ranking</span>
             </div>
-	    </div>
-        </header>
-
+        </div>
+    </header>
     <article class="article-body">
         <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-
         <section>
             <h2>1. Introduction & Project Objective</h2>
             <p>Wildlife monitoring relies heavily on camera traps to track endangered animal populations. Historically, researchers had to manually inspect thousands of photos to match individual animals based on their unique coat pattern markings. This project establishes an automated, deep learning pipeline designed to solve the <strong>Jaguar Re-Identification (Re-ID)</strong> problem by transforming visual pattern matching into a high-dimensional metric learning task.</p>
             <p>Instead of matching an image to a fixed set of labels, the system learns to convert raw camera trap images into compact mathematical numerical vectors (embeddings). When two photos feature the same jaguar, their resulting vectors sit close together in vector space; if the photos feature different jaguars, their vectors sit far apart.</p>
         </section>
-
         <section>
             <h2>2. The Problem Context & Challenge</h2>
             <p>Standard classification networks (which assign images to rigid categories like "Jaguar A" or "Jaguar B") fail in ecological research settings because the population is dynamic. New animals are constantly discovered in the wild. If a new jaguar is found, a traditional classification model requires altering its architecture and retraining from scratch.</p>
@@ -107,40 +212,31 @@
                 <li><strong>Significant Environmental Distortions:</strong> Photos feature dramatic variations in lightning (night vs. day flashes), severe changes in body posture, camera angles, and occlusions from forest foliage.</li>
             </ul>
         </section>
-
         <section>
             <h2>3. Technical Solution Architecture</h2>
             <p>The final solution balances a strong baseline feature extractor with advanced optimization criteria to build robust, highly generalizable embeddings.</p>
-            
             <h3>A. Foundation Backbone & Spatial Pooling</h3>
             <p>The architecture uses a pre-trained **MegaDescriptor-L** backbone (built on top of Meta's DINOv2 Vision Transformer architecture). This foundation model provides exceptional spatial representations optimized specifically for biological contours and textures. To compress the transformer's spatial feature outputs into a final 512-dimensional vector without discarding critical pattern data, **Generalized Mean (GeM) Pooling** is implemented. GeM pooling uses a learnable parameter to adjust how aggressively it highlights prominent features compared to standard average pooling.</p>
-
             <h3>B. Dual-Objective Loss Functions</h3>
             <p>To maximize the separation between different individual jaguars, the network optimizes two distinct loss targets simultaneously during training:</p>
             <ul>
                 <li><strong>ArcFace Classification Loss:</strong> Projects the feature vectors onto a hypersphere and applies an additive angular margin between different jaguar identities. This structure forces the network to draw tight boundaries around each individual's unique features.</li>
                 <li><strong>Batch-Hard Triplet Loss:</strong> Groups training data into structured mini-batches containing $P$ identities with $K$ images each (PK-Sampling). For every reference image (Anchor), the model identifies the mathematically most challenging match of the same identity (Hard Positive) and the most deceptively similar image of a different identity (Hard Negative) to compute gradients.</li>
             </ul>
-
             <h3>C. Fine-Tuning Stability with LLRD</h3>
-            <p>Large vision transformers are highly prone to "catastrophic forgetting" or severe overfitting when fine-tuned on small datasets. To protect the foundational knowledge captured by the backbone, **Layer-wise Learning Rate Decay (LLRD)** is used. 
-            <p><span class="example-tag">Example</span> Instead of applying a uniform learning rate across the entire network, the lower layers closest to the raw image data use a highly conservative learning rate (decaying by a factor of 0.8 per layer backwards), while the brand-new classification head uses a learning rate ten times larger. This keeps foundational edge-and-shape detectors intact while allowing the top layers to adapt to jaguar spot layouts.</p>
+            <p>Large vision transformers are highly prone to "catastrophic forgetting" or severe overfitting when fine-tuned on small datasets. To protect the foundational knowledge captured by the backbone, **Layer-wise Learning Rate Decay (LLRD)** is used.
+                <p><span class="example-tag">Example</span> Instead of applying a uniform learning rate across the entire network, the lower layers closest to the raw image data use a highly conservative learning rate (decaying by a factor of 0.8 per layer backwards), while the brand-new classification head uses a learning rate ten times larger. This keeps foundational edge-and-shape detectors intact while allowing the top layers to adapt to jaguar spot layouts.</p>
         </section>
-
         <section>
             <h2>4. Engineering Insights & Lessons Learned</h2>
             <p>Building the solution highlighted that model performance often stems from catching silent infrastructure and execution failures rather than tweaking arbitrary hyperparameters. Key design evolutions included:</p>
-            
             <h3>A. Fixing Broken State Management</h3>
             <p>Early iterations suffered from a hidden bug where training runs would occasionally timeout or crash on shared cluster infrastructure. While a simple checkpoint was reloaded, the internal state tracker of the *Early Stopping* mechanism was discarded upon restart. This caused the model to inadvertently save suboptimal weights. The solution was refactored to treat early stopping metrics as a stateful dictionary saved directly inside the model artifact file, ensuring consistent evaluations across pipeline preemptions.</p>
-
             <h3>B. Resolving Checkpoint Shape Mismatches</h3>
             <p>When swapping between different model variations, variations in the dense classification head layer weights caused initialization shape errors. Building an explicit custom layer mapping utility ensured that only the backbone transformer weights were reloaded cleanly during cross-validation folds, safely ignoring target layer dimension differences.</p>
-
             <h3>C. Overcoming Disk Input/Output Constraints</h3>
             <p> Kaggle environment runtimes impose strict write limits on root filesystems. Generating Test-Time Augmentations (TTA) dynamically across large image sets created significant processing bottlenecks. To overcome this, an execution pipeline was engineered to process embeddings in strict 100-image chunks, saving intermediate representations as compressed NumPy files (`.npz`) directly to a writable staging directory (`/kaggle/working/cache/`) while treating foundational inputs as read-only.</p>
         </section>
-
         <section>
             <h2>5. Advanced Inference and Retrieval Logic</h2>
             <p>Evaluating model performance uses the **identity-balanced mean Average Precision (mAP)** metric, which balances out accuracy tracking across individuals with wildly uneven image distributions. At inference time, accuracy is pushed further via automated post-processing:</p>
@@ -149,41 +245,30 @@
                 <li><strong>k-Reciprocal Re-ranking:</strong> Borrowed from search engine concepts, if Image A is a top match for Image B, Image B should also be a top match for Image A. This cross-reference algorithm evaluates mutual top neighbors to penalize accidental false-positive matches, significantly boosting validation scores to **0.726 mAP**.</li>
             </ul>
         </section>
-
         <section>
             <h2>6. Broader Horizons: Cross-Domain Adaptations</h2>
             <p>Because this pipeline models identity differences at a foundational pixel texture level rather than relying on a rigid label list, the entire underlying architecture can be redeployed across several industrial and ecological use cases with minimal configuration tweaks:</p>
-            
             <h3>A. Parallel Ecological Monitoring</h3>
             <p>The system can instantly transfer to identify other complex fine-grained species. For example, tracking individual leopards or cheetahs via rosette density, identifying zebras via stripe patterns, or monitoring marine life like whales and manta rays using fluke shapes and spot placements.</p>
-
             <h3>B. Smart Agriculture & Livestock Tracking</h3>
             <p><span class="example-tag">Example</span> Large-scale cattle farms currently rely on invasive physical ear tags or branding to track individual cows. By swapping the training inputs, this exact architecture can identify individual cattle or horses via unique facial structures and natural hair patterns from standard overhead cameras mounted at watering troughs, enabling contactless health tracking.</p>
-
             <h3>C. Industrial Asset Management & Supply Chain Search</h3>
             <p>In manufacturing pipelines, components frequently lack clear serial numbers but carry distinctive structural surface imperfections or wood-grain configurations. This metric learning pipeline can serve as a highly accurate visual search engine to track parts, detect duplicates, or verify product authenticity across logistics networks by matching microscopic item textures.</p>
         </section>
-
-
-<p>
-    <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-</p>
-
-<section style="margin-top: 60px; padding: 40px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
-    <h2 style="margin-top: 0; border-bottom: none; color: var(--text-main);">Let's Connect</h2>
-    <p>I am always open to discussing new challenges in the AI and Machine Learning space. Whether you are exploring how these patterns can be adapted for your specific domain, have questions about the architectural choices detailed above, or are looking to collaborate on impactful technology projects that help the society, I would love to hear from you.</p>
-    <a href="https://www.linkedin.com/in/rommelsharma" 
-       target="_blank" 
-       rel="noopener" 
-       style="display: inline-block; background-color: var(--accent); color: var(--bg-color); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px;">
-       Connect on LinkedIn
-    </a>
-</section>
-
-<footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-    <p>&copy; 2026 Rommel Sharma. Advancing applied intelligence to solve complex real-world problems.</p>
-</footer>
+        <p>
+            <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
+        </p>
+        <section style="margin-top: 60px; padding: 40px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
+            <h2 style="margin-top: 0; border-bottom: none; color: var(--text-main);">Let's Connect</h2>
+            <p>I am always open to discussing new challenges in the AI and Machine Learning space. Whether you are exploring wildlife conservation through the use of technology or how these patterns can be adapted for your specific domain, have questions about the architectural choices detailed above, or are looking to collaborate on impactful technology projects that help the society, I would love to hear from you.</p>
+            <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" style="display: inline-block; background-color: var(--accent); color: var(--bg-color); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px;">
+                Connect on LinkedIn
+            </a>
+        </section>
+        <footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+            <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful impact."</p>
+        </footer>
     </article>
-
 </body>
+
 </html>

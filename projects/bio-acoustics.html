@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Acoustic Species Identification: Wildlife Monitoring | Rommel Sharma</title>
-    
-    <meta name="description" content="A research-focused deep dive into an automated acoustic species identification system. Explore the evolution of Sound Event Detection (SED) pipelines, teacher-student distillation, and FiLM conditioning for Pantanal wildlife data.">
-    <meta name="keywords" content="Rommel Sharma, Bioacoustics, Sound Event Detection, SED, FiLM Conditioning, Perch v2, Wildlife Conservation AI, Pantanal Acoustic Monitoring, Deep Learning Research">
+
+    <meta name="description"
+          content="A research-focused deep dive into an automated acoustic species identification system. Explore the evolution of Sound Event Detection (SED) pipelines, teacher-student distillation, and FiLM conditioning for Pantanal wildlife data.">
+    <meta name="keywords"
+          content="Rommel Sharma, Bioacoustics, Sound Event Detection, SED, FiLM Conditioning, Perch v2, Wildlife Conservation AI, Pantanal Acoustic Monitoring, Deep Learning Research">
     <meta name="author" content="Rommel Sharma">
     <meta name="geo.region" content="AU-NSW">
     <meta name="geo.placename" content="Sydney">
-    
+
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         .article-body { max-width: 850px; margin: 40px auto; padding: 0 20px; color: var(--text-main); }
         .back-btn { color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; margin-bottom: 30px; }
@@ -30,8 +32,8 @@
     </style>
 </head>
 <body>
-        <header class="project-hero" style="background-image: url('../assets/images/bioacoustics.jpg');">
-	    <div class="container">    
+<header class="project-hero" style="background-image: url('../assets/images/bioacoustics.jpg');">
+    <div class="container">
 
         <h1>Acoustic Species Identification</h1>
         <div class="meta-strip">
@@ -46,54 +48,78 @@
             <span class="tech-pill">Noisy Student Training</span>
             <span class="tech-pill">Ensemble Modeling</span>
         </div>
-        </div>
-    </header>
+    </div>
+</header>
 
-    <article class="article-body">
-        <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
+<article class="article-body">
+    <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
 
     <section>
         <h2>Project Overview</h2>
-        <p>This system was designed to address the challenge of identifying wildlife species in the Pantanal wetlands of Brazil. Given the density of the environment and the overlapping nature of wildlife calls, the task requires more than simple classification; it requires fine-grained Sound Event Detection (SED) capable of isolating individual vocalizations from complex, multi-species acoustic soundscapes.</p>
+        <p>This system was designed to address the challenge of identifying wildlife species in the Pantanal wetlands of
+            Brazil. Given the density of the environment and the overlapping nature of wildlife calls, the task requires
+            more than simple classification; it requires fine-grained Sound Event Detection (SED) capable of isolating
+            individual vocalizations from complex, multi-species acoustic soundscapes.</p>
 
 
- <a href="https://www.kaggle.com/writeups/rommelsharma/birdclef-2026-from-0-50-to-0-80-building-an-aco
+        <a href="https://www.kaggle.com/writeups/rommelsharma/birdclef-2026-from-0-50-to-0-80-building-an-aco
 " class="back-btn" target="_blank">Read the full article here</a>
-        
+
     </section>
 
     <section>
         <h2>Architectural Evolution</h2>
-        <p>The solution progressed through distinct phases of maturity, moving from a brittle baseline to a robust ensemble pipeline:</p>
+        <p>The solution progressed through distinct phases of maturity, moving from a brittle baseline to a robust
+            ensemble pipeline:</p>
         <ul>
-            <li><strong>Phase 1 (The Baseline):</strong> We began with a standard supervised training approach using EfficientNet backbones. Early versions suffered from training instability (BatchNorm/AMP collapses), resulting in a baseline AUC of ~0.50.</li>
-            <li><strong>Phase 2 (Self-Training):</strong> To scale, we implemented a "Noisy Student" self-training loop. By generating pseudo-labels on unlabeled data, we introduced the model to a wider variety of acoustic conditions, bringing the system to a ~0.72 AUC.</li>
-            <li><strong>Phase 3 (The Distillation Pivot):</strong> The final breakthrough came from incorporating teacher distillation using Perch v2 cosine embeddings. This provided the largest performance lift, specifically aiding the identification of weaker taxa (such as Aves) that were previously difficult to distinguish from background noise.
-Kaggle final submission score: Public 0.79672, Private 0.80297. 
-</li>
+            <li><strong>Phase 1 (The Baseline):</strong> I began with a standard supervised training approach using
+                EfficientNet backbones. Early versions suffered from training instability (BatchNorm/AMP collapses),
+                resulting in a baseline AUC of ~0.50.
+            </li>
+            <li><strong>Phase 2 (Self-Training):</strong> To scale, we implemented a "Noisy Student" self-training loop.
+                By generating pseudo-labels on unlabeled data, we introduced the model to a wider variety of acoustic
+                conditions, bringing the system to a ~0.72 AUC.
+            </li>
+            <li><strong>Phase 3 (The Distillation Pivot):</strong> The final breakthrough came from incorporating
+                teacher distillation using Perch v2 cosine embeddings. This provided the largest performance lift,
+                specifically aiding the identification of weaker taxa (such as Aves) that were previously difficult to
+                distinguish from background noise.
+                Kaggle final submission score: Public 0.79672, Private 0.80297.
+            </li>
         </ul>
 
-<p>
+        <p>
 
-        <img src="images/bio_perch_train_sup.png" alt="Supervised Training Results"/>
-</p>
-<p>
+            <img src="images/bio_perch_train_sup.png" alt="Supervised Training Results"/>
+        </p>
+        <p>
 
-        <img src="images/bio_perch_train_iter1.png" alt="Iteration 1 Training Results. Multi-iterative Noisy Student self-training"/>
-</p>
-<p>
+            <img src="images/bio_perch_train_iter1.png"
+                 alt="Iteration 1 Training Results. Multi-iterative Noisy Student self-training"/>
+        </p>
+        <p>
 
-        <img src="images/bio_perch_train_iter2.png" alt="Iteration 2 Training Results. Multi-iterative Noisy Student self-training"/>
-</p>
+            <img src="images/bio_perch_train_iter2.png"
+                 alt="Iteration 2 Training Results. Multi-iterative Noisy Student self-training"/>
+        </p>
 
     </section>
 
     <section>
         <h2>Key Lessons Learnt</h2>
         <div class="highlight-box">
-            <p><strong>1. Leaderboard vs. Internal Benchmarks:</strong> Early in the project, I observed a divergence between the leaderboard score and internal validation (the "Site-22" proxy). I learned to treat the leaderboard as a directional signal rather than an absolute ground truth, relying instead on a deliberate, leak-free held-out subset (Site-22) to validate generalization.</p>
-            <p><strong>2. Fixing Failure Modes > Tuning Hyperparameters:</strong> Much of the project's success was not the result of exhaustive hyperparameter searching, but rather the systematic elimination of "silent" failure modes—such as improper checkpointing during resumes or tensor layout mismatches in the SED head.</p>
-            <p><strong>3. Distillation as an Architecture:</strong> Integrating Perch v2 was the most significant technical lever. It taught me that in complex classification tasks, leveraging a "teacher" that already understands the domain is often more effective than attempting to train a "student" from scratch on noisy data alone.</p>
+            <p><strong>1. Leaderboard vs. Internal Benchmarks:</strong> Early in the project, I observed a divergence
+                between the leaderboard score and internal validation (the "Site-22" proxy). I learned to treat the
+                leaderboard as a directional signal rather than an absolute ground truth, relying instead on a
+                deliberate, leak-free held-out subset (Site-22) to validate generalization.</p>
+            <p><strong>2. Fixing Failure Modes > Tuning Hyperparameters:</strong> Much of the project's success was not
+                the result of exhaustive hyperparameter searching, but rather the systematic elimination of "silent"
+                failure modes—such as improper checkpointing during resumes or tensor layout mismatches in the SED head.
+            </p>
+            <p><strong>3. Distillation as an Architecture:</strong> Integrating Perch v2 was the most significant
+                technical lever. It taught me that in complex classification tasks, leveraging a "teacher" that already
+                understands the domain is often more effective than attempting to train a "student" from scratch on
+                noisy data alone.</p>
 
 
         </div>
@@ -101,21 +127,31 @@ Kaggle final submission score: Public 0.79672, Private 0.80297.
 
     <section>
         <h2>Engineering Approach</h2>
-        <p>The final inference pipeline utilizes a robust ensemble. By rank-blending predictions from different backbones (EfficientNetV2/NFNet) alongside the distilled Perch v2 outputs, the system achieves a balanced predictive capability that outperforms any single-model configuration. FiLM metadata conditioning allows the model to interpret acoustic features in the context of temporal and spatial metadata, further reducing false positives in dense soundscapes.</p>
+        <p>The final inference pipeline utilizes a robust ensemble. By rank-blending predictions from different
+            backbones (EfficientNetV2/NFNet) alongside the distilled Perch v2 outputs, the system achieves a balanced
+            predictive capability that outperforms any single-model configuration. FiLM metadata conditioning allows the
+            model to interpret acoustic features in the context of temporal and spatial metadata, further reducing false
+            positives in dense soundscapes.</p>
     </section>
 
-<p>
-    <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-</p>
+    <p>
+        <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
+    </p>
 
-    <section style="margin-top: 60px; padding: 40px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
+    <section
+            style="margin-top: 60px; padding: 40px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
         <h2>Let's Connect</h2>
-        <p>I enjoy discussing the intersection of deep learning and environmental conservation. If you are exploring how acoustic monitoring or sound event detection could solve problems in your sector—or if you have questions regarding the teacher-student distillation patterns used here—I welcome your inquiry.</p>
-        <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" style="display: inline-block; background-color: var(--accent); color: var(--bg-color); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px;">Connect on LinkedIn</a>
+        <p>I enjoy discussing the intersection of deep learning and environmental conservation. If you are exploring how
+            acoustic monitoring or sound event detection could solve problems in your sector—or if you have questions
+            regarding the teacher-student distillation patterns used here—I welcome your inquiry.</p>
+        <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener"
+           style="display: inline-block; background-color: var(--accent); color: var(--bg-color); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px;">Connect
+            on LinkedIn</a>
     </section>
 
     <footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-        <p>&copy; 2026 Rommel Sharma. Advancing applied intelligence to solve complex real-world problems.</p>
+        <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful
+            impact."</p>
     </footer>
 </article>
 
