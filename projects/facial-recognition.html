@@ -1,115 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Real-Time Face Recognition | Rommel Sharma</title>
-    
     <meta name="description" content="Technical overview of a real-time face recognition pipeline using InsightFace and WebRTC. Architected by Rommel Sharma for low-latency, edge-ready identity verification.">
     <meta name="keywords" content="Rommel Sharma, Real-Time Face Recognition, InsightFace, WebRTC, Gradio, ArcFace, Computer Vision, MLOps, Face Detection, Identity Verification">
     <meta name="author" content="Rommel Sharma">
-    
     <meta name="geo.region" content="AU-NSW">
     <meta name="geo.placename" content="Sydney">
     <meta name="geo.position" content="-33.8688;151.2093">
     <meta name="ICBM" content="-33.8688, 151.2093">
-
     <meta property="og:type" content="article">
     <meta property="og:title" content="Real-Time Face Recognition | Rommel Sharma">
     <meta property="og:description" content="An engineering deep dive into low-latency face recognition using InsightFace and WebRTC streaming.">
-
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        .article-body { max-width: 850px; margin: 40px auto; padding: 0 20px; color: var(--text-main); }
-        .back-btn { color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; margin-bottom: 30px; }
-        h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); letter-spacing: -0.03em; line-height: 1.2; }
-        h2 { font-size: 1.5rem; color: var(--accent); margin-top: 40px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
-        p { color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem; line-height: 1.7; }
-        ul { margin-left: 20px; margin-bottom: 20px; color: var(--text-muted); }
-        li { margin-bottom: 8px; font-size: 1rem; line-height: 1.6; }
-        .meta-strip { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
-        .tech-pill-box { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; margin-bottom: 25px; }
-        .tech-pill { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
-        .highlight-box { background: var(--card-bg); border-left: 4px solid var(--accent); padding: 20px; border-radius: 0 8px 8px 0; margin: 25px 0; }
-    </style>
 </head>
+
 <body>
-
-        <header class="hero" style="background-image: url('../assets/images/people.jpg');">
-	    <div class="container">
-	                 <h1>Real-Time Face Recognition</h1>
-            
-        	    <div class="meta-strip">
-	              <div class="meta-item"><strong>Status:</strong> Active Development</div>
-                	<div class="meta-item"><strong>Solution Design:</strong> Rommel Sharma</div>
-	                <div class="meta-item"><strong>Location:</strong> Sydney, NSW, Australia</div>
-        	        <div class="meta-item"><strong>Domain:</strong> Computer Vision & Deep Learning for Facial Identification</div>
-
-        <div class="tech-pill-box">
-            <span class="tech-pill">InsightFace (buffalo_l)</span>
-            <span class="tech-pill">Gradio WebRTC</span>
-            <span class="tech-pill">ONNX Runtime</span>
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">HuggingFace Spaces</span>
-	    </div>
-	            </div>
-        </header>
-
-<article class="article-body">
+    <header class="hero" style="background-image: url('../assets/images/people.jpg');">
+        <div class="container project-hero-centered">
+            <h1>Real-Time Face Recognition</h1>
+            <div class="meta-strip">
+                <div class="meta-item"><strong>Status:</strong> Active Development</div>
+                <div class="meta-item"><strong>Solution Design:</strong> Rommel Sharma</div>
+                <div class="meta-item"><strong>Location:</strong> Sydney, NSW, Australia</div>
+                <div class="meta-item"><strong>Domain:</strong> Computer Vision & Deep Learning for Facial Identification</div>
+                <div class="tech-pill-box">
+                    <span class="tech-pill">InsightFace (buffalo_l)</span>
+                    <span class="tech-pill">Gradio WebRTC</span>
+                    <span class="tech-pill">ONNX Runtime</span>
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">HuggingFace Spaces</span>
+                </div>
+            </div>
+    </header>
+    <article class="article-body">
         <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-    <section class="project-section">
-        <h2>Objective</h2>
-        <p>This project aims to build a production-ready, real-time face recognition system. The focus is on achieving sub-100ms latency via WebRTC streaming while maintaining high-accuracy detection and embedding matching.</p>
-    </section>
-
-    <section class="project-section">
-        <h2>Core Technology Stack</h2>
-        <div class="tech-stack-list">
-            <span class="pill">InsightFace (buffalo_l)</span>
-            <span class="pill">Gradio WebRTC</span>
-            <span class="pill">ONNX Runtime</span>
-            <span class="pill">Python</span>
-            <span class="pill">HuggingFace Spaces</span>
-        </div>
-        <p>The system utilizes the <strong>InsightFace buffalo_l</strong> model pack (SCRFD detector + ResNet-50 ArcFace). Real-time performance is achieved using <strong>Gradio 5.x with FastRTC</strong>, removing standard HTTP polling latency.</p>
-    </section>
-
-    <section class="project-section">
-        <h2>ML Foundations</h2>
-        <p>The architecture leverages 512-dimensional normalized embeddings. By applying <strong>ArcFace</strong> (Additive Angular Margin Loss), the model ensures highly discriminative embeddings, even in variable lighting. Inference is accelerated via <strong>ONNX Runtime</strong> for efficient cross-platform execution.</p>
-    </section>
-
-    <section class="project-section">
-        <h2>Development Roadmap</h2>
-        <ul>
-            <li><strong>Completed:</strong> Architecture design and tech stack selection.</li>
-            <li><strong>In Progress:</strong> <code>FaceRecognizer</code> implementation and WebRTC integration.</li>
-            <li><strong>Planned:</strong> Anti-spoofing implementation, CI/CD pipeline, and full production deployment.</li>
-        </ul>
-        <p><em>Note: This project is currently under active development.</em></p>
-    </section>
-
-    <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-
-
-<section style="margin-top: 60px; padding: 40px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
-    <h2 style="margin-top: 0; border-bottom: none; color: var(--text-main);">Let's Connect</h2>
-    <p>I am always open to discussing new challenges in the AI and Machine Learning space. Whether you are exploring how these patterns can be adapted for your specific domain, have questions about the architectural choices detailed above, or are looking to collaborate on impactful technology projects that help the society, I would love to hear from you.</p>
-    <a href="https://www.linkedin.com/in/rommelsharma" 
-       target="_blank" 
-       rel="noopener" 
-       style="display: inline-block; background-color: var(--accent); color: var(--bg-color); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px;">
-       Connect on LinkedIn
-    </a>
-</section>
-
-<footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-    <p>&copy; 2026 Rommel Sharma. Advancing applied intelligence to solve complex real-world problems.</p>
-</footer>
-
-</article>
+        <section class="project-section">
+            <h2>Objective</h2>
+            <p>This project aims to build a production-ready, real-time face recognition system. The focus is on achieving sub-100ms latency via WebRTC streaming while maintaining high-accuracy detection and embedding matching.</p>
+        </section>
+        <section class="project-section">
+            <h2>Core Technology Stack</h2>
+            <div class="tech-stack-list">
+                <span class="pill">InsightFace (buffalo_l)</span>
+                <span class="pill">Gradio WebRTC</span>
+                <span class="pill">ONNX Runtime</span>
+                <span class="pill">Python</span>
+                <span class="pill">HuggingFace Spaces</span>
+            </div>
+            <p>The system utilizes the <strong>InsightFace buffalo_l</strong> model pack (SCRFD detector + ResNet-50 ArcFace). Real-time performance is achieved using <strong>Gradio 5.x with FastRTC</strong>, removing standard HTTP polling latency.</p>
+        </section>
+        <section class="project-section">
+            <h2>ML Foundations</h2>
+            <p>The architecture leverages 512-dimensional normalized embeddings. By applying <strong>ArcFace</strong> (Additive Angular Margin Loss), the model ensures highly discriminative embeddings, even in variable lighting. Inference is accelerated via <strong>ONNX Runtime</strong> for efficient cross-platform execution.</p>
+        </section>
+        <section class="project-section">
+            <h2>Development Roadmap</h2>
+            <ul>
+                <li><strong>Completed:</strong> Architecture design and tech stack selection.</li>
+                <li><strong>In Progress:</strong> <code>FaceRecognizer</code> implementation and WebRTC integration.</li>
+                <li><strong>Planned:</strong> Anti-spoofing implementation, CI/CD pipeline, and full production deployment.</li>
+            </ul>
+            <p><em>Note: This project is currently under active development.</em></p>
+        </section>
+        <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
+        <section style="margin-top: 60px; padding: 40px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
+            <h2 style="margin-top: 0; border-bottom: none; color: var(--text-main);">Let's Connect</h2>
+            <p>I am always open to discussing new challenges in the AI and Machine Learning space. Whether you are exploring how these patterns can be adapted for your specific domain, have questions about the architectural choices detailed above, or are looking to collaborate on impactful technology projects that help the society, I would love to hear from you.</p>
+            <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" style="display: inline-block; background-color: var(--accent); color: var(--bg-color); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px;">
+                Connect on LinkedIn
+            </a>
+        </section>
+        <footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+            <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful impact."</p>
+        </footer>
+    </article>
 </body>
+
 </html>
