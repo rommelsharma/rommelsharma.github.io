@@ -44,52 +44,215 @@
         </section>
         <section>
             <p>
-                <img src="images/bio-Small-billed-Tinamou-MelSpectrum.png" alt="Small billed Tinamou Mel-Spectrum" class="project-image"/>
+                <img src="images/bio-Small-billed-Tinamou-MelSpectrum.png" alt="Small billed Tinamou Mel-Spectrum" class="project-image" />
             </p>
             <h2>Architectural Evolution</h2>
             <p>The solution progressed through distinct phases of maturity, moving from a brittle baseline to a robust
-                ensemble pipeline:</p>
+                ensemble pipeline. The front-end stayed fixed throughout — 128-mel spectrograms, 5 s windows @ 32 kHz, per-sample z-score — feeding an EfficientNet backbone with fp32-guarded GEM frequency pooling and an attention/SED head. The target metric is macro-averaged ROC-AUC over 234 species, scored CPU-only within a 90-minute budget.</p>
             <ul>
-                <li><strong>Phase 1 (The Baseline):</strong> I began with a standard supervised training approach using
-                    EfficientNet backbones. Early versions suffered from training instability (BatchNorm/AMP collapses),
-                    resulting in a baseline AUC of ~0.50.
+                <li><strong>Phase 1 (The Baseline) using EfficientNet-B0:</strong>
+                    <p>
+                        The approach used a Three-Pool-Head (a learned mean/max/attention blend), a frame-max auxiliary loss to sharpen localisation of brief calls, an fp32 guard on GEM/head to kill the AMP overflow, and BatchNorm recalibration before every eval/inference pass. A two-iteration Noisy-Student self-training loop then exposed the model to a wide acoustic variety. Result: Site-22 (held-out site) AUC 0.683; Kaggle Public 0.79939 / Private 0.83127.
+                    </p>
                 </li>
-                <li><strong>Phase 2 (Self-Training):</strong> To scale, we implemented a "Noisy Student" self-training loop.
-                    By generating pseudo-labels on unlabeled data, we introduced the model to a wider variety of acoustic
-                    conditions, bringing the system to a ~0.72 AUC.
+                <li><strong>Phase 2 EfficientNet-B0 + Perch:</strong>
+                    <p>This run adds Perch distillation to the original B0 backbone. Perch cache loading was verified to be active with cosine distillation from 36073 cached embeddings and dimension=1280.
+                    </p>
                 </li>
-                <li><strong>Phase 3 (The Distillation Pivot):</strong> The final breakthrough came from incorporating
-                    teacher distillation using Perch v2 cosine embeddings. This provided the largest performance lift,
-                    specifically aiding the identification of weaker taxa (such as Aves) that were previously difficult to
-                    distinguish from background noise.
-                    Kaggle final submission score: Public 0.79672, Private 0.80297.
+                <li><strong>Phase 3 EfficientNetV2-S:</strong>
+                    <p>Swapped the backbone to EfficientNetV2-S (tf_efficientnetv2_s.in21k_ft_in1k, ImageNet-21k pretrained), keeping the architecture otherwise identical. The unique change was the stronger feature extractor — but the run regressed to Private 0.777 because of an export bug that shipped the supervised-only checkpoint instead of the self-trained noisy_iter2, not because of the backbone. A clean rerun (v3-run2, V2-S without Perch) later confirmed this, scoring Public 0.78683 / Private 0.78679 and hardening the export path to be deterministic.
+                    </p>
+                </li>
+                <li><strong>Phase 4: EfficientNetV2-S + Perch :</strong>
+                    <p>
+                        Kept the V2-S backbone and added Google Perch v2 knowledge distillation via a precomputed-embeddings trick: 36,073 Perch embeddings (dim 1280) generated once on a Kaggle GPU, then a cosine loss pulling the student toward them during the supervised phase — adding zero inference cost. This delivered the largest internal-metric lift (focal AUC 0.943 → 0.958; greedy coverage +0.064), specifically aiding weaker taxa such as Aves that were hard to separate from background noise. Result: Kaggle Public 0.79672 / Private 0.80297 — recovering the Phase 3 regression, though still short of the Phase 1 B0 baseline.
+                    </p>
                 </li>
             </ul>
             <p>
-                <img src="images/bio_perch_train_sup.png" alt="Supervised Training Results" class="project-image"/>
+                This is a placeholder to share a complete a 2×2 grid comparison that includes: EfficientNet-B0/ +Perch, EfficientNet-B0/ no-Perch, EfficientNetV2-S / no-Perch) and EfficientNetV2-S / +Perch
             </p>
             <p>
-                <img src="images/bio_perch_train_iter1.png" alt="Iteration 1 Training Results. Multi-iterative Noisy Student self-training" class="project-image"/>
+                <img src="images/bio_perch_train_sup.png" alt="Supervised Training Results" class="project-image" />
             </p>
             <p>
-                <img src="images/bio_perch_train_iter2.png" alt="Iteration 2 Training Results. Multi-iterative Noisy Student self-training" class="project-image"/>
+                <img src="images/bio_perch_train_iter1.png" alt="Iteration 1 Training Results. Multi-iterative Noisy Student self-training" class="project-image" />
+            </p>
+            <p>
+                <img src="images/bio_perch_train_iter2.png" alt="Iteration 2 Training Results. Multi-iterative Noisy Student self-training" class="project-image" />
             </p>
         </section>
-        <section>
+        <section class="insight-section">
             <h2>Key Lessons Learnt</h2>
-            <div class="highlight-box">
-                <p><strong>1. Leaderboard vs. Internal Benchmarks:</strong> Early in the project, I observed a divergence
-                    between the leaderboard score and internal validation (the "Site-22" proxy). I learned to treat the
-                    leaderboard as a directional signal rather than an absolute ground truth, relying instead on a
-                    deliberate, leak-free held-out subset (Site-22) to validate generalization.</p>
-                <p><strong>2. Fixing Failure Modes > Tuning Hyperparameters:</strong> Much of the project's success was not
-                    the result of exhaustive hyperparameter searching, but rather the systematic elimination of "silent"
-                    failure modes—such as improper checkpointing during resumes or tensor layout mismatches in the SED head.
+            <div class="highlight-box lesson-summary">
+                <p>
+                    Two hidden bugs were quietly reducing the model to random guessing. First, a math step that cubes
+                    numbers was overflowing the small fp16 number format and producing garbage; this was fixed by running
+                    that fragile step in fp32. Second, BatchNorm had memorized the statistics of noisy, augmented training
+                    audio and mishandled clean evaluation audio; this was fixed by recalibrating BatchNorm on clean data
+                    before evaluation and inference. The lesson: the biggest gains came from fixing what was broken, not
+                    from fine-tuning settings.
                 </p>
-                <p><strong>3. Distillation as an Architecture:</strong> Integrating Perch v2 was the most significant
-                    technical lever. It taught me that in complex classification tasks, leveraging a "teacher" that already
-                    understands the domain is often more effective than attempting to train a "student" from scratch on
-                    noisy data alone.</p>
+            </div>
+            <ol class="lesson-list">
+                <li>
+                    <h3>Trust a leak-free proxy, not the leaderboard or train-domain metric</h3>
+                    <p>
+                        The project had several signals, and most were optimistic: focal AUC sat at ~0.94 on the model's
+                        own clean, close-mic domain; "greedy" coverage overlapped training; and the labeled-soundscape
+                        metric correlated only weakly with the leaderboard. The most honest number was Site-22, a
+                        monitoring site held out of training entirely. The lesson was to tune against a deliberate,
+                        leak-free generalization proxy rather than chasing public leaderboard noise.
+                    </p>
+                </li>
+                <li>
+                    <h3>Eliminating silent failure modes beat hyperparameter tuning</h3>
+                    <p>
+                        The largest jump in the project, from Private 0.499 to 0.831, came from correctness fixes rather
+                        than sweeps: the fp32 guard on GEM pooling, BatchNorm recalibration on clean data, the ThreePoolHead,
+                        and frame-max auxiliary loss. These were debugging wins, not tuning wins.
+                    </p>
+                </li>
+                <li>
+                    <h3>The export and bundle path is as load-bearing as the model</h3>
+                    <p>
+                        v3 looked like an EfficientNetV2-S backbone failure, but the regression was caused by an export bug:
+                        the bundle shipped a supervised-only checkpoint instead of the self-trained <code>noisy_iter2</code>.
+                        A deterministic <code>_ckpt_priority()</code> rule fixed this by preferring
+                        <code>noisy_iterN</code> over earlier checkpoints.
+                    </p>
+                </li>
+                <li>
+                    <h3>Change one variable at a time</h3>
+                    <p>
+                        v4 changed both the backbone and added Perch distillation in the same step. That made the result
+                        harder to interpret: we could not cleanly say how much came from EfficientNetV2-S and how much came
+                        from Perch. The follow-up 2×2 comparison was designed to isolate those effects.
+                    </p>
+                </li>
+                <li>
+                    <h3>Distillation helped, but it was not the headline win</h3>
+                    <p>
+                        Perch v2 cosine distillation gave the largest internal-metric lift and added zero inference cost,
+                        but it recovered the v3 regression to 0.803 rather than beating the v2 B0 baseline of 0.831. Its
+                        standalone value is still being isolated through the controlled runs.
+                    </p>
+                </li>
+                <li>
+                    <h3>A single strong model has a ceiling</h3>
+                    <p>
+                        The remaining gap is more likely to come from rank calibration, test-time augmentation, and diverse
+                        ensembling than from one fundamentally different architecture. The CPU-only 90-minute inference
+                        budget remains a first-class design constraint.
+                    </p>
+                </li>
+            </ol>
+        </section>
+        <section class="concept-section">
+            <h2>Key Concepts Explained</h2>
+            <p class="section-intro">A plain-English explanation of the technical terms used above.</p>
+            <div class="concept-grid">
+                <article class="concept-card">
+                    <h3>fp16, fp32 and AMP</h3>
+                    <p>Computers store decimal numbers using a fixed number of bits.</p>
+                    <ul>
+                        <li><strong>fp32:</strong> 32 bits per number. It has a wide numeric range, is accurate, and is safer for fragile calculations, but uses more memory and compute.</li>
+                        <li><strong>fp16:</strong> 16 bits per number. It is faster and cheaper on GPUs, but its largest value is only about 65,504. Go past that and the value can become <code>inf</code> or <code>NaN</code>.</li>
+                        <li><strong>AMP:</strong> Automatic Mixed Precision, a speed trick that runs most operations in fp16 and keeps only sensitive operations in fp32.</li>
+                    </ul>
+                    <p class="analogy"><strong>Analogy:</strong> fp16 is a small measuring cup. It is quick to use, but if you pour in too much, it overflows.</p>
+                </article>
+
+                <article class="concept-card">
+                    <h3>GEM pooling and the <code>pow(p≈3)</code> overflow</h3>
+                    <p>
+                        Pooling summarizes many numbers into fewer numbers. After the model processes a spectrogram, it has
+                        a grid of features across time and frequency; pooling compresses that grid into a useful summary.
+                    </p>
+                    <ul>
+                        <li><strong>Average pooling:</strong> takes the mean, treating all moments equally.</li>
+                        <li><strong>Max pooling:</strong> takes the strongest value, useful for brief calls but sensitive to noise spikes.</li>
+                        <li><strong>GEM pooling:</strong> sits between average and max pooling. It raises values to a power, averages them, then takes the root.</li>
+                    </ul>
+                    <p>
+                        With <code>p≈3</code>, the model cubes feature values. If a feature value is 50, then
+                        <code>50³ = 125,000</code>, which is larger than fp16 can safely hold. Under AMP, that operation
+                        overflowed in fp16 and produced invalid values.
+                    </p>
+                    <p><strong>The fix:</strong> force the GEM pooling/head calculation to run in fp32 while the rest of the model can still use fast mixed precision.</p>
+                </article>
+
+                <article class="concept-card">
+                    <h3>Output collapse and AUC ≈ 0.5</h3>
+                    <p>
+                        When invalid values appear, the model can stop producing meaningful predictions and output nearly
+                        the same score for every audio clip.
+                    </p>
+                    <ul>
+                        <li><strong>AUC = 1.0:</strong> perfect separation between positive and negative examples.</li>
+                        <li><strong>AUC = 0.5:</strong> no better than random guessing.</li>
+                    </ul>
+                    <p>So an AUC near 0.5 meant the model had effectively become a coin-flip classifier.</p>
+                </article>
+
+                <article class="concept-card">
+                    <h3>BatchNorm recalibration</h3>
+                    <p>
+                        Batch Normalization keeps internal model values in a stable range by using stored averages and
+                        spreads. During training, those running statistics were learned from heavily augmented audio. During
+                        evaluation and inference, the model saw clean audio instead.
+                    </p>
+                    <p>
+                        Because the stored statistics did not match the clean inputs, predictions collapsed again. The fix
+                        was to run clean examples through the model before evaluation/inference so BatchNorm refreshed its
+                        statistics on the same distribution it would actually see.
+                    </p>
+                    <p class="analogy"><strong>Analogy:</strong> it is like calibrating a weighing scale while wearing a heavy backpack, then expecting it to be correct after you take the backpack off.</p>
+                </article>
+
+                <article class="concept-card">
+                    <h3>ThreePoolHead</h3>
+                    <p>
+                        The head is the final part of the model that turns learned features into species predictions. A
+                        single pooling method can miss important details.
+                    </p>
+                    <ul>
+                        <li>Average pooling can drown out a brief one-second bird call inside a five-second clip.</li>
+                        <li>Max pooling can overreact to one noisy spike.</li>
+                        <li>Attention pooling lets the model learn which moments deserve more weight.</li>
+                    </ul>
+                    <p>
+                        ThreePoolHead combines mean, max and attention pooling, then learns how much to trust each one.
+                    </p>
+                </article>
+
+                <article class="concept-card">
+                    <h3>Frame-max auxiliary loss</h3>
+                    <p>
+                        A five-second audio clip is broken into many short frames. A call may exist in only one or two of
+                        those frames, while the rest is background.
+                    </p>
+                    <ul>
+                        <li><strong>Loss:</strong> the main "how wrong am I?" signal the model tries to minimize.</li>
+                        <li><strong>Auxiliary loss:</strong> an extra training signal that nudges the model toward a useful behavior.</li>
+                    </ul>
+                    <p>
+                        Frame-max auxiliary loss focuses on the strongest frame and teaches the model to identify the moment
+                        where the species call is most likely happening.
+                    </p>
+                </article>
+
+                <article class="concept-card">
+                    <h3>Debugging wins, not tuning wins</h3>
+                    <p>
+                        Tuning means adjusting knobs such as learning rate, batch size or epochs. Debugging means finding
+                        and fixing something fundamentally broken.
+                    </p>
+                    <p>
+                        The model's biggest jump came from fixing silent correctness failures: fp16 overflow and BatchNorm
+                        mismatch. No hyperparameter sweep can rescue a model whose predictions have already collapsed.
+                    </p>
+                </article>
             </div>
         </section>
         <section>
