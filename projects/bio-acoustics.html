@@ -79,12 +79,19 @@
         </section>
         <section>
             <h2>Architectural Evolution</h2>
-            <p>The solution progressed through distinct phases of maturity, moving from a brittle baseline to a robust
-                ensemble pipeline. The front-end stayed fixed throughout — 128-mel spectrograms, 5 s windows @ 32 kHz, per-sample z-score — feeding an EfficientNet backbone with fp32-guarded GEM frequency pooling and an attention/SED head. The target metric is macro-averaged ROC-AUC over 234 species, scored CPU-only within a 90-minute budget.</p>
+            <p>The solution progressed through distinct phases of maturity, moving from a minimal CPU-budget submit to a robust pipeline. From Phase 1 onward the front-end stayed fixed — 128-mel spectrograms, 5 s windows @ 32 kHz, per-sample z-score — feeding an EfficientNet backbone with fp32-guarded GEM frequency pooling and an attention/SED head. The target metric is macro-averaged ROC-AUC over 234 species, scored CPU-only within a 90-minute budget.</p>
             <ul>
-                <li><strong>Phase 1 (The Baseline) using EfficientNet-B0:</strong>
+                <li><strong>Phase 0 (Kaggle Submit Baseline) using <code>tf_efficientnetv2_b0</code>:</strong>
                     <p>
-                        The approach used a Three-Pool-Head (a learned mean/max/attention blend), a frame-max auxiliary loss to sharpen localisation of brief calls, an fp32 guard on GEM/head to kill the AMP overflow, and BatchNorm recalibration before every eval/inference pass. A two-iteration Noisy-Student self-training loop then exposed the model to a wide acoustic variety. Result: Site-22 (held-out site) AUC 0.683; Kaggle Public 0.79939 / Private 0.83127.
+                        The first end-to-end notebook submitted to Kaggle. Engineered to meet the 90-minute CPU runtime budget by cutting nearly every ML component: <code>tf_efficientnetv2_b0</code> (ImageNet-1k pretrained) with timm's default global-average-pool + linear classifier — no SED head, no GEM pooling, no frame-max auxiliary loss. Front-end: 64 mel bands, n_fft 512, hop 256, fmax 14 kHz, per-clip min–max normalisation (not z-score). Training: 6 epochs, at most 3,000 focal clips, supervised only — no soundscape self-training, no Noisy Student, no SpecAugment. No BatchNorm recalibration, no Site-22 validation, no site or hour priors. Result: <strong>Private 0.499 / Public 0.555</strong> — near-random macro-AUC.
+                    </p>
+                    <p>
+                        The R&amp;D scratchpad notebook (<code>v1-scratchpad/</code>) explored B0 ns_jft + SED + Noisy Student but was never submitted and is architecturally proto-Phase 1, not the competition baseline. The 0.499 score reflects a deliberate minimalism, not a model failure — it established that the harness ran correctly. Every subsequent gain came from building the real ML stack on top of this foundation.
+                    </p>
+                </li>
+                <li><strong>Phase 1 (The Breakthrough) using <code>tf_efficientnet_b0.ns_jft_in1k</code>:</strong>
+                    <p>
+                        Same B0 architecture as Phase 0 but with the full ML stack rebuilt: upgraded to <code>tf_efficientnet_b0.ns_jft_in1k</code> (JFT-300M + Noisy Student pretraining, 300× more data than ImageNet), 128-mel z-score front-end (n_fft 2048, hop 417, fmax 16 kHz), full ~35k focal clips + labeled-soundscape streams, 36 total training epochs (12 supervised + 12 + 12 Noisy Student self-training on 10,658 unlabeled soundscapes). Architecture: Three-Pool-Head (learned mean/max/attention blend), frame-max auxiliary loss to sharpen localisation of brief calls, fp32 guard on GEM/head to eliminate the AMP overflow, and BatchNorm recalibration before every eval/inference pass. Result: Site-22 AUC 0.683; <strong>Kaggle Public 0.799 / Private 0.831</strong> — a +0.332 private LB gain over Phase 0 from the combined effect of the entire new stack, not a single fix.
                     </p>
                 </li>
                 <li><strong>Phase 2 (<code>tf_efficientnet_b0.ns_jft_in1k</code> + Google Perch 2 v8):</strong>
@@ -144,7 +151,7 @@
                             </tr>
                             <tr>
                                 <td>5</td>
-                                <td>v1 baseline (<code>tf_efficientnet_b0.ns_jft_in1k</code>, no Perch)</td>
+                                <td>v1 baseline (<code>tf_efficientnetv2_b0</code>, supervised only, 6 ep, ≤3k clips — Phase 0)</td>
                                 <td>0.499</td>
                                 <td>0.555</td>
                             </tr>
@@ -167,7 +174,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>v1 baseline (<code>tf_efficientnet_b0.ns_jft_in1k</code>, no Perch)</td>
+                                <td>v1 baseline (<code>tf_efficientnetv2_b0</code>, supervised only — Phase 0)<br><small>No SED/GEM head; 64 mels min–max; no self-training. Not directly comparable to v2+ stack.</small></td>
                                 <td>—</td>
                                 <td>—</td>
                                 <td>—</td>
@@ -233,6 +240,22 @@
                     from fine-tuning settings.
                 </p>
             </div>
+
+            <div class="highlight-box lesson-summary" style="margin-top:1.5rem; border-left-color: #e07b39;">
+                <h3 style="margin-top:0; color: #e07b39;">Phase 0 → Phase 1: What the v1 Baseline Actually Revealed</h3>
+                <p>
+                    The Phase 0 submission (<code>tf_efficientnetv2_b0</code>, 6 epochs, ≤3,000 clips, no self-training) scored <strong>Private 0.499</strong> — near-random. That result is not a model failure; it is the expected outcome of a submission that deliberately sacrificed every ML component to meet a 90-minute CPU runtime. The +0.332 private LB jump to Phase 1 (0.831) came from five compounding changes made simultaneously, not from a single fix.
+                </p>
+                <ol style="margin: 0.8rem 0 0 1.2rem; padding: 0; line-height: 1.9;">
+                    <li><strong>Backbone and pretraining.</strong> <code>tf_efficientnetv2_b0</code> (ImageNet-1k) → <code>tf_efficientnet_b0.ns_jft_in1k</code> (JFT-300M × Noisy Student). The pretraining recipe matters more than architecture generation — 300× more data with semi-supervised iterative training yields far richer, more transferable features for noisy, long-tailed problems.</li>
+                    <li><strong>Front-end resolution and normalisation.</strong> 64 mels / min–max → 128 mels / per-sample z-score. Z-score equalises absolute recording volume across clips (close-up focal vs distant soundscape), giving the backbone a consistent input distribution. Min–max stretches every window independently and loses relative level information.</li>
+                    <li><strong>Data scale and soundscape self-training.</strong> ≤3,000 clips × 6 epochs → ~35k focal + labeled soundscapes × 36 epochs (supervised + Noisy Student). Noisy Student pseudo-labelled 10,658 unlabeled soundscapes and injected them into training, directly exposing the model to the multi-species, far-field domain it would be tested on. Phase 0 trained only on close-up focal recordings.</li>
+                    <li><strong>Model head: linear vs GEM + SED + frame-max.</strong> Global average pooling dilutes a brief call in one frame by a factor of 12. GEM frequency pooling (learnable exponent, fp32 guard) preserves the time axis; the SED attention head weights each frame; frame-max auxiliary loss forces at least one high-confidence frame. Together they detect a call occupying a single 0.4-second window out of a 5-second clip.</li>
+                    <li><strong>Inference stabilisation.</strong> BatchNorm recalibration on clean data prevents the AUC ≈ 0.5 collapse caused by BN tracking augmented training statistics. Site and hour priors add +0.005–0.010 AUC by embedding ecological knowledge (species presence constraints by location and time of day) at zero training cost.</li>
+                </ol>
+                <p style="margin-top: 0.9rem;"><strong>Key principle:</strong> a minimal runtime submission is not a meaningful ML baseline. Ablation comparisons should hold infrastructure equal and vary one factor at a time — otherwise reported deltas conflate pipeline gaps with genuine model improvements.</p>
+            </div>
+
             <ol class="lesson-list">
                 <li>
                     <h3>Trust a leak-free proxy, not the leaderboard or train-domain metric</h3>
@@ -247,9 +270,7 @@
                 <li>
                     <h3>Eliminating silent failure modes beat hyperparameter tuning</h3>
                     <p>
-                        The largest jump in the project, from Private 0.499 to 0.831, came from correctness fixes rather
-                        than sweeps: the fp32 guard on GEM pooling, BatchNorm recalibration on clean data, the ThreePoolHead,
-                        and frame-max auxiliary loss. These were debugging wins, not tuning wins.
+                        The largest jump in the project, from Private 0.499 (Phase 0) to 0.831 (Phase 1), came from rebuilding the entire stack — not from tuning knobs. The Phase 0 → Phase 1 gap reflects five compounding changes: a better-pretrained backbone, higher-resolution z-score mel front-end, full data scale with soundscape self-training, a temporally-aware SED head, and inference stabilisation (BN recalibration + priors). Within Phase 1's stack, the correctness fixes — fp32 guard on GEM pooling and BatchNorm recalibration — were non-negotiable: without them even a perfect model collapses to AUC ≈ 0.5 at evaluation time. These were debugging wins, not tuning wins.
                     </p>
                 </li>
                 <li>
