@@ -498,3 +498,61 @@ footer {
     font-size: 0.85rem;
     border-top: 1px solid var(--border-color);
 }
+
+/* Model Card tables (project pages) */
+.model-card-section {
+    margin: 2rem 0;
+}
+
+.model-card-section h3 {
+    font-size: 1.15rem;
+    margin: 1.75rem 0 0.75rem;
+    color: var(--text-main);
+}
+
+.model-card-note {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    margin: 0.75rem 0 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--card-bg);
+}
+
+.model-card-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.model-card-table th,
+.model-card-table td {
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+.model-card-table th {
+    background: rgba(56, 189, 248, 0.08);
+    color: var(--text-main);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.model-card-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.model-card-table td:nth-child(n+3) {
+    font-variant-numeric: tabular-nums;
+}
+
+.model-card-table code {
+    font-size: 0.82em;
+}

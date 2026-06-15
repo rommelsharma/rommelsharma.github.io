@@ -87,8 +87,9 @@
                         The approach used a Three-Pool-Head (a learned mean/max/attention blend), a frame-max auxiliary loss to sharpen localisation of brief calls, an fp32 guard on GEM/head to kill the AMP overflow, and BatchNorm recalibration before every eval/inference pass. A two-iteration Noisy-Student self-training loop then exposed the model to a wide acoustic variety. Result: Site-22 (held-out site) AUC 0.683; Kaggle Public 0.79939 / Private 0.83127.
                     </p>
                 </li>
-                <li><strong>Phase 2 EfficientNet-B0 + Perch:</strong>
-                    <p>This run adds Perch distillation to the original B0 backbone. Perch cache loading was verified to be active with cosine distillation from 36073 cached embeddings and dimension=1280.
+                <li><strong>Phase 2 (<code>tf_efficientnet_b0.ns_jft_in1k</code> + Google Perch 2 v8):</strong>
+                    <p>
+                        A controlled clean rerun (v2-run2) added Google Perch 2 v8 cosine distillation to the Phase 1 B0 stack — same 128-mel front-end, fp32 GEM guard, BatchNorm recalibration, and two-iteration Noisy Student pipeline. Perch embeddings were precomputed once (36,073 windows, dim 1280) and loaded as a static cache during supervised training; the teacher is not run at inference. Distillation was verified active before the full run completed. This is the best single-model result in the project: Kaggle Public <strong>0.82698</strong> / Private <strong>0.84846</strong> (+0.017 private LB vs Phase 1). Final checkpoint (<code>noisy_iter2.pt</code>) validation: focal AUC 0.952; Site-22 0.731; greedy 0.745; LSS mean 0.738. Per-taxon Site-22: Amphibia 0.740, Aves 0.704, Mammalia 0.756 — a marked improvement on birds and mammals relative to the V2-S + Perch run (Phase 4).
                     </p>
                 </li>
                 <li><strong>Phase 3 EfficientNetV2-S:</strong>
@@ -101,9 +102,115 @@
                     </p>
                 </li>
             </ul>
-            <p>
-                This is a placeholder to share a complete a 2×2 grid comparison that includes: EfficientNet-B0/ +Perch, EfficientNet-B0/ no-Perch, EfficientNetV2-S / no-Perch) and EfficientNetV2-S / +Perch
-            </p>
+            <section class="model-card-section">
+                <h2>Model Card</h2>
+                <p>Verified clean training runs only (correct <code>noisy_iter2.pt</code> export). Metric: macro-averaged ROC-AUC over 234 species on 5-second windows. Erroneous submissions (e.g. original v3 export bug) are excluded.</p>
+
+                <h3>Summary ranking (Private LB)</h3>
+                <div class="table-wrap">
+                    <table class="model-card-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Run</th>
+                                <th>Private LB</th>
+                                <th>Public LB</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>v2-run2</strong> (<code>tf_efficientnet_b0.ns_jft_in1k</code> + Google Perch 2 v8)</td>
+                                <td><strong>0.84846</strong></td>
+                                <td>0.82698</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>v2-run1 (<code>tf_efficientnet_b0.ns_jft_in1k</code>, no Perch)</td>
+                                <td>0.831</td>
+                                <td>0.799</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>v4 (<code>tf_efficientnetv2_s.in21k_ft_in1k</code> + Google Perch 2 v8)</td>
+                                <td>0.803</td>
+                                <td>0.797</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>v3-run2 (<code>tf_efficientnetv2_s.in21k_ft_in1k</code>, no Perch)</td>
+                                <td>0.78679</td>
+                                <td>0.78683</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>v1 baseline (<code>tf_efficientnet_b0.ns_jft_in1k</code>, no Perch)</td>
+                                <td>0.499</td>
+                                <td>0.555</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Validation metrics (final checkpoint: <code>noisy_iter2.pt</code>)</h3>
+                <div class="table-wrap">
+                    <table class="model-card-table">
+                        <thead>
+                            <tr>
+                                <th>Run</th>
+                                <th>Focal AUC</th>
+                                <th>Site-22 AUC</th>
+                                <th>Greedy AUC</th>
+                                <th>LSS mean</th>
+                                <th>Site-22 by taxon (Amph / Aves / Mamm)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>v1 baseline (<code>tf_efficientnet_b0.ns_jft_in1k</code>, no Perch)</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>v2-run1 (<code>tf_efficientnet_b0.ns_jft_in1k</code>, no Perch)</td>
+                                <td>0.943</td>
+                                <td>0.683</td>
+                                <td>0.767</td>
+                                <td>0.725</td>
+                                <td>0.757 / 0.604 / 0.700</td>
+                            </tr>
+                            <tr>
+                                <td>v2-run2 (<code>tf_efficientnet_b0.ns_jft_in1k</code> + Google Perch 2 v8)</td>
+                                <td>0.952</td>
+                                <td>0.731</td>
+                                <td>0.745</td>
+                                <td>0.738</td>
+                                <td>0.740 / 0.704 / 0.756</td>
+                            </tr>
+                            <tr>
+                                <td>v3-run2 (<code>tf_efficientnetv2_s.in21k_ft_in1k</code>, no Perch)</td>
+                                <td>—</td>
+                                <td>0.6516</td>
+                                <td>0.7668</td>
+                                <td>0.7092</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>v4 (<code>tf_efficientnetv2_s.in21k_ft_in1k</code> + Google Perch 2 v8)</td>
+                                <td>0.958</td>
+                                <td>0.654</td>
+                                <td>0.824</td>
+                                <td>0.739</td>
+                                <td>0.735 / 0.590 / 0.431</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="model-card-note"><em>Site-22</em> is the held-out monitoring site used as the generalisation proxy during training. Amph = Amphibia, Aves = birds, Mamm = Mammalia.</p>
+            </section>
             <p>
                 <img src="images/bio_perch_train_sup.png" alt="Supervised Training Results" class="project-image" />
             </p>
