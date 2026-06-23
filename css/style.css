@@ -556,3 +556,83 @@ footer {
 .model-card-table code {
     font-size: 0.82em;
 }
+
+.champion-callout {
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin: 24px 0;
+}
+
+.champion-callout h3 {
+    margin-top: 0;
+    color: var(--accent);
+    font-size: 1.15rem;
+}
+
+.champion-callout p:last-child {
+    margin-bottom: 0;
+}
+
+.champion-callout strong {
+    color: var(--text-main);
+}
+
+.lesson-accent {
+    border-left-color: #e07b39;
+}
+
+.lesson-accent h3 {
+    color: #e07b39;
+    margin-top: 0;
+}
+
+.lesson-accent ol {
+    margin: 0.8rem 0 0 1.2rem;
+    padding: 0;
+    line-height: 1.9;
+}
+
+.connect-section {
+    margin-top: 60px;
+    padding: 40px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.btn-primary {
+    display: inline-block;
+    background-color: var(--accent);
+    color: var(--bg-color);
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+    color: var(--bg-color);
+}
+
+.article-footer {
+    margin-top: 60px;
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.pipeline-list {
+    margin-left: 20px;
+    color: var(--text-muted);
+}
+
+.pipeline-list li {
+    margin-bottom: 10px;
+    line-height: 1.65;
+}

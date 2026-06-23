@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acoustic Species Identification: Wildlife Monitoring | Rommel Sharma</title>
-    <meta name="description" content="A research-focused deep dive into an automated acoustic species identification system. Explore the evolution of Sound Event Detection (SED) pipelines, teacher-student distillation, and FiLM conditioning for Pantanal wildlife data.">
-    <meta name="keywords" content="Rommel Sharma, Bioacoustics, Sound Event Detection, SED, FiLM Conditioning, Perch v2, Wildlife Conservation AI, Pantanal Acoustic Monitoring, Deep Learning Research">
+    <title>BirdCLEF+ 2026: Acoustic Species Identification | Rommel Sharma</title>
+    <meta name="description" content="BirdCLEF+ 2026 Pantanal acoustic species identification: from 0.50 baseline to 0.898 private LB with an ONNX 4-member ensemble (3 CNN + native Perch), Site-22 harness gates, and MLOps run registry.">
+    <meta name="keywords" content="Rommel Sharma, BirdCLEF 2026, Bioacoustics, Sound Event Detection, Perch v2, ONNX Runtime, Noisy Student, Wildlife Conservation AI, Pantanal, MLOps">
     <meta name="author" content="Rommel Sharma">
     <meta name="geo.region" content="AU-NSW">
     <meta name="geo.placename" content="Sydney">
@@ -17,426 +17,540 @@
 <body>
     <header class="project-hero" style="background-image: url('../assets/images/bioacoustics.jpg');">
         <div class="container project-hero-centered">
-            <h1>Bio-Acoustics: Species Identification</h1>
+            <h1>BirdCLEF+ 2026: Acoustic Species Identification</h1>
             <div class="meta-strip">
                 <div class="meta-item"><strong>Solution Design:</strong> Rommel Sharma</div>
-                <div class="meta-item"><strong>Domain:</strong> Bio-Acoustics & Wildlife Conservation</div>
+                <div class="meta-item"><strong>Competition:</strong> BirdCLEF+ 2026 (Kaggle)</div>
+                <div class="meta-item"><strong>Domain:</strong> Bio-Acoustics &amp; Wildlife Conservation</div>
             </div>
             <div class="tech-pill-box">
                 <span class="tech-pill">Sound Event Detection (SED)</span>
-                <span class="tech-pill">FiLM Metadata Conditioning</span>
-                <span class="tech-pill">Perch v2 Distillation</span>
-                <span class="tech-pill">Noisy Student Training</span>
-                <span class="tech-pill">Ensemble Modeling</span>
+                <span class="tech-pill">Perch v2 (native + distill)</span>
+                <span class="tech-pill">Noisy Student</span>
+                <span class="tech-pill">ONNX Runtime</span>
+                <span class="tech-pill">Site-22 Harness</span>
+                <span class="tech-pill">MLOps Registry</span>
             </div>
         </div>
     </header>
     <article class="article-body">
         <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
+
         <section>
             <h2>Project Overview</h2>
-            <p>This system was designed to address the challenge of identifying wildlife species in the Pantanal wetlands of
-                Brazil. Given the density of the environment and the overlapping nature of wildlife calls, the task requires
-                more than simple classification; it requires fine-grained Sound Event Detection (SED) capable of isolating
-                individual vocalizations from complex, multi-species acoustic soundscapes.</p>
-            <a href="https://www.kaggle.com/writeups/rommelsharma/birdclef-2026-from-0-50-to-0-80-building-an-aco
-" class="back-btn" target="_blank">Read the full article here</a>
+            <p>
+                This project tackles offline acoustic wildlife detection in Brazil's Pantanal wetlands: identify
+                <strong>234 species</strong> (birds, amphibians, mammals, reptiles, insects) from 5-second audio windows.
+                Scoring is macro-averaged ROC-AUC; the Kaggle submission must run <strong>CPU-only within 90 minutes</strong>.
+                The central difficulty is the <strong>focal → soundscape domain gap</strong> — training data is mostly
+                close-mic focal recordings while test data is far-field, multi-species soundscapes with heavy background noise.
+            </p>
+
+            <div class="champion-callout">
+                <h3>Current champion (June 2026)</h3>
+                <p>
+                    <strong>v7 ONNX 4-member ensemble</strong> — Private LB <strong>0.89774</strong> / Public <strong>0.89535</strong>
+                    (+0.035 private vs the former PyTorch champion). This was an <strong>inference-only</strong> breakthrough:
+                    no new CNN training. The stack combines three exported EfficientNet checkpoints with a
+                    <strong>live native Perch v2</strong> member via ONNX Runtime on CPU, prob-space blending, and calibrated post-processing.
+                </p>
+                <p>Gap to the 0.90 target: <strong>+0.00226</strong> private. Inference-only tuning has plateaued; next lever is Phase E training.</p>
+            </div>
+
+            <p>
+                <a href="https://www.kaggle.com/writeups/rommelsharma/birdclef-2026-from-0-50-to-0-80-building-an-aco" class="back-btn" target="_blank" rel="noopener noreferrer">Read the Kaggle writeup &rarr;</a>
+            </p>
         </section>
+
         <section>
             <p>
-                <img src="images/bio-mel-spectogram-example.png" alt="Mel spectrogram example of a species identification" class="project-image" />
+                <img src="images/bio-mel-spectogram-example.png" alt="Mel spectrogram example of a species vocalization" class="project-image" />
             </p>
         </section>
+
         <section>
-            <h2>Source Dataset Summary</h2>
+            <h2>Source Dataset</h2>
             <p>
-                <img src="images/bio_eda_overview.png" alt="Dataset & Taxonomy Breakdown" class="project-image" />
+                <img src="images/bio_eda_overview.png" alt="Dataset and taxonomy breakdown" class="project-image" />
             </p>
-            <p>
-                The dataset is sourced from the Kaggle BirdCLEF 2026 competition, focused on offline acoustic wildlife
-                detection.
-            </p>
-            <p>
-                It consists of two main data pools thats used for training and validation and taxonomic classes:
-                <ul>
-                    <li>
-                        Short, focused training audio clips
-                    </li>
-                    <li>
-                        long-form soundscapes
-                    </li>
-                    <li>
-                        Taxonomic Classes: The dataset monitors 234 distinct taxonomic wildlife classes representing a total of
-                        161 unique genera.
-                    </li>
-                    <li>
-                        The labeled soundscapes (LSS) are collected across several distinct geographical monitoring locations.
-                        The pipeline processes a massive subset of 10,658 total LSS segments across these sites during
-                        pseudo-labeling, balancing localized acoustic profiles.
-                    </li>
-                </ul>
-            </p>
+            <p>Data comes from the Kaggle BirdCLEF+ 2026 competition:</p>
+            <ul>
+                <li><strong>Focal clips:</strong> short, single-species, close-mic training recordings (~35k used in the full pipeline)</li>
+                <li><strong>Soundscapes:</strong> long-form, multi-species field recordings (10,658 labeled segments for pseudo-labeling)</li>
+                <li><strong>234 taxonomic classes</strong> across 161 genera, monitored at multiple Pantanal sites</li>
+                <li><strong>Site-22</strong> held out as the leak-free generalisation proxy throughout training and harness gating</li>
+            </ul>
         </section>
+
         <section>
             <h2>Architectural Evolution</h2>
-            <p>The solution progressed through distinct phases of maturity, moving from a minimal CPU-budget submit to a robust pipeline. From Phase 1 onward the front-end stayed fixed — 128-mel spectrograms, 5 s windows @ 32 kHz, per-sample z-score — feeding an EfficientNet backbone with fp32-guarded GEM frequency pooling and an attention/SED head. The target metric is macro-averaged ROC-AUC over 234 species, scored CPU-only within a 90-minute budget.</p>
+            <p>
+                From Phase 1 onward the CNN front-end was fixed: 128-mel log-spectrograms, 5 s windows @ 32 kHz, per-sample
+                z-score, feeding an EfficientNet backbone with fp32-guarded GEM frequency pooling and an SED attention head.
+                Training followed supervised → Noisy Student iter1 → Noisy Student iter2 on focal + labeled-soundscape streams.
+            </p>
+
             <ul>
-                <li><strong>Phase 0 (Kaggle Submit Baseline) using <code>tf_efficientnetv2_b0</code>:</strong>
+                <li>
+                    <strong>Phase 0 — Minimal CPU baseline (<code>tf_efficientnetv2_b0</code>):</strong>
                     <p>
-                        The first end-to-end notebook submitted to Kaggle. Engineered to meet the 90-minute CPU runtime budget by cutting nearly every ML component: <code>tf_efficientnetv2_b0</code> (ImageNet-1k pretrained) with timm's default global-average-pool + linear classifier — no SED head, no GEM pooling, no frame-max auxiliary loss. Front-end: 64 mel bands, n_fft 512, hop 256, fmax 14 kHz, per-clip min–max normalisation (not z-score). Training: 6 epochs, at most 3,000 focal clips, supervised only — no soundscape self-training, no Noisy Student, no SpecAugment. No BatchNorm recalibration, no Site-22 validation, no site or hour priors. Result: <strong>Private 0.499 / Public 0.555</strong> — near-random macro-AUC.
-                    </p>
-                    <p>
-                        The R&amp;D scratchpad notebook (<code>v1-scratchpad/</code>) explored B0 ns_jft + SED + Noisy Student but was never submitted and is architecturally proto-Phase 1, not the competition baseline. The 0.499 score reflects a deliberate minimalism, not a model failure — it established that the harness ran correctly. Every subsequent gain came from building the real ML stack on top of this foundation.
-                    </p>
-                </li>
-                <li><strong>Phase 1 (The Breakthrough) using <code>tf_efficientnet_b0.ns_jft_in1k</code>:</strong>
-                    <p>
-                        Same B0 architecture as Phase 0 but with the full ML stack rebuilt: upgraded to <code>tf_efficientnet_b0.ns_jft_in1k</code> (JFT-300M + Noisy Student pretraining, 300× more data than ImageNet), 128-mel z-score front-end (n_fft 2048, hop 417, fmax 16 kHz), full ~35k focal clips + labeled-soundscape streams, 36 total training epochs (12 supervised + 12 + 12 Noisy Student self-training on 10,658 unlabeled soundscapes). Architecture: Three-Pool-Head (learned mean/max/attention blend), frame-max auxiliary loss to sharpen localisation of brief calls, fp32 guard on GEM/head to eliminate the AMP overflow, and BatchNorm recalibration before every eval/inference pass. Result: Site-22 AUC 0.683; <strong>Kaggle Public 0.799 / Private 0.831</strong> — a +0.332 private LB gain over Phase 0 from the combined effect of the entire new stack, not a single fix.
+                        Deliberately stripped pipeline to meet the 90-minute budget: 64 mels, min–max norm, global-average pool +
+                        linear head (no SED/GEM), 6 epochs on ≤3,000 focal clips, no self-training. Result:
+                        <strong>Private 0.499 / Public 0.555</strong> — near-random, but proved the harness worked.
                     </p>
                 </li>
-                <li><strong>Phase 2 (<code>tf_efficientnet_b0.ns_jft_in1k</code> + Google Perch 2 v8):</strong>
+                <li>
+                    <strong>Phase 1 — Full ML stack (<code>tf_efficientnet_b0.ns_jft_in1k</code>):</strong>
                     <p>
-                        A controlled clean rerun (v2-run2) added Google Perch 2 v8 cosine distillation to the Phase 1 B0 stack — same 128-mel front-end, fp32 GEM guard, BatchNorm recalibration, and two-iteration Noisy Student pipeline. Perch embeddings were precomputed once (36,073 windows, dim 1280) and loaded as a static cache during supervised training; the teacher is not run at inference. Distillation was verified active before the full run completed. This is the best single-model result in the project: Kaggle Public <strong>0.82698</strong> / Private <strong>0.84846</strong> (+0.017 private LB vs Phase 1). Final checkpoint (<code>noisy_iter2.pt</code>) validation: focal AUC 0.952; Site-22 0.731; greedy 0.745; LSS mean 0.738. Per-taxon Site-22: Amphibia 0.740, Aves 0.704, Mammalia 0.756 — a marked improvement on birds and mammals relative to the V2-S + Perch run (Phase 4).
+                        Rebuilt everything: ns_jft B0 backbone (JFT-300M + Noisy Student pretraining), 128-mel z-score front-end,
+                        ThreePoolHead + frame-max aux loss, fp32 GEM guard, BN recalibration, full focal + LSS data, 36 epochs with
+                        Noisy Student on 10,658 soundscapes. Result: <strong>Private 0.831 / Public 0.799</strong> (+0.332 private vs Phase 0).
                     </p>
                 </li>
-                <li><strong>Phase 3 EfficientNetV2-S:</strong>
-                    <p>Swapped the backbone to EfficientNetV2-S (tf_efficientnetv2_s.in21k_ft_in1k, ImageNet-21k pretrained), keeping the architecture otherwise identical. The unique change was the stronger feature extractor — but the run regressed to Private 0.777 because of an export bug that shipped the supervised-only checkpoint instead of the self-trained noisy_iter2, not because of the backbone. A clean rerun (v3-run2, V2-S without Perch) later confirmed this, scoring Public 0.78683 / Private 0.78679 and hardening the export path to be deterministic.
+                <li>
+                    <strong>Phase 2 — B0 + Perch distillation (v2-run2):</strong>
+                    <p>
+                        Added Google Perch v8 cosine distillation via 36,073 precomputed embeddings (dim 1280) during supervised
+                        training only — zero inference cost. Best <strong>single CNN model</strong>:
+                        <strong>Private 0.84846 / Public 0.82698</strong>. Site-22 0.731; per-taxon: Amph 0.740, Aves 0.704, Mamm 0.756.
                     </p>
                 </li>
-                <li><strong>Phase 4: EfficientNetV2-S + Perch :</strong>
+                <li>
+                    <strong>Phase 3 — EfficientNetV2-S + export bug (v3):</strong>
                     <p>
-                        Kept the V2-S backbone and added Google Perch v2 knowledge distillation via a precomputed-embeddings trick: 36,073 Perch embeddings (dim 1280) generated once on a Kaggle GPU, then a cosine loss pulling the student toward them during the supervised phase — adding zero inference cost. This delivered the largest internal-metric lift (focal AUC 0.943 → 0.958; greedy coverage +0.064), specifically aiding weaker taxa such as Aves that were hard to separate from background noise. Result: Kaggle Public 0.79672 / Private 0.80297 — recovering the Phase 3 regression, though still short of the Phase 1 B0 baseline.
+                        Swapped to V2-S backbone; scored Private 0.777 — an <strong>export bug</strong> shipped <code>supervised.pt</code>
+                        instead of <code>noisy_iter2.pt</code>, not a backbone failure. Clean rerun (v3-run2, no Perch): Private 0.78679.
+                    </p>
+                </li>
+                <li>
+                    <strong>Phase 4 — V2-S + Perch + export fix (v4):</strong>
+                    <p>
+                        Added Perch distillation and deterministic <code>_ckpt_priority()</code> export. Largest internal lift on greedy
+                        coverage (+0.064) but LB <strong>Private 0.803</strong> — still below B0 baseline. The 2×2 ablation confirmed:
+                        B0 beats V2-S regardless of Perch; Perch adds a consistent ~+0.017 private lift on both backbones.
+                    </p>
+                </li>
+                <li>
+                    <strong>Phase 5 — Measure-first ensemble (v5):</strong>
+                    <p>
+                        No new training. Blended existing members on the Site-22 harness; fixed fractional time-shift TTA
+                        (+0.0165 Site-22 lift). No free blend beat the B0+Perch anchor. A coverage cap bug (200/10,658 files)
+                        suppressed one local smoke run — lesson carried forward for full-soundscape inference.
+                    </p>
+                </li>
+                <li>
+                    <strong>Phase 6 — Ensemble + rank-vs-prob bug (v6):</strong>
+                    <p>
+                        Trained v6-run1 B0 no-Perch (provenance decorrelation, harness +TTA 0.7323). Two-member Kaggle submit scored
+                        Private 0.816 — flat vs v5 because <strong>rank blending</strong> was paired with probability-tuned post-processing.
+                        Fix: <code>blend_mode = "prob"</code>. Best PyTorch 2-member blend: <strong>Private 0.81465</strong>.
+                        PyTorch set1 (1-member B0+Perch + TTA fix): <strong>Private 0.86259</strong>.
+                    </p>
+                </li>
+                <li>
+                    <strong>Phase 7 — ONNX 4-member ensemble (v7):</strong>
+                    <p>
+                        Replaced PyTorch forwards with <strong>ONNX Runtime</strong> to fit 4 models + TTA in the CPU budget.
+                        Members: B0+Perch (v2-run2), B0 no-Perch (v6-run1), V2-S+Perch (v4), and <strong>native Perch v2</strong>
+                        at inference. Champion: <strong>Private 0.89774</strong>. D1/D2+D3 confirmatory submits regressed
+                        (0.89004 / 0.89348) — local Site-22 proxies did not predict LB for post-proc tuning.
                     </p>
                 </li>
             </ul>
-            <section class="model-card-section">
-                <h2>Model Card</h2>
-                <p>Verified clean training runs only (correct <code>noisy_iter2.pt</code> export). Metric: macro-averaged ROC-AUC over 234 species on 5-second windows. Erroneous submissions (e.g. original v3 export bug) are excluded.</p>
 
-                <h3>Summary ranking (Private LB)</h3>
-                <div class="table-wrap">
-                    <table class="model-card-table">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Run</th>
-                                <th>Private LB</th>
-                                <th>Public LB</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><strong>v2-run2</strong> (<code>tf_efficientnet_b0.ns_jft_in1k</code> + Google Perch 2 v8)</td>
-                                <td><strong>0.84846</strong></td>
-                                <td>0.82698</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>v2-run1 (<code>tf_efficientnet_b0.ns_jft_in1k</code>, no Perch)</td>
-                                <td>0.831</td>
-                                <td>0.799</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>v4 (<code>tf_efficientnetv2_s.in21k_ft_in1k</code> + Google Perch 2 v8)</td>
-                                <td>0.803</td>
-                                <td>0.797</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>v3-run2 (<code>tf_efficientnetv2_s.in21k_ft_in1k</code>, no Perch)</td>
-                                <td>0.78679</td>
-                                <td>0.78683</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>v1 baseline (<code>tf_efficientnetv2_b0</code>, supervised only, 6 ep, ≤3k clips — Phase 0)</td>
-                                <td>0.499</td>
-                                <td>0.555</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3>Validation metrics (final checkpoint: <code>noisy_iter2.pt</code>)</h3>
-                <div class="table-wrap">
-                    <table class="model-card-table">
-                        <thead>
-                            <tr>
-                                <th>Run</th>
-                                <th>Focal AUC</th>
-                                <th>Site-22 AUC</th>
-                                <th>Greedy AUC</th>
-                                <th>LSS mean</th>
-                                <th>Site-22 by taxon (Amph / Aves / Mamm)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>v1 baseline (<code>tf_efficientnetv2_b0</code>, supervised only — Phase 0)<br><small>No SED/GEM head; 64 mels min–max; no self-training. Not directly comparable to v2+ stack.</small></td>
-                                <td>—</td>
-                                <td>—</td>
-                                <td>—</td>
-                                <td>—</td>
-                                <td>—</td>
-                            </tr>
-                            <tr>
-                                <td>v2-run1 (<code>tf_efficientnet_b0.ns_jft_in1k</code>, no Perch)</td>
-                                <td>0.943</td>
-                                <td>0.683</td>
-                                <td>0.767</td>
-                                <td>0.725</td>
-                                <td>0.757 / 0.604 / 0.700</td>
-                            </tr>
-                            <tr>
-                                <td>v2-run2 (<code>tf_efficientnet_b0.ns_jft_in1k</code> + Google Perch 2 v8)</td>
-                                <td>0.952</td>
-                                <td>0.731</td>
-                                <td>0.745</td>
-                                <td>0.738</td>
-                                <td>0.740 / 0.704 / 0.756</td>
-                            </tr>
-                            <tr>
-                                <td>v3-run2 (<code>tf_efficientnetv2_s.in21k_ft_in1k</code>, no Perch)</td>
-                                <td>—</td>
-                                <td>0.6516</td>
-                                <td>0.7668</td>
-                                <td>0.7092</td>
-                                <td>—</td>
-                            </tr>
-                            <tr>
-                                <td>v4 (<code>tf_efficientnetv2_s.in21k_ft_in1k</code> + Google Perch 2 v8)</td>
-                                <td>0.958</td>
-                                <td>0.654</td>
-                                <td>0.824</td>
-                                <td>0.739</td>
-                                <td>0.735 / 0.590 / 0.431</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="model-card-note"><em>Site-22</em> is the held-out monitoring site used as the generalisation proxy during training. Amph = Amphibia, Aves = birds, Mamm = Mammalia.</p>
-            </section>
             <p>
-                <img src="images/bio_perch_train_sup.png" alt="Supervised Training Results" class="project-image" />
+                <img src="images/bio_perch_train_sup.png" alt="Supervised training results" class="project-image" />
             </p>
             <p>
-                <img src="images/bio_perch_train_iter1.png" alt="Iteration 1 Training Results. Multi-iterative Noisy Student self-training" class="project-image" />
+                <img src="images/bio_perch_train_iter1.png" alt="Noisy Student iteration 1 training results" class="project-image" />
             </p>
             <p>
-                <img src="images/bio_perch_train_iter2.png" alt="Iteration 2 Training Results. Multi-iterative Noisy Student self-training" class="project-image" />
+                <img src="images/bio_perch_train_iter2.png" alt="Noisy Student iteration 2 training results" class="project-image" />
             </p>
         </section>
-      <section class="insight-section">
-            <h2>Key Lessons Learnt</h2>
-            <div class="highlight-box lesson-summary">
-                <p>
-                    Two hidden bugs were quietly reducing the model to random guessing. First, a math step that cubes
-                    numbers was overflowing the small fp16 number format and producing garbage; this was fixed by running
-                    that fragile step in fp32. Second, BatchNorm had memorized the statistics of noisy, augmented training
-                    audio and mishandled clean evaluation audio; this was fixed by recalibrating BatchNorm on clean data
-                    before evaluation and inference. The lesson: the biggest gains came from fixing what was broken, not
-                    from fine-tuning settings.
-                </p>
+
+        <section class="model-card-section">
+            <h2>Model Card</h2>
+            <p>
+                Verified clean runs and scored inference submissions. Metric: macro-averaged ROC-AUC over 234 species on
+                5-second windows. Erroneous exports (e.g. v3 original) and rejected harness runs (e.g. v7-run1-pseudolabel) excluded.
+            </p>
+
+            <h3>Leaderboard ranking (Private LB)</h3>
+            <div class="table-wrap">
+                <table class="model-card-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Run</th>
+                            <th>Private</th>
+                            <th>Public</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>v7 ONNX 4-member</strong> (B0+Perch ⊕ B0 no-Perch ⊕ V2-S+Perch ⊕ native Perch)</td>
+                            <td><strong>0.89774</strong></td>
+                            <td>0.89535</td>
+                        </tr>
+                        <tr>
+                            <td>1b</td>
+                            <td>v7 ONNX D2+D3 confirmatory (<code>genus_alpha=0.10</code>, gate 0.3)</td>
+                            <td>0.89348</td>
+                            <td>0.89177</td>
+                        </tr>
+                        <tr>
+                            <td>1c</td>
+                            <td>v7 ONNX D1 clean resubmit</td>
+                            <td>0.89004</td>
+                            <td>0.88300</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>set1 PyTorch (1-member B0+Perch + TTA)</td>
+                            <td>0.86259</td>
+                            <td>0.84613</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>v2-run2 (B0 + Perch distill, single CNN)</td>
+                            <td>0.84846</td>
+                            <td>0.82698</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>v2-run1 (B0, no Perch)</td>
+                            <td>0.831</td>
+                            <td>0.799</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>2-member prob-blend (B0+Perch ⊕ v6-run1)</td>
+                            <td>0.81465</td>
+                            <td>0.80270</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>v4 (V2-S + Perch)</td>
+                            <td>0.803</td>
+                            <td>0.797</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>v3-run2 (V2-S, no Perch)</td>
+                            <td>0.78679</td>
+                            <td>0.78683</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>v1 baseline (Phase 0, minimal submit)</td>
+                            <td>0.499</td>
+                            <td>0.555</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <div class="highlight-box lesson-summary" style="margin-top:1.5rem; border-left-color: #e07b39;">
-                <h3 style="margin-top:0; color: #e07b39;">Phase 0 → Phase 1: What the v1 Baseline Actually Revealed</h3>
+            <h3>Training validation (final checkpoint: <code>noisy_iter2.pt</code>)</h3>
+            <div class="table-wrap">
+                <table class="model-card-table">
+                    <thead>
+                        <tr>
+                            <th>Run</th>
+                            <th>Focal</th>
+                            <th>Site-22</th>
+                            <th>Greedy</th>
+                            <th>LSS</th>
+                            <th>Site-22 taxon (Amph / Aves / Mamm)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>v2-run1 (B0, no Perch)</td>
+                            <td>0.943</td>
+                            <td>0.683</td>
+                            <td>0.767</td>
+                            <td>0.725</td>
+                            <td>0.757 / 0.604 / 0.700</td>
+                        </tr>
+                        <tr>
+                            <td>v2-run2 (B0 + Perch)</td>
+                            <td>0.952</td>
+                            <td>0.731</td>
+                            <td>0.745</td>
+                            <td>0.738</td>
+                            <td>0.740 / 0.704 / 0.756</td>
+                        </tr>
+                        <tr>
+                            <td>v3-run2 (V2-S, no Perch)</td>
+                            <td>—</td>
+                            <td>0.652</td>
+                            <td>0.767</td>
+                            <td>0.709</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>v4 (V2-S + Perch)</td>
+                            <td>0.958</td>
+                            <td>0.654</td>
+                            <td>0.824</td>
+                            <td>0.739</td>
+                            <td>0.735 / 0.590 / 0.431</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Evaluation layers</h3>
+            <div class="table-wrap">
+                <table class="model-card-table">
+                    <thead>
+                        <tr>
+                            <th>Layer</th>
+                            <th>Protocol</th>
+                            <th>Use for</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Training notebook</td>
+                            <td>Site-22 macro-AUC, no TTA, per-phase peaks</td>
+                            <td>Training progress, export decisions</td>
+                        </tr>
+                        <tr>
+                            <td>Site-22 harness</td>
+                            <td>954 windows, BN recal, prob-space TTA, real post-proc</td>
+                            <td>Ensemble gate, blend A/B, promotion decisions</td>
+                        </tr>
+                        <tr>
+                            <td>Kaggle LB</td>
+                            <td>Hidden test set, CPU-only submit</td>
+                            <td>Authoritative final score</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="model-card-note">
+                <em>Site-22</em> is the held-out monitoring site. Harness and LB can disagree on ensembles — v2s_perch failed
+                standalone Site-22 (0.645) yet helped the 4-member ONNX stack reach 0.898.
+            </p>
+        </section>
+
+        <section>
+            <h2>Inference Stack (Champion)</h2>
+            <p>
+                The 0.89774 score came from <strong>inference engineering</strong>, not new CNN training. Pre-exported ONNX
+                weights from earlier clean runs are combined at submit time:
+            </p>
+            <div class="table-wrap">
+                <table class="model-card-table">
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>Source run</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>b0_perch</code></td>
+                            <td>v2-run2 <code>noisy_iter2.pt</code></td>
+                            <td>Anchor CNN (+Perch distill)</td>
+                        </tr>
+                        <tr>
+                            <td><code>b0_noperch</code></td>
+                            <td>v6-run1 <code>noisy_iter2.pt</code></td>
+                            <td>Provenance decorrelation</td>
+                        </tr>
+                        <tr>
+                            <td><code>v2s_perch</code></td>
+                            <td>v4 / v3-run2 path</td>
+                            <td>Backbone-family diversity</td>
+                        </tr>
+                        <tr>
+                            <td><code>perch</code></td>
+                            <td>Kaggle Perch v2 (external)</td>
+                            <td>Native Perch — 14.8k logits → 234 classes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><strong>Pipeline at score time:</strong></p>
+            <ol class="pipeline-list">
+                <li><strong>Decode once</strong> per soundscape; build log-mel for CNN members, raw waveform for Perch</li>
+                <li><strong>ONNX Runtime 1.27</strong> on CPU (offline wheels — Kaggle submit has no internet)</li>
+                <li><strong>Prob-space TTA</strong> — ±0.5 s time shift, 3 variants, averaged per member</li>
+                <li><strong>Prob-blend</strong> the three CNN members; apply <strong>Perch rank gate</strong> on combined output</li>
+                <li><strong>Post-processing</strong> at champion settings: <code>genus_alpha=0.15</code>, temporal continuity, <code>perch_gate_strength=0.5</code></li>
+                <li><strong>Budget guard</strong> — ~8.3 files/min measured; ~72 min extrapolated for 600 hidden test files (within 90 min)</li>
+            </ol>
+            <p>
+                PyTorch is retained only for audio I/O (decode + mel); all forward passes run through ORT. Pure PyTorch cannot
+                fit 4 models + TTA in the CPU budget — ONNX was load-bearing, not optional.
+            </p>
+        </section>
+
+        <section>
+            <h2>MLOps &amp; Reproducibility</h2>
+            <p>
+                The project moved from notebook-centric R&amp;D to a local-first MLOps layer: every experiment follows a
+                canonical lifecycle with evidence-backed promotion before any Kaggle submit.
+            </p>
+            <ul>
+                <li><strong>Run registry</strong> — each experiment under <code>research/runs/&lt;run_id&gt;/</code> with <code>run.json</code>, <code>metrics.json</code>, <code>model_config.json</code>, <code>decision.json</code></li>
+                <li><strong>Site-22 harness gate</strong> — standalone +TTA must exceed <strong>0.7255</strong> (anchor bar); blend must lift the 2-member baseline before promotion</li>
+                <li><strong>Operating rules</strong> — no full training without hypothesis; no Kaggle submit if harness rejects; prob-space blend invariant for submissions</li>
+                <li><strong>Static dashboard</strong> — champion card, run timeline, gate pass/fail, plot gallery (regenerated via <code>python research/mlops/cli.py onboard</code>)</li>
+                <li><strong>Champion tracked</strong> as <code>v7-onnx-ensemble-kaggle</code> in the registry</li>
+            </ul>
+            <p>
+                Invariants earned through debugging and preserved across all runs: BN recalibration before eval/inference,
+                fp32 guard on GEM/head under AMP, deterministic <code>_ckpt_priority()</code> export, and train/inference
+                front-end parity (128 mels, z-score, 5 s @ 32 kHz).
+            </p>
+        </section>
+
+        <section class="insight-section">
+            <h2>Key Lessons</h2>
+            <div class="highlight-box lesson-summary">
                 <p>
-                    The Phase 0 submission (<code>tf_efficientnetv2_b0</code>, 6 epochs, ≤3,000 clips, no self-training) scored <strong>Private 0.499</strong> — near-random. That result is not a model failure; it is the expected outcome of a submission that deliberately sacrificed every ML component to meet a 90-minute CPU runtime. The +0.332 private LB jump to Phase 1 (0.831) came from five compounding changes made simultaneously, not from a single fix.
+                    The two largest early wins were <strong>debugging wins, not tuning wins</strong>: fp16 overflow in GEM
+                    pooling (<code>pow(p≈3)</code> under AMP) and BatchNorm statistics mismatch at inference both collapsed
+                    AUC to ≈0.5. Fixing them unlocked the Phase 0 → Phase 1 jump (+0.332 private LB) alongside the full
+                    stack rebuild — better backbone, z-score 128-mel front-end, soundscape self-training, and SED head.
                 </p>
-                <ol style="margin: 0.8rem 0 0 1.2rem; padding: 0; line-height: 1.9;">
-                    <li><strong>Backbone and pretraining.</strong> <code>tf_efficientnetv2_b0</code> (ImageNet-1k) → <code>tf_efficientnet_b0.ns_jft_in1k</code> (JFT-300M × Noisy Student). The pretraining recipe matters more than architecture generation — 300× more data with semi-supervised iterative training yields far richer, more transferable features for noisy, long-tailed problems.</li>
-                    <li><strong>Front-end resolution and normalisation.</strong> 64 mels / min–max → 128 mels / per-sample z-score. Z-score equalises absolute recording volume across clips (close-up focal vs distant soundscape), giving the backbone a consistent input distribution. Min–max stretches every window independently and loses relative level information.</li>
-                    <li><strong>Data scale and soundscape self-training.</strong> ≤3,000 clips × 6 epochs → ~35k focal + labeled soundscapes × 36 epochs (supervised + Noisy Student). Noisy Student pseudo-labelled 10,658 unlabeled soundscapes and injected them into training, directly exposing the model to the multi-species, far-field domain it would be tested on. Phase 0 trained only on close-up focal recordings.</li>
-                    <li><strong>Model head: linear vs GEM + SED + frame-max.</strong> Global average pooling dilutes a brief call in one frame by a factor of 12. GEM frequency pooling (learnable exponent, fp32 guard) preserves the time axis; the SED attention head weights each frame; frame-max auxiliary loss forces at least one high-confidence frame. Together they detect a call occupying a single 0.4-second window out of a 5-second clip.</li>
-                    <li><strong>Inference stabilisation.</strong> BatchNorm recalibration on clean data prevents the AUC ≈ 0.5 collapse caused by BN tracking augmented training statistics. Site and hour priors add +0.005–0.010 AUC by embedding ecological knowledge (species presence constraints by location and time of day) at zero training cost.</li>
-                </ol>
-                <p style="margin-top: 0.9rem;"><strong>Key principle:</strong> a minimal runtime submission is not a meaningful ML baseline. Ablation comparisons should hold infrastructure equal and vary one factor at a time — otherwise reported deltas conflate pipeline gaps with genuine model improvements.</p>
             </div>
 
             <ol class="lesson-list">
                 <li>
-                    <h3>Trust a leak-free proxy, not the leaderboard or train-domain metric</h3>
+                    <h3>Trust Site-22, not focal AUC or the public leaderboard</h3>
                     <p>
-                        The project had several signals, and most were optimistic: focal AUC sat at ~0.94 on the model's
-                        own clean, close-mic domain; "greedy" coverage overlapped training; and the labeled-soundscape
-                        metric correlated only weakly with the leaderboard. The most honest number was Site-22, a
-                        monitoring site held out of training entirely. The lesson was to tune against a deliberate,
-                        leak-free generalization proxy rather than chasing public leaderboard noise.
+                        Focal AUC (~0.94) and greedy coverage were optimistic; Site-22 (held-out monitoring site) was the
+                        honest generalisation proxy. The harness extends this with submission-parity TTA and post-processing.
                     </p>
                 </li>
                 <li>
-                    <h3>Eliminating silent failure modes beat hyperparameter tuning</h3>
+                    <h3>The export path is as load-bearing as the model</h3>
                     <p>
-                        The largest jump in the project, from Private 0.499 (Phase 0) to 0.831 (Phase 1), came from rebuilding the entire stack — not from tuning knobs. The Phase 0 → Phase 1 gap reflects five compounding changes: a better-pretrained backbone, higher-resolution z-score mel front-end, full data scale with soundscape self-training, a temporally-aware SED head, and inference stabilisation (BN recalibration + priors). Within Phase 1's stack, the correctness fixes — fp32 guard on GEM pooling and BatchNorm recalibration — were non-negotiable: without them even a perfect model collapses to AUC ≈ 0.5 at evaluation time. These were debugging wins, not tuning wins.
+                        v3's regression was an export bug shipping <code>supervised.pt</code> instead of <code>noisy_iter2.pt</code>.
+                        Fixed with deterministic <code>_ckpt_priority()</code>. Several runs peaked at iter1 but exported iter2.
                     </p>
                 </li>
                 <li>
-                    <h3>The export and bundle path is as load-bearing as the model</h3>
+                    <h3>Prob blend, not rank blend, for post-processed ensembles</h3>
                     <p>
-                        v3 looked like an EfficientNetV2-S backbone failure, but the regression was caused by an export bug:
-                        the bundle shipped a supervised-only checkpoint instead of the self-trained <code>noisy_iter2</code>.
-                        A deterministic <code>_ckpt_priority()</code> rule fixed this by preferring
-                        <code>noisy_iterN</code> over earlier checkpoints.
+                        v6 scored flat because rank-uniform scores were fed into probability-tuned post-processing (logit-space
+                        priors, max-boost, taxonomy smoothing). Switching to <code>blend_mode = "prob"</code> recovered the loss.
                     </p>
                 </li>
                 <li>
-                    <h3>Change one variable at a time</h3>
+                    <h3>Native Perch &gt; distillation-only; harness ≠ LB for ensembles</h3>
                     <p>
-                        v4 changed both the backbone and added Perch distillation in the same step. That made the result
-                        harder to interpret: we could not cleanly say how much came from EfficientNetV2-S and how much came
-                        from Perch. The follow-up 2×2 comparison was designed to isolate those effects.
+                        Running Perch live at inference diversifies error vs B0+Perch distill alone — the largest conceptual
+                        shift since the prob-blend fix. V2-S+Perch failed Site-22 standalone yet helped the 4-member ONNX stack
+                        reach 0.898; treat harness as a coarse gate, not an LB oracle.
                     </p>
                 </li>
                 <li>
-                    <h3>Distillation helped, but it was not the headline win</h3>
+                    <h3>B0 + ns_jft pretraining beats V2-S on this task</h3>
                     <p>
-                        Perch v2 cosine distillation gave the largest internal-metric lift and added zero inference cost,
-                        but it recovered the v3 regression to 0.803 rather than beating the v2 B0 baseline of 0.831. Its
-                        standalone value is still being isolated through the controlled runs.
+                        The 2×2 ablation showed pretraining provenance (+0.044 private) matters more than architecture depth.
+                        Perch distillation adds a consistent ~+0.017 lift regardless of backbone.
                     </p>
                 </li>
                 <li>
-                    <h3>A single strong model has a ceiling</h3>
+                    <h3>Single-model ceiling; ensemble + inference stack close the gap</h3>
                     <p>
-                        The remaining gap is more likely to come from rank calibration, test-time augmentation, and diverse
-                        ensembling than from one fundamentally different architecture. The CPU-only 90-minute inference
-                        budget remains a first-class design constraint.
+                        Best single CNN: 0.848. PyTorch 1-member + TTA: 0.863. ONNX 4-member: 0.898. The remaining +0.002 to
+                        0.90 likely needs training (Phase E: soundscape Perch embeddings → v7-run2), not more inference tuning.
                     </p>
                 </li>
             </ol>
         </section>
+
         <section class="concept-section">
-            <h2>Key Concepts Explained</h2>
-            <p class="section-intro">A plain-English explanation of the technical terms used above.</p>
+            <h2>Key Concepts</h2>
+            <p class="section-intro">Plain-English glossary for terms used above.</p>
             <div class="concept-grid">
                 <article class="concept-card">
-                    <h3>fp16, fp32 and AMP</h3>
-                    <p>Computers store decimal numbers using a fixed number of bits.</p>
-                    <ul>
-                        <li><strong>fp32:</strong> 32 bits per number. It has a wide numeric range, is accurate, and is safer for fragile calculations, but uses more memory and compute.</li>
-                        <li><strong>fp16:</strong> 16 bits per number. It is faster and cheaper on GPUs, but its largest value is only about 65,504. Go past that and the value can become <code>inf</code> or <code>NaN</code>.</li>
-                        <li><strong>AMP:</strong> Automatic Mixed Precision, a speed trick that runs most operations in fp16 and keeps only sensitive operations in fp32.</li>
-                    </ul>
-                    <p class="analogy"><strong>Analogy:</strong> fp16 is a small measuring cup. It is quick to use, but if you pour in too much, it overflows.</p>
-                </article>
-
-                <article class="concept-card">
-                    <h3>GEM pooling and the <code>pow(p≈3)</code> overflow</h3>
+                    <h3>GEM pooling &amp; fp16 overflow</h3>
                     <p>
-                        Pooling summarizes many numbers into fewer numbers. After the model processes a spectrogram, it has
-                        a grid of features across time and frequency; pooling compresses that grid into a useful summary.
+                        Generalized mean pooling raises feature values to a power (~3), averages, then takes the root — between
+                        average and max pooling. With <code>p≈3</code>, values like <code>50³ = 125,000</code> overflow fp16 under AMP.
+                        Fix: run GEM/head in fp32 while the rest uses mixed precision.
                     </p>
-                    <ul>
-                        <li><strong>Average pooling:</strong> takes the mean, treating all moments equally.</li>
-                        <li><strong>Max pooling:</strong> takes the strongest value, useful for brief calls but sensitive to noise spikes.</li>
-                        <li><strong>GEM pooling:</strong> sits between average and max pooling. It raises values to a power, averages them, then takes the root.</li>
-                    </ul>
-                    <p>
-                        With <code>p≈3</code>, the model cubes feature values. If a feature value is 50, then
-                        <code>50³ = 125,000</code>, which is larger than fp16 can safely hold. Under AMP, that operation
-                        overflowed in fp16 and produced invalid values.
-                    </p>
-                    <p><strong>The fix:</strong> force the GEM pooling/head calculation to run in fp32 while the rest of the model can still use fast mixed precision.</p>
                 </article>
-
-                <article class="concept-card">
-                    <h3>Output collapse and AUC ≈ 0.5</h3>
-                    <p>
-                        When invalid values appear, the model can stop producing meaningful predictions and output nearly
-                        the same score for every audio clip.
-                    </p>
-                    <ul>
-                        <li><strong>AUC = 1.0:</strong> perfect separation between positive and negative examples.</li>
-                        <li><strong>AUC = 0.5:</strong> no better than random guessing.</li>
-                    </ul>
-                    <p>So an AUC near 0.5 meant the model had effectively become a coin-flip classifier.</p>
-                </article>
-
                 <article class="concept-card">
                     <h3>BatchNorm recalibration</h3>
                     <p>
-                        Batch Normalization keeps internal model values in a stable range by using stored averages and
-                        spreads. During training, those running statistics were learned from heavily augmented audio. During
-                        evaluation and inference, the model saw clean audio instead.
+                        BN running stats learned on augmented training audio mismatch clean inference inputs, collapsing
+                        predictions. Recalibrate on clean soundscape-like audio before every eval/submit pass.
                     </p>
-                    <p>
-                        Because the stored statistics did not match the clean inputs, predictions collapsed again. The fix
-                        was to run clean examples through the model before evaluation/inference so BatchNorm refreshed its
-                        statistics on the same distribution it would actually see.
-                    </p>
-                    <p class="analogy"><strong>Analogy:</strong> it is like calibrating a weighing scale while wearing a heavy backpack, then expecting it to be correct after you take the backpack off.</p>
+                    <p class="analogy"><strong>Analogy:</strong> calibrating a scale while wearing a backpack, then weighing without it.</p>
                 </article>
-
                 <article class="concept-card">
-                    <h3>ThreePoolHead</h3>
+                    <h3>Noisy Student self-training</h3>
                     <p>
-                        The head is the final part of the model that turns learned features into species predictions. A
-                        single pooling method can miss important details.
-                    </p>
-                    <ul>
-                        <li>Average pooling can drown out a brief one-second bird call inside a five-second clip.</li>
-                        <li>Max pooling can overreact to one noisy spike.</li>
-                        <li>Attention pooling lets the model learn which moments deserve more weight.</li>
-                    </ul>
-                    <p>
-                        ThreePoolHead combines mean, max and attention pooling, then learns how much to trust each one.
+                        Pseudo-label unlabeled soundscapes with the current model, then retrain on those labels with noise
+                        augmentation. Exposes the model to the far-field, multi-species domain it will be tested on.
                     </p>
                 </article>
-
                 <article class="concept-card">
-                    <h3>Frame-max auxiliary loss</h3>
+                    <h3>Perch distillation vs native Perch</h3>
                     <p>
-                        A five-second audio clip is broken into many short frames. A call may exist in only one or two of
-                        those frames, while the rest is background.
-                    </p>
-                    <ul>
-                        <li><strong>Loss:</strong> the main "how wrong am I?" signal the model tries to minimize.</li>
-                        <li><strong>Auxiliary loss:</strong> an extra training signal that nudges the model toward a useful behavior.</li>
-                    </ul>
-                    <p>
-                        Frame-max auxiliary loss focuses on the strongest frame and teaches the model to identify the moment
-                        where the species call is most likely happening.
+                        <strong>Distillation:</strong> precomputed Perch embeddings guide CNN training; teacher not run at inference.
+                        <strong>Native:</strong> Perch runs live as a fourth ensemble member at inference — diversifies errors beyond
+                        what distillation alone captures.
                     </p>
                 </article>
-
                 <article class="concept-card">
-                    <h3>Debugging wins, not tuning wins</h3>
+                    <h3>Prob blend vs rank blend</h3>
                     <p>
-                        Tuning means adjusting knobs such as learning rate, batch size or epochs. Debugging means finding
-                        and fixing something fundamentally broken.
+                        <strong>Prob blend</strong> averages sigmoid probabilities — compatible with logit-space post-processing.
+                        <strong>Rank blend</strong> converts scores to uniform ranks per class — breaks priors and smoothing tuned
+                        for probabilities. The v6 regression came from mixing these.
                     </p>
+                </article>
+                <article class="concept-card">
+                    <h3>SED head &amp; frame-max loss</h3>
                     <p>
-                        The model's biggest jump came from fixing silent correctness failures: fp16 overflow and BatchNorm
-                        mismatch. No hyperparameter sweep can rescue a model whose predictions have already collapsed.
+                        The SED attention head weights each time frame; frame-max auxiliary loss supervises the loudest frame so
+                        brief calls (e.g. one 0.4 s vocalization in 5 s) are not drowned by global average pooling.
                     </p>
                 </article>
             </div>
         </section>
+
         <section>
-            <h2>Engineering Approach</h2>
-            <p>The final inference pipeline utilizes a robust ensemble. By rank-blending predictions from different
-                backbones (EfficientNetV2/NFNet) alongside the distilled Perch v2 outputs, the system achieves a balanced
-                predictive capability that outperforms any single-model configuration. FiLM metadata conditioning allows the
-                model to interpret acoustic features in the context of temporal and spatial metadata, further reducing false
-                positives in dense soundscapes.</p>
+            <h2>What's Next</h2>
+            <p>
+                The inference-only sprint is closed: D1, D2, and D2+D3 confirmatory Kaggle submits did not beat the champion.
+                <strong>Phase E</strong> is the active training path:
+            </p>
+            <ul>
+                <li><strong>E1:</strong> Precompute Perch embeddings on full soundscape audio (not focal-heavy cache)</li>
+                <li><strong>E2:</strong> v7-run2 training with soundscape-aware pseudo-labels and best-by-Site-22 export policy</li>
+            </ul>
+            <p>Target: close the remaining <strong>+0.00226</strong> private gap to 0.90 macro-AUC.</p>
         </section>
+
         <p>
             <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
         </p>
-        <section style="margin-top: 60px; padding: 40px; background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
+
+        <section class="connect-section">
             <h2>Let's Connect</h2>
-            <p>I enjoy discussing the intersection of deep learning and environmental conservation. If you are exploring how
-                acoustic monitoring or sound event detection could solve problems in your sector—or if you have questions
-                regarding the teacher-student distillation patterns used here—I welcome your inquiry.</p>
-            <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" style="display: inline-block; background-color: var(--accent); color: var(--bg-color); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px;">Connect
-                on LinkedIn</a>
+            <p>
+                I enjoy discussing deep learning for environmental conservation, acoustic monitoring pipelines, and the
+                engineering discipline behind competition-scale ML systems. Questions about ensemble design, ONNX inference,
+                or MLOps gating are welcome.
+            </p>
+            <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" class="btn-primary">Connect on LinkedIn</a>
         </section>
-        <footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-            <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful
-                impact."</p>
+
+        <footer class="article-footer">
+            <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful impact.</p>
         </footer>
     </article>
 </body>
