@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BirdCLEF+ 2026: Acoustic Species Identification | Rommel Sharma</title>
+    <title>Wildlife identification by Sound: Bio-Acoustic Species Identification | Rommel Sharma</title>
     <meta name="description" content="BirdCLEF+ 2026 Pantanal acoustic species identification: from 0.50 baseline to 0.898 private LB with an ONNX 4-member ensemble (3 CNN + native Perch), Site-22 harness gates, and MLOps run registry.">
     <meta name="keywords" content="Rommel Sharma, BirdCLEF 2026, Bioacoustics, Sound Event Detection, Perch v2, ONNX Runtime, Noisy Student, Wildlife Conservation AI, Pantanal, MLOps">
     <meta name="author" content="Rommel Sharma">
@@ -17,31 +17,30 @@
 <body>
     <header class="project-hero" style="background-image: url('../assets/images/bioacoustics.jpg');">
         <div class="container project-hero-centered">
-            <h1>BirdCLEF+ 2026: Acoustic Species Identification</h1>
+            <h1>Bioacoustics - Wildlife identification by Sound</h1>
             <div class="meta-strip">
-                <div class="meta-item"><strong>Solution Design:</strong> Rommel Sharma</div>
-                <div class="meta-item"><strong>Competition:</strong> BirdCLEF+ 2026 (Kaggle)</div>
+                <div class="meta-item"><strong>Author:</strong> Rommel Sharma</div>
+                <div class="meta-item"><strong>Primary Source Dataset:</strong> BirdCLEF+ 2026 (Kaggle)</div>
                 <div class="meta-item"><strong>Domain:</strong> Bio-Acoustics &amp; Wildlife Conservation</div>
             </div>
             <div class="tech-pill-box">
+                <span class="tech-pill">MLOps</span>
+                <span class="tech-pill">CNN</span>
                 <span class="tech-pill">Sound Event Detection (SED)</span>
                 <span class="tech-pill">Perch v2 (native + distill)</span>
                 <span class="tech-pill">Noisy Student</span>
                 <span class="tech-pill">ONNX Runtime</span>
-                <span class="tech-pill">Site-22 Harness</span>
-                <span class="tech-pill">MLOps Registry</span>
+                <span class="tech-pill">Test Harness</span>
             </div>
         </div>
     </header>
     <article class="article-body">
         <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-
         <section>
             <h2>Project Overview</h2>
             <p>
                 This project builds an offline acoustic wildlife identification system for Brazil’s Pantanal—supporting field biologists, rangers, and citizen scientists who need reliable species detections without cloud connectivity. From short audio clips, the application estimates presence across 234 taxa (birds, amphibians, mammals, reptiles, and insects), including overlapping calls in noisy, far-field soundscapes. The core challenge is ecological, not cosmetic: most training examples are clean, close-range recordings, while real deployments face distant microphones, wind, insects, and multiple species calling at once. The pipeline combines efficient on-device models, teacher-guided learning from unlabeled soundscapes, and ensemble inference tuned for robust ranking scores in the UI—turning competition-grade research into a practical tool for biodiversity monitoring and conservation workflows.
             </p>
-
             <div class="champion-callout">
                 <h3>Current champion model-ensemble (June 2026)</h3>
                 <p>
@@ -52,18 +51,15 @@
                 </p>
                 <p>Gap to the 0.90 target: <strong>+0.00226</strong> private. Inference-only tuning has plateaued; next lever is Phase E training.</p>
             </div>
-
             <p>
                 <a href="https://www.kaggle.com/writeups/rommelsharma/birdclef-2026-from-0-50-to-0-80-building-an-aco" class="back-btn" target="_blank" rel="noopener noreferrer">Read the Kaggle writeup &rarr;</a>
             </p>
         </section>
-
         <section>
             <p>
                 <img src="images/bio-mel-spectogram-example.png" alt="Mel spectrogram example of a species vocalization" class="project-image" />
             </p>
         </section>
-
         <section>
             <h2>Source Dataset</h2>
             <p>
@@ -77,7 +73,6 @@
                 <li><strong>Site-22</strong> held out as the leak-free generalisation proxy throughout training and harness gating</li>
             </ul>
         </section>
-
         <section>
             <h2>Architectural Evolution</h2>
             <p>
@@ -85,7 +80,6 @@
                 z-score, feeding an EfficientNet backbone with fp32-guarded GEM frequency pooling and an SED attention head.
                 Training followed supervised → Noisy Student iter1 → Noisy Student iter2 on focal + labeled-soundscape streams.
             </p>
-
             <ul>
                 <li>
                     <strong>Phase 0 — Minimal CPU baseline (EfficientNet-V2-B0, ImageNet pretraining):</strong>
@@ -156,7 +150,6 @@
                     </p>
                 </li>
             </ul>
-
             <p>
                 <img src="images/bio_perch_train_sup.png" alt="Supervised training results" class="project-image" />
             </p>
@@ -167,14 +160,12 @@
                 <img src="images/bio_perch_train_iter2.png" alt="Noisy Student iteration 2 training results" class="project-image" />
             </p>
         </section>
-
         <section class="model-card-section">
             <h2>Model Card</h2>
             <p>
                 Verified clean runs and scored inference submissions. Metric: macro-averaged ROC-AUC over 234 species on
                 5-second windows. Erroneous exports (e.g. the original Phase 3 packaging mistake) and rejected harness runs (e.g. the failed pseudo-label training experiment) excluded.
             </p>
-
             <h3>Leaderboard ranking (Private LB)</h3>
             <div class="table-wrap">
                 <table class="model-card-table">
@@ -250,7 +241,6 @@
                     </tbody>
                 </table>
             </div>
-
             <h3>Training validation (final self-trained checkpoint)</h3>
             <div class="table-wrap">
                 <table class="model-card-table">
@@ -300,7 +290,6 @@
                     </tbody>
                 </table>
             </div>
-
             <h3>Evaluation layers</h3>
             <div class="table-wrap">
                 <table class="model-card-table">
@@ -335,7 +324,6 @@
                 standalone Site-22 (0.645) yet helped the 4-member ONNX stack reach 0.898.
             </p>
         </section>
-
         <section>
             <h2>Inference Stack (Champion)</h2>
             <p>
@@ -389,10 +377,8 @@
                 fit 4 models + TTA in the CPU budget — ONNX was load-bearing, not optional.
             </p>
         </section>
-
         <section>
             <h2>MLOps &amp; Reproducibility</h2>
-
             <h3>Why MLOps mattered here</h3>
             <p>
                 This was a months-long solo research effort spanning dozens of training runs, ensemble experiments, and
@@ -407,7 +393,6 @@
                 packaged an early checkpoint. Formal checkpoint-selection rules and a run registry prevent that class of
                 silent failure from reaching production or competition submits.
             </p>
-
             <h3>Best practices incorporated</h3>
             <ul>
                 <li><strong>Hypothesis before heavy training</strong> — each experiment states what it is testing and when to stop, avoiding open-ended GPU spend</li>
@@ -419,7 +404,6 @@
                 <li><strong>Pre-submit checklist</strong> — blend mode, coverage, and inference budget are verified before a competition submit is allowed</li>
                 <li><strong>Documented invariants</strong> — non-negotiable rules earned through debugging (BatchNorm recalibration, fp32 guard on fragile pooling, train/inference front-end parity) are enforced across every run</li>
             </ul>
-
             <h3>Outcome</h3>
             <p>
                 The champion ONNX ensemble (Private LB 0.89774) is the direct result of this discipline: only verified,
@@ -428,7 +412,6 @@
                 an operational or tracking problem.
             </p>
         </section>
-
         <section class="insight-section">
             <h2>Key Lessons</h2>
             <div class="highlight-box lesson-summary">
@@ -439,7 +422,6 @@
                     stack rebuild — better backbone, z-score 128-mel front-end, soundscape self-training, and SED head.
                 </p>
             </div>
-
             <ol class="lesson-list">
                 <li>
                     <h3>Trust Site-22, not focal AUC or the public leaderboard</h3>
@@ -490,7 +472,6 @@
                 </li>
             </ol>
         </section>
-
         <section class="concept-section">
             <h2>Key Concepts</h2>
             <p class="section-intro">Plain-English glossary for terms used above.</p>
@@ -543,7 +524,6 @@
                 </article>
             </div>
         </section>
-
         <section>
             <h2>What's Next</h2>
             <p>
@@ -556,11 +536,9 @@
             </ul>
             <p>Target: close the remaining <strong>+0.00226</strong> private gap to 0.90 macro-AUC.</p>
         </section>
-
         <p>
             <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
         </p>
-
         <section class="connect-section">
             <h2>Let's Connect</h2>
             <p>
@@ -570,7 +548,6 @@
             </p>
             <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" class="btn-primary">Connect on LinkedIn</a>
         </section>
-
         <footer class="article-footer">
             <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful impact.</p>
         </footer>
