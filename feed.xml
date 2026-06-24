@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Rommel Sharma — Applied AI Articles &amp; Projects</title>
+    <link>https://rommelsharma.github.io/</link>
+    <atom:link href="https://rommelsharma.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Technical articles and project deep dives by Rommel Sharma — applied machine learning, bio-acoustics, computer vision, voice synthesis, and MLOps. Based in Sydney, Australia.</description>
+    <language>en-au</language>
+    <copyright>Copyright 2026 Rommel Sharma</copyright>
+    <lastBuildDate>Tue, 24 Jun 2026 12:00:00 +1000</lastBuildDate>
+    <image>
+      <url>https://rommelsharma.github.io/assets/images/train.jpg</url>
+      <title>Rommel Sharma — Applied AI Portfolio</title>
+      <link>https://rommelsharma.github.io/</link>
+    </image>
+
+    <item>
+      <title>Wildlife Identification by Sound: Bio-Acoustic Species Identification</title>
+      <link>https://rommelsharma.github.io/projects/bio-acoustics.html</link>
+      <guid isPermaLink="true">https://rommelsharma.github.io/projects/bio-acoustics.html</guid>
+      <pubDate>Tue, 24 Jun 2026 12:00:00 +1000</pubDate>
+      <dc:creator>Rommel Sharma</dc:creator>
+      <description>BirdCLEF+ 2026 Pantanal acoustic species identification by Rommel Sharma: from 0.50 baseline to 0.898 private LB with an ONNX 4-member ensemble, Site-22 harness gates, and MLOps run registry.</description>
+    </item>
+    <item>
+      <title>Jaguar Re-Identification via Deep Learning &amp; Metric Learning</title>
+      <link>https://rommelsharma.github.io/projects/jaguar-identification.html</link>
+      <guid isPermaLink="true">https://rommelsharma.github.io/projects/jaguar-identification.html</guid>
+      <pubDate>Mon, 10 Jun 2026 12:00:00 +1000</pubDate>
+      <dc:creator>Rommel Sharma</dc:creator>
+      <description>Automated jaguar re-identification system architected by Rommel Sharma — MegaDescriptor backbones, metric learning, and wildlife conservation computer vision.</description>
+    </item>
+    <item>
+      <title>Decision Lens: Evidence-Grounded Decision Intelligence</title>
+      <link>https://rommelsharma.github.io/projects/decision-lens.html</link>
+      <guid isPermaLink="true">https://rommelsharma.github.io/projects/decision-lens.html</guid>
+      <pubDate>Mon, 10 Jun 2026 12:00:00 +1000</pubDate>
+      <dc:creator>Rommel Sharma</dc:creator>
+      <description>Decision intelligence system by Rommel Sharma — Proxy-Pointer RAG, dual-inference comparison, and cognitive bias mitigation for executive strategy.</description>
+    </item>
+    <item>
+      <title>SonarAI: Zero-Shot Voice Cloning &amp; TTS Engine</title>
+      <link>https://rommelsharma.github.io/projects/voice-synthesis.html</link>
+      <guid isPermaLink="true">https://rommelsharma.github.io/projects/voice-synthesis.html</guid>
+      <pubDate>Mon, 10 Jun 2026 12:00:00 +1000</pubDate>
+      <dc:creator>Rommel Sharma</dc:creator>
+      <description>Privacy-preserving text-to-speech and zero-shot voice cloning by Rommel Sharma — XTTS v2, Kokoro-82M, SSML, and EBU R128 audio pipelines.</description>
+    </item>
+    <item>
+      <title>Stocks Value Investor: Quantitative Equity Screener</title>
+      <link>https://rommelsharma.github.io/projects/market-analysis.html</link>
+      <guid isPermaLink="true">https://rommelsharma.github.io/projects/market-analysis.html</guid>
+      <pubDate>Mon, 10 Jun 2026 12:00:00 +1000</pubDate>
+      <dc:creator>Rommel Sharma</dc:creator>
+      <description>Rules-driven quantitative equity screener built by Rommel Sharma — Benjamin Graham principles, JSON rules engines, and LLM thesis validation.</description>
+    </item>
+    <item>
+      <title>Real-Time Face Recognition</title>
+      <link>https://rommelsharma.github.io/projects/facial-recognition.html</link>
+      <guid isPermaLink="true">https://rommelsharma.github.io/projects/facial-recognition.html</guid>
+      <pubDate>Mon, 10 Jun 2026 12:00:00 +1000</pubDate>
+      <dc:creator>Rommel Sharma</dc:creator>
+      <description>Real-time face recognition pipeline by Rommel Sharma — InsightFace, WebRTC streaming, and low-latency identity verification.</description>
+    </item>
+  </channel>
+</rss>

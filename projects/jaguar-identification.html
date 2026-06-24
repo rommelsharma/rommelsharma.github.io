@@ -12,31 +12,58 @@
     <meta name="geo.placename" content="Sydney">
     <meta name="geo.position" content="-33.8688;151.2093">
     <meta name="ICBM" content="-33.8688, 151.2093">
+    <link rel="canonical" href="https://rommelsharma.github.io/projects/jaguar-identification.html">
+    <link rel="alternate" type="application/rss+xml" title="Rommel Sharma — Applied AI Articles" href="https://rommelsharma.github.io/feed.xml">
+    <link rel="author" href="https://rommelsharma.github.io/">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Jaguar Re-ID via Deep Learning & Metric Learning | Rommel Sharma">
-    <meta property="og:description" content="An engineering deep dive into wildlife computer vision, balancing complex embeddings with layer-wise regularization and robust inference caching.">
-    <meta property="og:url" content="https://rommelsharma.github.io/applied-ai-for-societal-impact/projects/jaguar-identification.html">
-    <meta property="og:site_name" content="Rommel Sharma Applied AI Portfolio">
+    <meta property="og:title" content="Jaguar Re-ID via Deep Learning | Rommel Sharma">
+    <meta property="og:description" content="Technical deep dive into an automated jaguar re-identification system architected by Rommel Sharma in Sydney, Australia.">
+    <meta property="og:url" content="https://rommelsharma.github.io/projects/jaguar-identification.html">
+    <meta property="og:site_name" content="Rommel Sharma — Applied AI Portfolio">
+    <meta property="og:image" content="https://rommelsharma.github.io/assets/images/jaguar.jpg">
+    <meta property="article:author" content="Rommel Sharma">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jaguar Re-ID via Deep Learning | Rommel Sharma">
+    <meta name="twitter:description" content="Technical deep dive into an automated jaguar re-identification system architected by Rommel Sharma in Sydney, Australia.">
+    <meta name="twitter:image" content="https://rommelsharma.github.io/assets/images/jaguar.jpg">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "TechArticle",
-        "headline": "Jaguar Re-Identification via Deep Learning and Metric Learning",
-        "description": "A technical analysis of high-accuracy computer vision workflows using fine-tuned MegaDescriptor neural networks for fine-grained animal retrieval.",
-        "keywords": "Computer Vision, PyTorch, MegaDescriptor, LLRD, Metric Learning, Triplet Loss, MLOps",
-        "inLanguage": "en-US",
-        "author": {
-            "@type": "Person",
-            "name": "Rommel Sharma",
-            "jobTitle": "Senior AI Leader & Enterprise Architect",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Sydney",
-                "addressRegion": "NSW",
-                "addressCountry": "Australia"
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": "https://rommelsharma.github.io/#person",
+                "name": "Rommel Sharma",
+                "url": "https://rommelsharma.github.io/",
+                "jobTitle": "Senior AI Leader & Enterprise Architect",
+                "sameAs": [
+                    "https://www.linkedin.com/in/rommelsharma",
+                    "https://www.skills.google/public_profiles/a8728b82-b98c-4e37-a9f4-f9b77782fb30"
+                ],
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Sydney",
+                    "addressRegion": "NSW",
+                    "addressCountry": "Australia"
+                }
             },
-            "url": "https://rommelsharma.github.io"
-        }
+            {
+                "@type": "TechArticle",
+                "@id": "https://rommelsharma.github.io/projects/jaguar-identification.html#article",
+                "headline": "Jaguar Re-Identification via Deep Learning and Metric Learning",
+                "description": "Technical deep dive into an automated jaguar re-identification system architected by Rommel Sharma in Sydney, Australia.",
+                "url": "https://rommelsharma.github.io/projects/jaguar-identification.html",
+                "mainEntityOfPage": "https://rommelsharma.github.io/projects/jaguar-identification.html",
+                "inLanguage": "en-AU",
+                "datePublished": "2026-06-10",
+                "dateModified": "2026-06-24",
+                "keywords": "Rommel Sharma, Jaguar Re-Identification, Computer Vision Conservation, MegaDescriptor, Metric Learning, MLOps Australia",
+                "image": "https://rommelsharma.github.io/assets/images/jaguar.jpg",
+                "author": { "@id": "https://rommelsharma.github.io/#person" },
+                "creator": { "@id": "https://rommelsharma.github.io/#person" },
+                "publisher": { "@id": "https://rommelsharma.github.io/#person" }
+            }
+        ]
     }
     </script>
     <link rel="stylesheet" href="../css/style.css">
@@ -48,7 +75,7 @@
         <div class="container project-hero-centered">
             <h1>Jaguar Identification via Deep Learning & Metric Learning</h1>
             <div class="meta-strip">
-                <div class="meta-item"><strong>Solution Design:</strong> Rommel Sharma</div>
+                <div class="meta-item"><strong>Author:</strong> Rommel Sharma</div>
                 <div class="meta-item"><strong>Location:</strong> Sydney, NSW, Australia</div>
                 <div class="meta-item"><strong>Domain:</strong> Computer Vision & Deep Learning for Conservation</div>
             </div>
@@ -64,6 +91,7 @@
     </header>
     <article class="article-body">
         <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
+        <p class="article-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a> · <a href="https://www.linkedin.com/in/rommelsharma" rel="me">LinkedIn</a></p>
         <section>
             <h2>1. Introduction & Project Objective</h2>
             <p>Wildlife monitoring relies heavily on camera traps to track endangered animal populations. Historically, researchers had to manually inspect thousands of photos to match individual animals based on their unique coat pattern markings. This project establishes an automated, deep learning pipeline designed to solve the <strong>Jaguar Re-Identification (Re-ID)</strong> problem by transforming visual pattern matching into a high-dimensional metric learning task.</p>
