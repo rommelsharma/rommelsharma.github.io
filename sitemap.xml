@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Sitemap for https://rommelsharma.github.io/ — all content authored by Rommel Sharma -->
+<!-- Note: the sitemaps.org protocol has no author field; authorship is declared per-page via JSON-LD, meta author, and RSS dc:creator -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rommelsharma.github.io/</loc>
