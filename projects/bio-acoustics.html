@@ -39,11 +39,7 @@
         <section>
             <h2>Project Overview</h2>
             <p>
-                This project tackles offline acoustic wildlife detection in Brazil's Pantanal wetlands: identify
-                <strong>234 species</strong> (birds, amphibians, mammals, reptiles, insects) from 5-second audio windows.
-                Scoring is macro-averaged ROC-AUC; the Kaggle submission must run <strong>CPU-only within 90 minutes</strong>.
-                The central difficulty is the <strong>focal → soundscape domain gap</strong> — training data is mostly
-                close-mic focal recordings while test data is far-field, multi-species soundscapes with heavy background noise.
+                This project builds an offline acoustic wildlife identification system for Brazil’s Pantanal—supporting field biologists, rangers, and citizen scientists who need reliable species detections without cloud connectivity. From short audio clips, the application estimates presence across 234 taxa (birds, amphibians, mammals, reptiles, and insects), including overlapping calls in noisy, far-field soundscapes. The core challenge is ecological, not cosmetic: most training examples are clean, close-range recordings, while real deployments face distant microphones, wind, insects, and multiple species calling at once. Our pipeline combines efficient on-device models, teacher-guided learning from unlabeled soundscapes, and ensemble inference tuned for robust ranking scores in the UI—turning competition-grade research into a practical tool for biodiversity monitoring and conservation workflows.
             </p>
 
             <div class="champion-callout">
