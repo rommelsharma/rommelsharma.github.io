@@ -92,7 +92,7 @@
 
             <ul>
                 <li>
-                    <strong>Phase 0 — Minimal CPU baseline (<code>tf_efficientnetv2_b0</code>):</strong>
+                    <strong>Phase 0 — Minimal CPU baseline (EfficientNet-V2-B0, ImageNet pretraining):</strong>
                     <p>
                         Deliberately stripped pipeline to meet the 90-minute budget: 64 mels, min–max norm, global-average pool +
                         linear head (no SED/GEM), 6 epochs on ≤3,000 focal clips, no self-training. Result:
@@ -100,7 +100,7 @@
                     </p>
                 </li>
                 <li>
-                    <strong>Phase 1 — Full ML stack (<code>tf_efficientnet_b0.ns_jft_in1k</code>):</strong>
+                    <strong>Phase 1 — Full ML stack (EfficientNet-B0, large-scale pretraining):</strong>
                     <p>
                         Rebuilt everything: ns_jft B0 backbone (JFT-300M + Noisy Student pretraining), 128-mel z-score front-end,
                         ThreePoolHead + frame-max aux loss, fp32 GEM guard, BN recalibration, full focal + LSS data, 36 epochs with
@@ -108,7 +108,7 @@
                     </p>
                 </li>
                 <li>
-                    <strong>Phase 2 — B0 + Perch distillation (v2-run2):</strong>
+                    <strong>Phase 2 — B0 + Perch distillation:</strong>
                     <p>
                         Added Google Perch v8 cosine distillation via 36,073 precomputed embeddings (dim 1280) during supervised
                         training only — zero inference cost. Best <strong>single CNN model</strong>:
@@ -118,15 +118,17 @@
                 <li>
                     <strong>Phase 3 — EfficientNetV2-S + export bug (v3):</strong>
                     <p>
-                        Swapped to V2-S backbone; scored Private 0.777 — an <strong>export bug</strong> shipped <code>supervised.pt</code>
-                        instead of <code>noisy_iter2.pt</code>, not a backbone failure. Clean rerun (v3-run2, no Perch): Private 0.78679.
+                        Swapped to V2-S backbone; scored Private 0.777 — an <strong>export bug</strong> shipped the
+                        early supervised-only model snapshot instead of the final self-trained checkpoint after two
+                        rounds of soundscape learning, not a backbone failure. Clean rerun (Phase 3 without Perch): Private 0.78679.
                     </p>
                 </li>
                 <li>
                     <strong>Phase 4 — V2-S + Perch + export fix (v4):</strong>
                     <p>
-                        Added Perch distillation and deterministic <code>_ckpt_priority()</code> export. Largest internal lift on greedy
-                        coverage (+0.064) but LB <strong>Private 0.803</strong> — still below B0 baseline. The 2×2 ablation confirmed:
+                        Added Perch distillation and a <strong>deterministic checkpoint-selection policy</strong> so the
+                        fully self-trained model is always packaged for submission — never an earlier supervised-only snapshot.
+                        Largest internal lift on greedy coverage (+0.064) but LB <strong>Private 0.803</strong> — still below B0 baseline. The 2×2 ablation confirmed:
                         B0 beats V2-S regardless of Perch; Perch adds a consistent ~+0.017 private lift on both backbones.
                     </p>
                 </li>
@@ -141,17 +143,18 @@
                 <li>
                     <strong>Phase 6 — Ensemble + rank-vs-prob bug (v6):</strong>
                     <p>
-                        Trained v6-run1 B0 no-Perch (provenance decorrelation, harness +TTA 0.7323). Two-member Kaggle submit scored
+                        Trained a second B0 model without Perch distillation (provenance decorrelation, harness +TTA 0.7323). Two-member Kaggle submit scored
                         Private 0.816 — flat vs v5 because <strong>rank blending</strong> was paired with probability-tuned post-processing.
-                        Fix: <code>blend_mode = "prob"</code>. Best PyTorch 2-member blend: <strong>Private 0.81465</strong>.
-                        PyTorch set1 (1-member B0+Perch + TTA fix): <strong>Private 0.86259</strong>.
+                        Fix: switched to <strong>probability-space blending</strong> so ensemble scores stay compatible with
+                        calibrated post-processing. Best PyTorch 2-member blend: <strong>Private 0.81465</strong>.
+                        PyTorch single-model champion (B0+Perch + TTA fix): <strong>Private 0.86259</strong>.
                     </p>
                 </li>
                 <li>
                     <strong>Phase 7 — ONNX 4-member ensemble (v7):</strong>
                     <p>
                         Replaced PyTorch forwards with <strong>ONNX Runtime</strong> to fit 4 models + TTA in the CPU budget.
-                        Members: B0+Perch (v2-run2), B0 no-Perch (v6-run1), V2-S+Perch (v4), and <strong>native Perch v2</strong>
+                        Members: B0+Perch (Phase 2), B0 without Perch (Phase 6), V2-S+Perch (Phase 4), and <strong>native Perch v2</strong>
                         at inference. Champion: <strong>Private 0.89774</strong>. D1/D2+D3 confirmatory submits regressed
                         (0.89004 / 0.89348) — local Site-22 proxies did not predict LB for post-proc tuning.
                     </p>
@@ -173,7 +176,7 @@
             <h2>Model Card</h2>
             <p>
                 Verified clean runs and scored inference submissions. Metric: macro-averaged ROC-AUC over 234 species on
-                5-second windows. Erroneous exports (e.g. v3 original) and rejected harness runs (e.g. v7-run1-pseudolabel) excluded.
+                5-second windows. Erroneous exports (e.g. the original Phase 3 packaging mistake) and rejected harness runs (e.g. the failed pseudo-label training experiment) excluded.
             </p>
 
             <h3>Leaderboard ranking (Private LB)</h3>
@@ -196,7 +199,7 @@
                         </tr>
                         <tr>
                             <td>1b</td>
-                            <td>v7 ONNX D2+D3 confirmatory (<code>genus_alpha=0.10</code>, gate 0.3)</td>
+                            <td>v7 ONNX confirmatory (tuned genus mirroring &amp; Perch gating)</td>
                             <td>0.89348</td>
                             <td>0.89177</td>
                         </tr>
@@ -208,43 +211,43 @@
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>set1 PyTorch (1-member B0+Perch + TTA)</td>
+                            <td>PyTorch single-model (B0+Perch + TTA)</td>
                             <td>0.86259</td>
                             <td>0.84613</td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>v2-run2 (B0 + Perch distill, single CNN)</td>
+                            <td>Phase 2 (B0 + Perch distill, single CNN)</td>
                             <td>0.84846</td>
                             <td>0.82698</td>
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td>v2-run1 (B0, no Perch)</td>
+                            <td>Phase 1 (B0, no Perch)</td>
                             <td>0.831</td>
                             <td>0.799</td>
                         </tr>
                         <tr>
                             <td>5</td>
-                            <td>2-member prob-blend (B0+Perch ⊕ v6-run1)</td>
+                            <td>2-member prob-blend (B0+Perch + B0 no-Perch)</td>
                             <td>0.81465</td>
                             <td>0.80270</td>
                         </tr>
                         <tr>
                             <td>6</td>
-                            <td>v4 (V2-S + Perch)</td>
+                            <td>Phase 4 (V2-S + Perch)</td>
                             <td>0.803</td>
                             <td>0.797</td>
                         </tr>
                         <tr>
                             <td>7</td>
-                            <td>v3-run2 (V2-S, no Perch)</td>
+                            <td>Phase 3 clean rerun (V2-S, no Perch)</td>
                             <td>0.78679</td>
                             <td>0.78683</td>
                         </tr>
                         <tr>
                             <td>8</td>
-                            <td>v1 baseline (Phase 0, minimal submit)</td>
+                            <td>Phase 0 baseline (minimal submit)</td>
                             <td>0.499</td>
                             <td>0.555</td>
                         </tr>
@@ -252,7 +255,7 @@
                 </table>
             </div>
 
-            <h3>Training validation (final checkpoint: <code>noisy_iter2.pt</code>)</h3>
+            <h3>Training validation (final self-trained checkpoint)</h3>
             <div class="table-wrap">
                 <table class="model-card-table">
                     <thead>
@@ -267,7 +270,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>v2-run1 (B0, no Perch)</td>
+                            <td>Phase 1 (B0, no Perch)</td>
                             <td>0.943</td>
                             <td>0.683</td>
                             <td>0.767</td>
@@ -275,7 +278,7 @@
                             <td>0.757 / 0.604 / 0.700</td>
                         </tr>
                         <tr>
-                            <td>v2-run2 (B0 + Perch)</td>
+                            <td>Phase 2 (B0 + Perch)</td>
                             <td>0.952</td>
                             <td>0.731</td>
                             <td>0.745</td>
@@ -283,7 +286,7 @@
                             <td>0.740 / 0.704 / 0.756</td>
                         </tr>
                         <tr>
-                            <td>v3-run2 (V2-S, no Perch)</td>
+                            <td>Phase 3 clean rerun (V2-S, no Perch)</td>
                             <td>—</td>
                             <td>0.652</td>
                             <td>0.767</td>
@@ -291,7 +294,7 @@
                             <td>—</td>
                         </tr>
                         <tr>
-                            <td>v4 (V2-S + Perch)</td>
+                            <td>Phase 4 (V2-S + Perch)</td>
                             <td>0.958</td>
                             <td>0.654</td>
                             <td>0.824</td>
@@ -332,7 +335,7 @@
                 </table>
             </div>
             <p class="model-card-note">
-                <em>Site-22</em> is the held-out monitoring site. Harness and LB can disagree on ensembles — v2s_perch failed
+                <em>Site-22</em> is the held-out monitoring site. Harness and LB can disagree on ensembles — the V2-S+Perch member failed
                 standalone Site-22 (0.645) yet helped the 4-member ONNX stack reach 0.898.
             </p>
         </section>
@@ -354,24 +357,24 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>b0_perch</code></td>
-                            <td>v2-run2 <code>noisy_iter2.pt</code></td>
-                            <td>Anchor CNN (+Perch distill)</td>
+                            <td>B0 + Perch (anchor CNN)</td>
+                            <td>Phase 2 training run</td>
+                            <td>Primary distilled model</td>
                         </tr>
                         <tr>
-                            <td><code>b0_noperch</code></td>
-                            <td>v6-run1 <code>noisy_iter2.pt</code></td>
-                            <td>Provenance decorrelation</td>
+                            <td>B0 without Perch</td>
+                            <td>Phase 6 training run</td>
+                            <td>Decorrelated second opinion (different training recipe)</td>
                         </tr>
                         <tr>
-                            <td><code>v2s_perch</code></td>
-                            <td>v4 / v3-run2 path</td>
+                            <td>V2-S + Perch</td>
+                            <td>Phase 4 training run</td>
                             <td>Backbone-family diversity</td>
                         </tr>
                         <tr>
-                            <td><code>perch</code></td>
-                            <td>Kaggle Perch v2 (external)</td>
-                            <td>Native Perch — 14.8k logits → 234 classes</td>
+                            <td>Native Perch v2</td>
+                            <td>Google Perch v2 (external)</td>
+                            <td>Live acoustic classifier mapped to 234 competition classes</td>
                         </tr>
                     </tbody>
                 </table>
@@ -382,7 +385,7 @@
                 <li><strong>ONNX Runtime 1.27</strong> on CPU (offline wheels — Kaggle submit has no internet)</li>
                 <li><strong>Prob-space TTA</strong> — ±0.5 s time shift, 3 variants, averaged per member</li>
                 <li><strong>Prob-blend</strong> the three CNN members; apply <strong>Perch rank gate</strong> on combined output</li>
-                <li><strong>Post-processing</strong> at champion settings: <code>genus_alpha=0.15</code>, temporal continuity, <code>perch_gate_strength=0.5</code></li>
+                <li><strong>Post-processing</strong> at champion settings: genus-level score mirroring, temporal continuity smoothing, and moderate Perch gating on the blended CNN output</li>
                 <li><strong>Budget guard</strong> — ~8.3 files/min measured; ~72 min extrapolated for 600 hidden test files (within 90 min)</li>
             </ol>
             <p>
@@ -393,21 +396,40 @@
 
         <section>
             <h2>MLOps &amp; Reproducibility</h2>
+
+            <h3>Why MLOps mattered here</h3>
             <p>
-                The project moved from notebook-centric R&amp;D to a local-first MLOps layer: every experiment follows a
-                canonical lifecycle with evidence-backed promotion before any Kaggle submit.
+                This was a months-long solo research effort spanning dozens of training runs, ensemble experiments, and
+                Kaggle submissions. Without disciplined experiment tracking, it is easy to ship the wrong model snapshot,
+                confuse a local validation win with a real leaderboard gain, or repeat an expensive GPU run with no clear
+                hypothesis. MLOps — in the practical sense of <em>machine learning operations</em> — turned ad-hoc notebook
+                work into a repeatable, auditable process: every run has a stated goal, measured outcome, promotion decision,
+                and a single place to see what the current champion is.
             </p>
-            <ul>
-                <li><strong>Run registry</strong> — each experiment under <code>research/runs/&lt;run_id&gt;/</code> with <code>run.json</code>, <code>metrics.json</code>, <code>model_config.json</code>, <code>decision.json</code></li>
-                <li><strong>Site-22 harness gate</strong> — standalone +TTA must exceed <strong>0.7255</strong> (anchor bar); blend must lift the 2-member baseline before promotion</li>
-                <li><strong>Operating rules</strong> — no full training without hypothesis; no Kaggle submit if harness rejects; prob-space blend invariant for submissions</li>
-                <li><strong>Static dashboard</strong> — champion card, run timeline, gate pass/fail, plot gallery (regenerated via <code>python research/mlops/cli.py onboard</code>)</li>
-                <li><strong>Champion tracked</strong> as <code>v7-onnx-ensemble-kaggle</code> in the registry</li>
-            </ul>
             <p>
-                Invariants earned through debugging and preserved across all runs: BN recalibration before eval/inference,
-                fp32 guard on GEM/head under AMP, deterministic <code>_ckpt_priority()</code> export, and train/inference
-                front-end parity (128 mels, z-score, 5 s @ 32 kHz).
+                The v3 export bug is the clearest example: the model looked weaker than it was because the submission
+                packaged an early checkpoint. Formal checkpoint-selection rules and a run registry prevent that class of
+                silent failure from reaching production or competition submits.
+            </p>
+
+            <h3>Best practices incorporated</h3>
+            <ul>
+                <li><strong>Hypothesis before heavy training</strong> — each experiment states what it is testing and when to stop, avoiding open-ended GPU spend</li>
+                <li><strong>Central run registry</strong> — every experiment records its goal, configuration, metrics, artifacts, and final promote/reject/hold decision in one auditable place</li>
+                <li><strong>Site-22 promotion gate</strong> — no model joins the submission ensemble unless it clears a standalone quality bar on held-out audio and improves the blend in probability space with test-time augmentation</li>
+                <li><strong>Two-layer evaluation</strong> — training-time Site-22 tracks learning progress; a separate submission-parity harness mirrors real inference (recalibration, TTA, post-processing) before any Kaggle submit</li>
+                <li><strong>Deterministic packaging</strong> — submission bundles always prefer the final self-trained checkpoint over earlier supervised-only snapshots, regardless of misleading intermediate scores</li>
+                <li><strong>Champion tracking</strong> — a living dashboard shows the current best submission, timeline of runs, gate pass/fail status, and training curves without digging through notebooks</li>
+                <li><strong>Pre-submit checklist</strong> — blend mode, coverage, and inference budget are verified before a competition submit is allowed</li>
+                <li><strong>Documented invariants</strong> — non-negotiable rules earned through debugging (BatchNorm recalibration, fp32 guard on fragile pooling, train/inference front-end parity) are enforced across every run</li>
+            </ul>
+
+            <h3>Outcome</h3>
+            <p>
+                The champion ONNX ensemble (Private LB 0.89774) is the direct result of this discipline: only verified,
+                correctly packaged models entered the four-member stack; rejected candidates (such as the failed pseudo-label
+                training run) never reached submission. The remaining gap to 0.90 is now a focused training question, not
+                an operational or tracking problem.
             </p>
         </section>
 
@@ -433,15 +455,18 @@
                 <li>
                     <h3>The export path is as load-bearing as the model</h3>
                     <p>
-                        v3's regression was an export bug shipping <code>supervised.pt</code> instead of <code>noisy_iter2.pt</code>.
-                        Fixed with deterministic <code>_ckpt_priority()</code>. Several runs peaked at iter1 but exported iter2.
+                        v3's regression was an export bug: the submission packaged an early supervised-only snapshot instead
+                        of the final self-trained model after two rounds of soundscape learning. A deterministic
+                        checkpoint-selection policy fixed this — always ship the fully trained model, never an intermediate
+                        snapshot. Several runs peaked mid-training but still exported a later, weaker checkpoint until export
+                        policy was aligned with validation peaks.
                     </p>
                 </li>
                 <li>
                     <h3>Prob blend, not rank blend, for post-processed ensembles</h3>
                     <p>
-                        v6 scored flat because rank-uniform scores were fed into probability-tuned post-processing (logit-space
-                        priors, max-boost, taxonomy smoothing). Switching to <code>blend_mode = "prob"</code> recovered the loss.
+                        v6 scored flat because rank-uniform scores were fed into probability-tuned post-processing (site/hour
+                        priors, score boosting, taxonomy smoothing). Switching to probability-space blending recovered the loss.
                     </p>
                 </li>
                 <li>
@@ -463,7 +488,8 @@
                     <h3>Single-model ceiling; ensemble + inference stack close the gap</h3>
                     <p>
                         Best single CNN: 0.848. PyTorch 1-member + TTA: 0.863. ONNX 4-member: 0.898. The remaining +0.002 to
-                        0.90 likely needs training (Phase E: soundscape Perch embeddings → v7-run2), not more inference tuning.
+                        0.90 likely needs the next training cycle (Phase E: soundscape Perch embeddings, then retraining with
+                        best-checkpoint export), not more inference tuning.
                     </p>
                 </li>
             </ol>
@@ -530,7 +556,7 @@
             </p>
             <ul>
                 <li><strong>E1:</strong> Precompute Perch embeddings on full soundscape audio (not focal-heavy cache)</li>
-                <li><strong>E2:</strong> v7-run2 training with soundscape-aware pseudo-labels and best-by-Site-22 export policy</li>
+                <li><strong>E2:</strong> a new training cycle with soundscape-aware pseudo-labels and export of the best Site-22 checkpoint, not just the last training epoch</li>
             </ul>
             <p>Target: close the remaining <strong>+0.00226</strong> private gap to 0.90 macro-AUC.</p>
         </section>
