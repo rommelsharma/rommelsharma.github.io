@@ -38,6 +38,22 @@
                 "name": "Rommel Sharma",
                 "url": "https://rommelsharma.github.io/",
                 "jobTitle": "Senior AI Leader & Enterprise Architect",
+                "description": "Senior AI business development and go-to-market leader with 25+ years' experience, focused on building and scaling commercial AI initiatives — particularly agentic customer experience orchestration at Adobe.",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "Adobe",
+                    "url": "https://www.adobe.com/"
+                },
+                "knowsAbout": [
+                    "Applied Machine Learning",
+                    "Generative AI",
+                    "MLOps",
+                    "Computer Vision",
+                    "Bio-Acoustics",
+                    "Voice Synthesis",
+                    "Retrieval-Augmented Generation",
+                    "Quantitative Finance"
+                ],
                 "address": {
                     "@type": "PostalAddress",
                     "addressLocality": "Sydney",
@@ -46,6 +62,7 @@
                 },
                 "sameAs": [
                     "https://www.linkedin.com/in/rommelsharma",
+                    "https://github.com/rommelsharma",
                     "https://www.skills.google/public_profiles/a8728b82-b98c-4e37-a9f4-f9b77782fb30"
                 ]
             },
@@ -65,6 +82,8 @@
                 "name": "Rommel Sharma — Applied AI Portfolio",
                 "description": "Index of technical articles and projects authored by Rommel Sharma.",
                 "author": { "@id": "https://rommelsharma.github.io/#person" },
+                "about": { "@id": "https://rommelsharma.github.io/#person" },
+                "mainEntity": { "@id": "https://rommelsharma.github.io/#person" },
                 "isPartOf": { "@id": "https://rommelsharma.github.io/#website" },
                 "hasPart": [
                     { "@type": "Article", "url": "https://rommelsharma.github.io/projects/bio-acoustics.html", "author": { "@id": "https://rommelsharma.github.io/#person" } },
@@ -84,7 +103,7 @@
     <header class="hero">
         <div class="container">
             <h2 class="name">AI/ML Portfolio of work by Rommel Sharma</h2>
-            <p class="tagline">Welcome to my portfolio. As a Senior AI Business Development & GTM Leader with 25+ years’ experience, I focus on building and scaling commercial AI initiatives — particularly agentic Customer Experience Orchestration at Adobe. This GitHub showcases personal AI projects (bias-aware decision tools, computer vision, bioacoustics, quantitative analysis) I pursue out of technical curiosity to better advise executives and accelerate enterprise adoption.</p>
+            <p class="tagline">Welcome to my portfolio. As an AI Business Development & GTM Leader with 25+ years’ experience, I focus on building and scaling commercial AI initiatives — particularly agentic Customer Experience Orchestration at Adobe. This GitHub showcases personal AI projects (bias-aware decision tools, computer vision, bioacoustics, quantitative analysis) I pursue out of technical curiosity to better advise executives and accelerate enterprise adoption.</p>
             <p class="author-links">
                 <a href="https://www.linkedin.com/in/rommelsharma" rel="me">LinkedIn</a>
                 <!-- <a href="feed.xml">RSS Feed</a> -->
@@ -92,52 +111,10 @@
         </div>
     </header>
     <main class="container">
-        <!-- SEO/GEO index: hidden visually; crawlers still read this HTML + JSON-LD in <head> -->
-        <section class="article-index seo-only" aria-hidden="true">
-            <h2 class="section-title">Articles &amp; Projects by Rommel Sharma</h2>
-            <p class="section-intro">
-                Technical deep dives authored by <strong>Rommel Sharma</strong> (Sydney, Australia).
-                Subscribe via <a href="feed.xml">RSS</a> or connect on
-                <a href="https://www.linkedin.com/in/rommelsharma" rel="me">LinkedIn</a>.
-            </p>
-            <ul class="article-list">
-                <li>
-                    <h3><a href="projects/bio-acoustics.html">Wildlife Identification by Sound</a></h3>
-                    <p class="article-byline">By Rommel Sharma</p>
-                    <p class="article-teaser">BirdCLEF+ 2026 Pantanal acoustic species ID — from 0.50 baseline to 0.898 private LB with an ONNX 4-member ensemble, Site-22 harness gates, and MLOps discipline.</p>
-                </li>
-                <li>
-                    <h3><a href="projects/jaguar-identification.html">Wildlife ID by Computer Vision</a></h3>
-                    <p class="article-byline">By Rommel Sharma</p>
-                    <p class="article-teaser">Wildlife computer vision with MegaDescriptor backbones, metric learning, and conservation-focused re-identification pipelines.</p>
-                </li>
-                <li>
-                    <h3><a href="projects/decision-lens.html">Decision Lens: Evidence-Grounded Decision Intelligence</a></h3>
-                    <p class="article-byline">By Rommel Sharma</p>
-                    <p class="article-teaser">RAG-based decision intelligence surfacing cognitive biases in high-stakes strategy using behavioral science literature.</p>
-                </li>
-                <li>
-                    <h3><a href="projects/voice-synthesis.html">SonarAI: Voice Synthesis &amp; Zero-Shot Cloning</a></h3>
-                    <p class="article-byline">By Rommel Sharma</p>
-                    <p class="article-teaser">Privacy-preserving, broadcast-quality TTS with dual-path inference, SSML parsing, and EBU R128 normalization.</p>
-                </li>
-                <li>
-                    <h3><a href="projects/market-analysis.html">Stocks Value Investor: Quantitative Equity Screener</a></h3>
-                    <p class="article-byline">By Rommel Sharma</p>
-                    <p class="article-teaser">Rules-driven equity screening with Benjamin Graham principles, a decoupled JSON rules engine, and LLM thesis validation.</p>
-                </li>
-                <li>
-                    <h3><a href="projects/facial-recognition.html">Real-Time Face Recognition</a></h3>
-                    <p class="article-byline">By Rommel Sharma</p>
-                    <p class="article-teaser">Low-latency face recognition with InsightFace embeddings, WebRTC streaming, and edge-ready identity verification.</p>
-                </li>
-            </ul>
-        </section>
         <section class="project-grid">
             <div class="project-card">
                 <div class="card-content">
                     <h2 class="project-title">Wildlife ID by Sound</h2>
-                    <p class="card-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a></p>
                     <p class="project-description">
                         Research-to-product pipeline for identifying Pantanal (Brazil, Bolivia, and Paraguay) biodiversity:
                         Offline acoustic identification for 234 Pantanal species—birds, amphibians, mammals, reptiles, and insects—from short field recordings.
@@ -153,7 +130,6 @@
             <div class="project-card">
                 <div class="card-content">
                     <h2 class="project-title">Wildlife ID by Computer Vision</h2>
-                    <p class="card-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a></p>
                     <p class="project-description">
                         Engineered a deep-learning AI‑driven computer vision system and visual pattern framework to optimize
                         wildlife monitoring metrics, accelerating insight processing times for multi-domain conservation
@@ -171,7 +147,6 @@
             <div class="project-card">
                 <div class="card-content">
                     <h2 class="project-title">Decision Lens</h2>
-                    <p class="card-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a></p>
                     <p class="project-description">
                         An evidence-grounded decision intelligence system that leverages Retrieval-Augmented Generation
                         (RAG) and behavioral science literature to surface cognitive biases in high-stakes strategy.
@@ -188,7 +163,6 @@
             <div class="project-card">
                 <div class="card-content">
                     <h2 class="project-title">SonarAI: Voice Synthesis</h2>
-                    <p class="card-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a></p>
                     <p class="project-description">
                         A production-grade, privacy-preserving text-to-speech engine. Features dual-path inference for
                         consistent multilingual built-in voices and zero-shot voice cloning, outputting broadcast-ready
@@ -205,7 +179,6 @@
             <div class="project-card">
                 <div class="card-content">
                     <h2 class="project-title">Stocks Value Investor</h2>
-                    <p class="card-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a></p>
                     <p class="project-description">
                         A rules-driven quantitative equity screener applying Benjamin Graham and Peter Lynch review
                         strategies to US and Indian stock markets. Features an LLM-powered investment thesis analyzer and a
@@ -222,7 +195,6 @@
             <div class="project-card">
                 <div class="card-content">
                     <h2 class="project-title">Real-Time Face Recognition</h2>
-                    <p class="card-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a></p>
                     <p class="project-description">
                         A production-ready, real-time face recognition system featuring low-latency WebRTC streaming and
                         state-of-the-art embedding extraction for secure identity verification.
@@ -273,9 +245,6 @@
             <a href="https://www.linkedin.com/in/rommelsharma" rel="me">LinkedIn</a>
             <a href="feed.xml">RSS</a>
         </p>
-        <nav class="seo-only" aria-hidden="true">
-            <a href="https://rommelsharma.github.io/sitemap.xml">Sitemap — Rommel Sharma Applied AI Portfolio</a>
-        </nav>
     </footer>
 </body>
 
