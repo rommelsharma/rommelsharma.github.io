@@ -115,22 +115,6 @@
             <p>
                 This project builds an offline acoustic wildlife identification system for Brazil’s Pantanal—supporting field biologists, rangers, and citizen scientists who need reliable species detections without cloud connectivity. From short audio clips, the application estimates presence across 234 taxa (birds, amphibians, mammals, reptiles, and insects), including overlapping calls in noisy, far-field soundscapes. The core challenge is ecological, not cosmetic: most training examples are clean, close-range recordings, while real deployments face distant microphones, wind, insects, and multiple species calling at once. The pipeline combines efficient on-device models, teacher-guided learning from unlabeled soundscapes, and ensemble inference tuned for robust ranking scores in the UI—turning competition-grade research into a practical tool for biodiversity monitoring and conservation workflows.
             </p>
-            <div class="champion-callout">
-                <h3>Final champion model-ensemble (project closed, July 2026)</h3>
-                <p>
-                    <strong>v9 ONNX 6-member ensemble</strong> — Private LB <strong>0.92041</strong> / Public <strong>0.90552</strong>
-                    (+0.0227 private vs the former v7 4-member champion). Five CNNs — including a deliberately decorrelated,
-                    normalizer-free <strong>ECA-NFNet-L0</strong> (correlation 0.199 vs the anchor, the most decorrelated member on
-                    record) — plus a <strong>live native Perch v2</strong>, blended in probability space via ONNX Runtime on CPU with
-                    <strong>selective test-time augmentation</strong> (TTA on the cheap members only, to stay inside the 90-minute budget).
-                </p>
-                <p>
-                    This cleared the 0.90 target. The gains came from <strong>error decorrelation and inference engineering</strong>,
-                    not a bigger network. The champion is now packaged in a deployable <strong>CPU identification app</strong>, and the
-                    project concludes here — remaining accuracy levers (XC-pretrained backbones, more families, soft pseudo-labeling)
-                    are documented as future work.
-                </p>
-            </div>
             <p>
                 <a href="https://www.kaggle.com/writeups/rommelsharma/sound-event-detection-for-wildlife-identification" class="back-btn" target="_blank" rel="noopener noreferrer">Read the Kaggle writeup &rarr;</a>
             </p>
@@ -261,6 +245,22 @@
             <p>
                 <img src="images/bio_perch_train_iter2.png" alt="Noisy Student iteration 2 training results" class="project-image" />
             </p>
+            <div class="champion-callout">
+                <h3>Final champion model-ensemble (project closed, July 2026)</h3>
+                <p>
+                    <strong>v9 ONNX 6-member ensemble</strong> — Private LB <strong>0.92041</strong> / Public <strong>0.90552</strong>
+                    (+0.0227 private vs the former v7 4-member champion). Five CNNs — including a deliberately decorrelated,
+                    normalizer-free <strong>ECA-NFNet-L0</strong> (correlation 0.199 vs the anchor, the most decorrelated member on
+                    record) — plus a <strong>live native Perch v2</strong>, blended in probability space via ONNX Runtime on CPU with
+                    <strong>selective test-time augmentation</strong> (TTA on the cheap members only, to stay inside the 90-minute budget).
+                </p>
+                <p>
+                    This cleared the 0.90 target. The gains came from <strong>error decorrelation and inference engineering</strong>,
+                    not a bigger network. The champion is now packaged in a deployable <strong>CPU identification app</strong>, and the
+                    project concludes here — remaining accuracy levers (XC-pretrained backbones, more families, soft pseudo-labeling)
+                    are documented as future work.
+                </p>
+            </div>
         </section>
         <section class="model-card-section">
             <h2>Model Card</h2>
@@ -692,12 +692,55 @@
         <p>
             <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
         </p>
+        <section class="publications-section">
+            <h2>Published Articles</h2>
+            <p class="publications-intro">
+                Explore the writing and working tools behind this project — from an accessible introduction to bioacoustics,
+                to a detailed methods paper, to a live app you can try in your browser.
+            </p>
+            <div class="publications-grid">
+                <a href="https://medium.com/@rommelsharma" class="pub-card" target="_blank" rel="noopener noreferrer">
+                    <div class="pub-card-top">
+                        <span class="pub-badge">Medium</span>
+                        <span class="pub-icon" aria-hidden="true">&#9998;</span>
+                    </div>
+                    <h3>Articles on Machine Learning</h3>
+                    <p>My ongoing collection of applied AI and machine learning writing on Medium.</p>
+                    <span class="pub-link">Read on Medium &rarr;</span>
+                </a>
+                <a href="https://medium.com/@rommelsharma/a-beginners-guide-to-bioacoustics-how-computer-vision-helps-identify-wildlife-by-sound-c517983547d4" class="pub-card" target="_blank" rel="noopener noreferrer">
+                    <div class="pub-card-top">
+                        <span class="pub-badge">Article</span>
+                        <span class="pub-icon" aria-hidden="true">&#128016;</span>
+                    </div>
+                    <h3>A Beginner&rsquo;s Guide to Bioacoustics</h3>
+                    <p>How computer vision helps identify wildlife by sound — an accessible introduction to the field.</p>
+                    <span class="pub-link">Read the guide &rarr;</span>
+                </a>
+                <a href="https://www.researchsquare.com/article/rs-10188304/v1" class="pub-card" target="_blank" rel="noopener noreferrer">
+                    <div class="pub-card-top">
+                        <span class="pub-badge pub-badge-paper">Research Paper</span>
+                        <span class="pub-icon" aria-hidden="true">&#128220;</span>
+                    </div>
+                    <h3>Deep-Learning Model Selection, Optimization &amp; Deployment</h3>
+                    <p>A detailed methods paper on wildlife sound classification for edge devices (Research Square).</p>
+                    <span class="pub-link">Read the paper &rarr;</span>
+                </a>
+                <a href="https://huggingface.co/spaces/rommelsharma/wildlife-id-by-sound" class="pub-card" target="_blank" rel="noopener noreferrer">
+                    <div class="pub-card-top">
+                        <span class="pub-badge pub-badge-app">Live App</span>
+                        <span class="pub-icon" aria-hidden="true">&#127925;</span>
+                    </div>
+                    <h3>Wildlife ID by Sound</h3>
+                    <p>Try the Bioacoustics solution live — upload a clip and get ranked species detections.</p>
+                    <span class="pub-link">Launch the app &rarr;</span>
+                </a>
+            </div>
+        </section>
         <section class="connect-section">
             <h2>Let's Connect</h2>
             <p>
-                I enjoy discussing deep learning for environmental conservation, acoustic monitoring pipelines, and the
-                engineering discipline behind competition-scale ML systems. Questions about ensemble design, ONNX inference,
-                or MLOps gating are welcome.
+                Always happy to chat about advances in AI, ML applications, innovations, and new methods to do things better.
             </p>
             <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" class="btn-primary">Connect on LinkedIn</a>
         </section>
