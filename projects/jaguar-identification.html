@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jaguar Re-Identification | Rommel Sharma</title>
-    <meta name="description" content="Wildlife re-identification system by Rommel Sharma. Deep learning with MegaDescriptor backbones and metric learning for conservation-focused computer vision.">
-    <meta name="keywords" content="Rommel Sharma, Rommel Sharma Sydney, Machine Learning Leader APAC, Jaguar Re-Identification, Computer Vision Conservation, MegaDescriptor, Layer-wise Learning Rate Decay, LLRD, Triplet Loss PyTorch, MLOps Australia">
+    <meta name="description" content="Wildlife re-identification system by Rommel Sharma. Frozen DINOv2-Giant foundation features + metric learning for conservation-focused computer vision. Private 0.950 mAP.">
+    <meta name="keywords" content="Rommel Sharma, Rommel Sharma Sydney, Jaguar Re-Identification, Computer Vision Conservation, DINOv2, Frozen Features, Metric Learning, Triplet Loss, Wildlife Monitoring, MLOps, Model Selection">
     <meta name="author" content="Rommel Sharma">
     <meta name="geo.region" content="AU-NSW">
     <meta name="geo.placename" content="Sydney">
@@ -17,14 +17,14 @@
     <link rel="author" href="https://rommelsharma.github.io/">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Wildlife Identification by Computer Vision | Rommel Sharma">
-    <meta property="og:description" content="Technical deep dive into an automated jaguar re-identification system architected by Rommel Sharma in Sydney, Australia.">
+    <meta property="og:description" content="Jaguar re-identification system achieving Private 0.950 mAP using frozen DINOv2-Giant features + metric learning. How freezing foundation models beats fine-tuning on small datasets.">
     <meta property="og:url" content="https://rommelsharma.github.io/projects/jaguar-identification.html">
     <meta property="og:site_name" content="Rommel Sharma — Applied AI Portfolio">
     <meta property="og:image" content="https://rommelsharma.github.io/assets/images/jaguar.jpg">
     <meta property="article:author" content="Rommel Sharma">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Wildlife Identification by Computer Vision | Rommel Sharma">
-    <meta name="twitter:description" content="Technical deep dive into an automated jaguar re-identification system architected by Rommel Sharma in Sydney, Australia.">
+    <meta name="twitter:description" content="Jaguar re-ID: 0.950 mAP private using frozen DINOv2-Giant. Case study in choosing representation over fine-tuning on small wildlife datasets."
     <meta name="twitter:image" content="https://rommelsharma.github.io/assets/images/jaguar.jpg">
     <script type="application/ld+json">
     {
@@ -73,7 +73,7 @@
                 "mainEntityOfPage": "https://rommelsharma.github.io/projects/jaguar-identification.html",
                 "inLanguage": "en-AU",
                 "datePublished": "2026-06-10",
-                "dateModified": "2026-06-24",
+                "dateModified": "2026-07-17",
                 "keywords": "Rommel Sharma, Jaguar Re-Identification, Computer Vision Conservation, MegaDescriptor, Metric Learning, MLOps Australia",
                 "image": "https://rommelsharma.github.io/assets/images/jaguar.jpg",
                 "author": { "@id": "https://rommelsharma.github.io/#person" },
@@ -97,12 +97,12 @@
                 <div class="meta-item"><strong>Domain:</strong> Computer Vision & Deep Learning for Conservation</div>
             </div>
             <div class="tech-pill-box">
-                <span class="tech-pill">MegaDescriptor-L (DINOv2)</span>
-                <span class="tech-pill">ArcFace Margin</span>
-                <span class="tech-pill">Batch-Hard Triplet Loss</span>
-                <span class="tech-pill">Layer-wise Learning Rate Decay (LLRD)</span>
-                <span class="tech-pill">GeM Pooling</span>
-                <span class="tech-pill">k-Reciprocal Re-ranking</span>
+                <span class="tech-pill">DINOv2-Giant (Frozen)</span>
+                <span class="tech-pill">Triplet Loss + Batch-Hard Mining</span>
+                <span class="tech-pill">Adagrad Optimizer</span>
+                <span class="tech-pill">L2-Normalised Embeddings</span>
+                <span class="tech-pill">Identity-Balanced mAP</span>
+                <span class="tech-pill">MLOps Gating & Registry</span>
             </div>
         </div>
     </header>
@@ -125,46 +125,123 @@
         </section>
         <section>
             <h2>3. Technical Solution Architecture</h2>
-            <p>The final solution balances a strong baseline feature extractor with advanced optimization criteria to build robust, highly generalizable embeddings.</p>
-            <h3>A. Foundation Backbone & Spatial Pooling</h3>
-            <p>The architecture uses a pre-trained **MegaDescriptor-L** backbone (built on top of Meta's DINOv2 Vision Transformer architecture). This foundation model provides exceptional spatial representations optimized specifically for biological contours and textures. To compress the transformer's spatial feature outputs into a final 512-dimensional vector without discarding critical pattern data, **Generalized Mean (GeM) Pooling** is implemented. GeM pooling uses a learnable parameter to adjust how aggressively it highlights prominent features compared to standard average pooling.</p>
-            <h3>B. Dual-Objective Loss Functions</h3>
-            <p>To maximize the separation between different individual jaguars, the network optimizes two distinct loss targets simultaneously during training:</p>
+            <p>After testing multiple approaches (fine-tuned MegaDescriptor-L, end-to-end EVA-02-L), the breakthrough came from a counterintuitive insight: <strong>on small datasets, a frozen giant foundation model beats a fine-tuned specialist or larger model</strong>.</p>
+
+            <h3>A. The Frozen Backbone Paradigm</h3>
+            <p>Rather than fine-tuning, the final system uses a <strong>frozen DINOv2-Giant backbone</strong> (1.1B parameters, pretrained on ~142M unlabelled images). The backbone is loaded and immediately locked—no weights change during training. Every image is processed once through the frozen backbone to extract a 1536-dimensional feature vector, and these features are cached to disk. This single forward pass is the only large-scale computation required.</p>
+            <p><span class="example-tag">Why freeze?</span> With only ~1,895 training images and a 1.1B-parameter model, fine-tuning leads to memorisation (the model has ~500,000× more capacity than data points). The frozen features from a model trained on 142M images are already richer than anything learnable from 1,895 jaguar photos. Freezing forces the system to use pre-learned knowledge, making training stable and fast.</p>
+
+            <h3>B. Lightweight Projection Head</h3>
+            <p>On top of the frozen features, a small trainable head learns to reshape 1536-d vectors into jaguar-specific 256-d embeddings:</p>
+            <pre><code>Linear(1536→512) → BatchNorm → ReLU → Dropout(0.3) → Linear(512→256) → BatchNorm → L2-normalise</code></pre>
+            <p>This head contains only ~1M parameters (about a thousandth of the backbone), ensuring it cannot overfit the 1,895 training images. The L2-normalisation places all embeddings on a unit sphere, enabling angle-based comparison (cosine similarity).</p>
+
+            <h3>C. Metric Learning: Triplet Loss + Batch-Hard Mining</h3>
+            <p>Training optimizes a single objective: <strong>triplet loss with hard-negative mining</strong>. The system processes training data in structured mini-batches (P=8 identities × K=4 images = 32 per batch), guaranteeing multiple same-identity pairs and diverse different-identity pairs. For each anchor image, the loss pulls the hardest-to-match same-identity photo closer and pushes the most deceptively similar different-identity photo farther away.</p>
+            <p>No ArcFace, no auxiliary losses, no LLRD required—the frozen features and the small head are already well-matched.</p>
+
+            <h3>D. Optimization & Training Efficiency</h3>
+            <p><strong>Adagrad</strong> optimizer (learning rate 5×10⁻²) with a plateau learning-rate scheduler. Training runs up to 300 epochs with early stopping (patience 20). Each run completes in minutes, not hours, because:</p>
             <ul>
-                <li><strong>ArcFace Classification Loss:</strong> Projects the feature vectors onto a hypersphere and applies an additive angular margin between different jaguar identities. This structure forces the network to draw tight boundaries around each individual's unique features.</li>
-                <li><strong>Batch-Hard Triplet Loss:</strong> Groups training data into structured mini-batches containing $P$ identities with $K$ images each (PK-Sampling). For every reference image (Anchor), the model identifies the mathematically most challenging match of the same identity (Hard Positive) and the most deceptively similar image of a different identity (Hard Negative) to compute gradients.</li>
-            </ul>
-            <h3>C. Fine-Tuning Stability with LLRD</h3>
-            <p>Large vision transformers are highly prone to "catastrophic forgetting" or severe overfitting when fine-tuned on small datasets. To protect the foundational knowledge captured by the backbone, **Layer-wise Learning Rate Decay (LLRD)** is used.
-                <p><span class="example-tag">Example</span> Instead of applying a uniform learning rate across the entire network, the lower layers closest to the raw image data use a highly conservative learning rate (decaying by a factor of 0.8 per layer backwards), while the brand-new classification head uses a learning rate ten times larger. This keeps foundational edge-and-shape detectors intact while allowing the top layers to adapt to jaguar spot layouts.</p>
-        </section>
-        <section>
-            <h2>4. Engineering Insights & Lessons Learned</h2>
-            <p>Building the solution highlighted that model performance often stems from catching silent infrastructure and execution failures rather than tweaking arbitrary hyperparameters. Key design evolutions included:</p>
-            <h3>A. Fixing Broken State Management</h3>
-            <p>Early iterations suffered from a hidden bug where training runs would occasionally timeout or crash on shared cluster infrastructure. While a simple checkpoint was reloaded, the internal state tracker of the *Early Stopping* mechanism was discarded upon restart. This caused the model to inadvertently save suboptimal weights. The solution was refactored to treat early stopping metrics as a stateful dictionary saved directly inside the model artifact file, ensuring consistent evaluations across pipeline preemptions.</p>
-            <h3>B. Resolving Checkpoint Shape Mismatches</h3>
-            <p>When swapping between different model variations, variations in the dense classification head layer weights caused initialization shape errors. Building an explicit custom layer mapping utility ensured that only the backbone transformer weights were reloaded cleanly during cross-validation folds, safely ignoring target layer dimension differences.</p>
-            <h3>C. Overcoming Disk Input/Output Constraints</h3>
-            <p> Kaggle environment runtimes impose strict write limits on root filesystems. Generating Test-Time Augmentations (TTA) dynamically across large image sets created significant processing bottlenecks. To overcome this, an execution pipeline was engineered to process embeddings in strict 100-image chunks, saving intermediate representations as compressed NumPy files (`.npz`) directly to a writable staging directory (`/kaggle/working/cache/`) while treating foundational inputs as read-only.</p>
-        </section>
-        <section>
-            <h2>5. Advanced Inference and Retrieval Logic</h2>
-            <p>Evaluating model performance uses the **identity-balanced mean Average Precision (mAP)** metric, which balances out accuracy tracking across individuals with wildly uneven image distributions. At inference time, accuracy is pushed further via automated post-processing:</p>
-            <ul>
-                <li><strong>Test-Time Augmentation (TTA):</strong> Every evaluation image is passed through four visual reflections (Base, Horizontal-Flip, Vertical-Flip, and Dual-Flip). The final embedding vector is computed as the average of these four representations, neutralizing perspective biases.</li>
-                <li><strong>k-Reciprocal Re-ranking:</strong> Borrowed from search engine concepts, if Image A is a top match for Image B, Image B should also be a top match for Image A. This cross-reference algorithm evaluates mutual top neighbors to penalize accidental false-positive matches, significantly boosting validation scores to **0.726 mAP**.</li>
+                <li>Features are cached once (frozen backbone computed once at the start)</li>
+                <li>Only the small head trains (gradient backprop is fast on 1M vs 1.1B parameters)</li>
+                <li>Any GPU or even CPU can run the training loop</li>
             </ul>
         </section>
         <section>
-            <h2>6. Broader Horizons: Cross-Domain Adaptations</h2>
-            <p>Because this pipeline models identity differences at a foundational pixel texture level rather than relying on a rigid label list, the entire underlying architecture can be redeployed across several industrial and ecological use cases with minimal configuration tweaks:</p>
-            <h3>A. Parallel Ecological Monitoring</h3>
-            <p>The system can instantly transfer to identify other complex fine-grained species. For example, tracking individual leopards or cheetahs via rosette density, identifying zebras via stripe patterns, or monitoring marine life like whales and manta rays using fluke shapes and spot placements.</p>
-            <h3>B. Smart Agriculture & Livestock Tracking</h3>
-            <p><span class="example-tag">Example</span> Large-scale cattle farms currently rely on invasive physical ear tags or branding to track individual cows. By swapping the training inputs, this exact architecture can identify individual cattle or horses via unique facial structures and natural hair patterns from standard overhead cameras mounted at watering troughs, enabling contactless health tracking.</p>
-            <h3>C. Industrial Asset Management & Supply Chain Search</h3>
-            <p>In manufacturing pipelines, components frequently lack clear serial numbers but carry distinctive structural surface imperfections or wood-grain configurations. This metric learning pipeline can serve as a highly accurate visual search engine to track parts, detect duplicates, or verify product authenticity across logistics networks by matching microscopic item textures.</p>
+            <h2>4. Results & Performance</h2>
+            <p>The frozen-backbone approach delivered a decisive improvement over months of fine-tuning attempts:</p>
+
+            <div class="table-wrap">
+                <table class="model-card-table">
+                    <thead>
+                        <tr>
+                            <th>Approach</th>
+                            <th>Backbone</th>
+                            <th>Private LB</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Frozen DINOv2-Giant + Triplet Head</strong></td>
+                            <td>DINOv2-Giant (1.1B, frozen)</td>
+                            <td style="color: #4ade80; font-weight: 600;">0.950</td>
+                            <td><strong>✓ Champion</strong></td>
+                        </tr>
+                        <tr>
+                            <td>MegaDescriptor-L (fine-tuned)</td>
+                            <td>MegaDescriptor-L (0.2B, ft)</td>
+                            <td>0.817</td>
+                            <td>Previous champion</td>
+                        </tr>
+                        <tr>
+                            <td>EVA-02-L (fine-tuned, 40 ep)</td>
+                            <td>EVA-02-L (0.3B, ft)</td>
+                            <td>≤0.245 CV</td>
+                            <td>Rejected</td>
+                        </tr>
+                        <tr>
+                            <td>Public Reference (0.959)</td>
+                            <td>DINOv2-Giant (1.1B, frozen)</td>
+                            <td>0.959</td>
+                            <td>External benchmark</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Key Metrics</h3>
+            <ul>
+                <li><strong>Improvement:</strong> +0.133 private LB (0.817 → 0.950)</li>
+                <li><strong>Gap to reference:</strong> 0.009 (0.950 vs 0.959)</li>
+                <li><strong>Public score:</strong> 0.935 (vs 0.950 private)</li>
+                <li><strong>Training time per run:</strong> ~5 minutes (vs ~2 hours for fine-tuning)</li>
+                <li><strong>Validation:</strong> Identity-balanced mean Average Precision (macro-averaged across 31 jaguars)</li>
+            </ul>
+
+            <h3>The Core Lesson: Frozen Beats Fine-Tuning on Small Data</h3>
+            <p>The journey involved three eras of experimentation:</p>
+            <ul>
+                <li><strong>v1 (MegaDescriptor):</strong> Fine-tuned a wildlife-pretrained backbone. Reached 0.817 with heavy post-processing (TTA, AQE, k-reciprocal reranking).</li>
+                <li><strong>v2 (EVA-02-L):</strong> Fine-tuned a larger foundation model. Overfitting was severe: cross-validation mAP deteriorated with training (0.160 → 0.185 → 0.245 across 1, 20, 40 epochs). The problem was fundamental—1,895 images cannot fine-tune a 300M–1.1B parameter model without memorisation.</li>
+                <li><strong>v3 (Frozen DINOv2-Giant):</strong> Locked the weights of a 1.1B-parameter model pretrained on 142M images. Trained only a 1M-parameter head on frozen features. Result: 0.950, no overfitting, no post-processing needed.</li>
+            </ul>
+            <p><span class="example-tag">Rule of thumb</span> On datasets of ~1K–5K images with backbones of ≥100M parameters: <strong>freeze the backbone</strong>. The pretrained knowledge is richer than the small dataset can teach; training a small head ensures stability and leverages that knowledge efficiently.</p>
+        </section>
+        <section>
+            <h2>5. Inference & Simplicity</h2>
+            <p>One of the virtues of the frozen-backbone approach is its simplicity at inference time. The system requires no post-processing tricks:</p>
+            <ul>
+                <li><strong>Feature Extraction:</strong> Every test image passes through the frozen DINOv2-Giant backbone once to produce a 1536-d vector (done at the start; results cached).</li>
+                <li><strong>Projection:</strong> The cached feature is passed through the learned head, producing a 256-d L2-normalised embedding.</li>
+                <li><strong>Comparison:</strong> For each query–gallery image pair, the system computes cosine similarity of the 256-d embeddings. Values are clipped to [0,1] and reported directly—no post-processing, no TTA, no reranking.</li>
+                <li><strong>Ranking:</strong> Test images are ranked by their similarity scores. Evaluation uses <strong>identity-balanced mean Average Precision (mAP)</strong>, which averages precision per individual jaguar equally, preventing common jaguars from dominating the metric.</li>
+            </ul>
+            <p>The fact that 0.950 mAP is reached without post-processing tricks (unlike the earlier v1 system which required TTA, AQE, and k-reciprocal reranking to reach 0.817) demonstrates that representation strength is the primary lever, not inference machinery.</p>
+        </section>
+        <section>
+            <h2>6. Transfer & Broader Horizons</h2>
+            <p>The frozen-backbone paradigm is domain-general and transfers cleanly across any species or domain where identity is encoded in texture or pattern:</p>
+
+            <h3>A. Why This Approach Transfers</h3>
+            <ul>
+                <li>The frozen DINOv2-Giant backbone learned on 142M general images—it captures universal visual concepts (texture, edges, patterns) that apply across any domain.</li>
+                <li>The projection head is lightweight and task-specific, so retraining it on a new species is fast and stable (minutes, not hours).</li>
+                <li>No fine-tuning of the backbone means no domain-specific overfitting; the method generalises wherever pattern matching applies.</li>
+            </ul>
+
+            <h3>B. Ecological & Wildlife Monitoring</h3>
+            <p>This pipeline directly transfers to other pattern-identified species: leopards (rosette patterns), zebras (stripe uniqueness), whale sharks (spot patterns), giraffes (blotch patterns), individual whales (fluke shapes). Train the same architecture on your species—the frozen DINOv2 features already encode the pattern texture you need.</p>
+
+            <h3>C. Agriculture & Livestock</h3>
+            <p><span class="example-tag">Example</span> Cattle farms use physical ear tags for individual tracking. Instead, this architecture can identify individual cows or horses via unique facial markings and coat patterns, using standard farm cameras. The frozen backbone captures facial texture naturally; only the projection head retrains on your cattle photographs.</p>
+
+            <h3>D. Industrial & Supply Chain</h3>
+            <p>Manufacturing components often lack clear serial numbers but carry unique surface textures (wood grain, metal imperfections, wear patterns). This re-ID system becomes a visual search engine: match parts by texture similarity, detect counterfeits, track components across logistics networks.</p>
+
+            <h3>Rule of Thumb for New Domains</h3>
+            <p>If identity or uniqueness is encoded in <strong>texture or spatial pattern</strong> (coat patterns, facial markings, surface imperfections), this frozen-backbone approach works directly. If identity is encoded in <strong>shape or contour</strong> (ear shape, fluke geometry), add a lightweight detection or keypoint module atop the frozen features. Either way, freezing the foundation model keeps the system stable and efficient on small, new datasets.</p>
         </section>
         <p>
             <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
