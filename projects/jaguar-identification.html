@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="en-AU">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jaguar Re-Identification | Rommel Sharma</title>
-    <meta name="description" content="Wildlife re-identification system by Rommel Sharma. Frozen DINOv2-Giant foundation features + metric learning for conservation-focused computer vision. Private 0.950 mAP.">
-    <meta name="keywords" content="Rommel Sharma, Rommel Sharma Sydney, Jaguar Re-Identification, Computer Vision Conservation, DINOv2, Frozen Features, Metric Learning, Triplet Loss, Wildlife Monitoring, MLOps, Model Selection">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jaguar Re-Identification: Frozen DINOv2 &amp; Metric Learning | Rommel Sharma</title>
+    <meta name="description" content="Technical case study by Rommel Sharma: a conservation-focused jaguar re-identification system using frozen DINOv2-Giant features and metric learning, achieving 0.950 private mAP.">
+    <meta name="keywords" content="Rommel Sharma, Jaguar Re-Identification, Computer Vision Conservation, DINOv2, Frozen Foundation Model, Metric Learning, Triplet Loss, Wildlife Monitoring, MLOps">
     <meta name="author" content="Rommel Sharma">
     <meta name="geo.region" content="AU-NSW">
     <meta name="geo.placename" content="Sydney">
@@ -16,16 +15,26 @@
     <link rel="alternate" type="application/rss+xml" title="Rommel Sharma — Applied AI Articles" href="https://rommelsharma.github.io/feed.xml">
     <link rel="author" href="https://rommelsharma.github.io/">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Wildlife Identification by Computer Vision | Rommel Sharma">
-    <meta property="og:description" content="Jaguar re-identification system achieving Private 0.950 mAP using frozen DINOv2-Giant features + metric learning. How freezing foundation models beats fine-tuning on small datasets.">
+    <meta property="og:title" content="Jaguar Re-Identification: Frozen DINOv2 &amp; Metric Learning">
+    <meta property="og:description" content="A technical case study showing why frozen foundation features beat fine-tuning on scarce wildlife data, achieving 0.950 private mAP.">
     <meta property="og:url" content="https://rommelsharma.github.io/projects/jaguar-identification.html">
     <meta property="og:site_name" content="Rommel Sharma — Applied AI Portfolio">
     <meta property="og:image" content="https://rommelsharma.github.io/assets/images/jaguar.jpg">
+    <meta property="og:image:alt" content="Jaguar used to illustrate a computer vision re-identification case study">
+    <meta property="og:locale" content="en_AU">
     <meta property="article:author" content="Rommel Sharma">
+    <meta property="article:published_time" content="2026-06-10">
+    <meta property="article:modified_time" content="2026-07-17">
+    <meta property="article:section" content="Computer Vision">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Wildlife Identification by Computer Vision | Rommel Sharma">
-    <meta name="twitter:description" content="Jaguar re-ID: 0.950 mAP private using frozen DINOv2-Giant. Case study in choosing representation over fine-tuning on small wildlife datasets."
+    <meta name="twitter:title" content="Jaguar Re-Identification: Frozen DINOv2 &amp; Metric Learning">
+    <meta name="twitter:description" content="Jaguar re-ID at 0.950 private mAP: a case study in choosing representation over fine-tuning for small wildlife datasets.">
     <meta name="twitter:image" content="https://rommelsharma.github.io/assets/images/jaguar.jpg">
+    <meta name="twitter:image:alt" content="Jaguar used to illustrate a computer vision re-identification case study">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -35,284 +44,261 @@
                 "@id": "https://rommelsharma.github.io/#person",
                 "name": "Rommel Sharma",
                 "url": "https://rommelsharma.github.io/",
-                "jobTitle": "Senior AI Leader & Enterprise Architect",
-                "description": "Senior AI business development and go-to-market leader with 25+ years' experience, focused on building and scaling commercial AI initiatives — particularly agentic customer experience orchestration at Adobe.",
-                "worksFor": {
-                    "@type": "Organization",
-                    "name": "Adobe",
-                    "url": "https://www.adobe.com/"
-                },
-                "knowsAbout": [
-                    "Applied Machine Learning",
-                    "Generative AI",
-                    "MLOps",
-                    "Computer Vision",
-                    "Bio-Acoustics",
-                    "Voice Synthesis",
-                    "Retrieval-Augmented Generation",
-                    "Quantitative Finance"
-                ],
+                "jobTitle": "Enterprise AI Go-to-Market and Business Development Leader",
+                "description": "Enterprise AI go-to-market and business development leader with 25+ years across product engineering, delivery and commercial leadership, complemented by hands-on applied AI and machine learning research.",
+                "worksFor": { "@type": "Organization", "name": "Adobe", "url": "https://www.adobe.com/" },
                 "sameAs": [
                     "https://www.linkedin.com/in/rommelsharma",
                     "https://github.com/rommelsharma",
                     "https://medium.com/@rommelsharma",
-                    "https://orcid.org/0009-0005-6819-6219",
-                    "https://www.skills.google/public_profiles/a8728b82-b98c-4e37-a9f4-f9b77782fb30"
+                    "https://orcid.org/0009-0005-6819-6219"
                 ],
-                "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "Sydney",
-                    "addressRegion": "NSW",
-                    "addressCountry": "Australia"
-                }
+                "address": { "@type": "PostalAddress", "addressLocality": "Sydney", "addressRegion": "NSW", "addressCountry": "AU" }
             },
             {
                 "@type": "TechArticle",
                 "@id": "https://rommelsharma.github.io/projects/jaguar-identification.html#article",
-                "headline": "Wildlife Identification by Computer Vision: Jaguar Re-Identification via Deep Learning and Metric Learning",
-                "description": "Technical deep dive into an automated jaguar re-identification system architected by Rommel Sharma in Sydney, Australia.",
+                "headline": "Jaguar Re-Identification: Frozen DINOv2 Foundation Features and Metric Learning",
+                "alternativeHeadline": "Wildlife Identification by Computer Vision",
+                "description": "Technical case study of an automated jaguar re-identification system achieving 0.950 private mAP using frozen DINOv2-Giant features and metric learning.",
                 "url": "https://rommelsharma.github.io/projects/jaguar-identification.html",
-                "mainEntityOfPage": "https://rommelsharma.github.io/projects/jaguar-identification.html",
+                "mainEntityOfPage": { "@type": "WebPage", "@id": "https://rommelsharma.github.io/projects/jaguar-identification.html" },
                 "inLanguage": "en-AU",
                 "datePublished": "2026-06-10",
                 "dateModified": "2026-07-17",
-                "keywords": "Rommel Sharma, Jaguar Re-Identification, Computer Vision Conservation, MegaDescriptor, Metric Learning, MLOps Australia",
-                "image": "https://rommelsharma.github.io/assets/images/jaguar.jpg",
+                "proficiencyLevel": "Expert",
+                "keywords": ["Jaguar Re-Identification", "DINOv2", "Metric Learning", "Computer Vision for Conservation", "Triplet Loss", "MLOps"],
+                "image": { "@type": "ImageObject", "url": "https://rommelsharma.github.io/assets/images/jaguar.jpg", "caption": "Jaguar re-identification computer vision case study" },
                 "author": { "@id": "https://rommelsharma.github.io/#person" },
                 "creator": { "@id": "https://rommelsharma.github.io/#person" },
-                "publisher": { "@id": "https://rommelsharma.github.io/#person" }
+                "publisher": { "@id": "https://rommelsharma.github.io/#person" },
+                "about": [
+                    { "@type": "Thing", "name": "Computer vision for wildlife conservation" },
+                    { "@type": "Thing", "name": "Metric learning" },
+                    { "@type": "Thing", "name": "Foundation models" }
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://rommelsharma.github.io/" },
+                    { "@type": "ListItem", "position": 2, "name": "Jaguar Re-Identification", "item": "https://rommelsharma.github.io/projects/jaguar-identification.html" }
+                ]
             }
         ]
     }
     </script>
-    <link rel="stylesheet" href="../css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <header class="project-hero" style="background-image: url('../assets/images/jaguar.jpg');">
-        <div class="container project-hero-centered">
-            <h1>Jaguar Re-Identification - Wildlife identification by Computer Vision</h1>
-            <div class="meta-strip">
-                <div class="meta-item"><strong>Author:</strong> Rommel Sharma</div>
-                <div class="meta-item"><strong>Location:</strong> Sydney, NSW, Australia</div>
-                <div class="meta-item"><strong>Domain:</strong> Computer Vision & Deep Learning for Conservation</div>
-            </div>
-            <div class="tech-pill-box">
-                <span class="tech-pill">DINOv2-Giant (Frozen)</span>
-                <span class="tech-pill">Triplet Loss + Batch-Hard Mining</span>
-                <span class="tech-pill">Adagrad Optimizer</span>
-                <span class="tech-pill">L2-Normalised Embeddings</span>
-                <span class="tech-pill">Identity-Balanced mAP</span>
-                <span class="tech-pill">MLOps Gating & Registry</span>
-            </div>
-        </div>
+    <a class="skip-link" href="#article-content">Skip to article</a>
+
+    <header class="site-header">
+        <nav class="site-nav shell" aria-label="Primary navigation">
+            <a class="wordmark" href="../index.html" aria-label="Rommel Sharma, portfolio home">Rommel Sharma</a>
+            <ul class="nav-links">
+                <li><a href="../index.html#research">Research</a></li>
+                <li><a href="../index.html#writing">Writing</a></li>
+                <li><a class="nav-cta" href="https://www.linkedin.com/in/rommelsharma" rel="me noopener" target="_blank">Connect ↗</a></li>
+            </ul>
+        </nav>
     </header>
-    <article class="article-body">
-        <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-        <p class="article-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a> · <a href="https://www.linkedin.com/in/rommelsharma" rel="me">LinkedIn</a></p>
-        <section>
-            <h2>1. Introduction & Project Objective</h2>
-            <p>Wildlife monitoring relies heavily on camera traps to track endangered animal populations. Historically, researchers had to manually inspect thousands of photos to match individual animals based on their unique coat pattern markings. This project establishes an automated, deep learning pipeline designed to solve the <strong>Jaguar Re-Identification (Re-ID)</strong> problem by transforming visual pattern matching into a high-dimensional metric learning task.</p>
-            <p>Instead of matching an image to a fixed set of labels, the system learns to convert raw camera trap images into compact mathematical numerical vectors (embeddings). When two photos feature the same jaguar, their resulting vectors sit close together in vector space; if the photos feature different jaguars, their vectors sit far apart.</p>
-        </section>
-        <section>
-            <h2>2. The Problem Context & Challenge</h2>
-            <p>Standard classification networks (which assign images to rigid categories like "Jaguar A" or "Jaguar B") fail in ecological research settings because the population is dynamic. New animals are constantly discovered in the wild. If a new jaguar is found, a traditional classification model requires altering its architecture and retraining from scratch.</p>
-            <p>Furthermore, real-world data presents massive complexity:</p>
-            <ul>
-                <li><strong>Extremely Limited Data:</strong> The training dataset consists of only 1,895 images covering a few dozen individuals. Some individuals have as few as three recorded photographs.</li>
-                <li><strong>Significant Environmental Distortions:</strong> Photos feature dramatic variations in lightning (night vs. day flashes), severe changes in body posture, camera angles, and occlusions from forest foliage.</li>
-            </ul>
-        </section>
-        <section>
-            <h2>3. Technical Solution Architecture</h2>
-            <p>After testing multiple approaches (fine-tuned MegaDescriptor-L, end-to-end EVA-02-L), the breakthrough came from a counterintuitive insight: <strong>on small datasets, a frozen giant foundation model beats a fine-tuned specialist or larger model</strong>.</p>
 
-            <h3>A. The Frozen Backbone Paradigm</h3>
-            <p>Rather than fine-tuning, the final system uses a <strong>frozen DINOv2-Giant backbone</strong> (1.1B parameters, pretrained on ~142M unlabelled images). The backbone is loaded and immediately locked—no weights change during training. Every image is processed once through the frozen backbone to extract a 1536-dimensional feature vector, and these features are cached to disk. This single forward pass is the only large-scale computation required.</p>
-            <p><span class="example-tag">Why freeze?</span> With only ~1,895 training images and a 1.1B-parameter model, fine-tuning leads to memorisation (the model has ~500,000× more capacity than data points). The frozen features from a model trained on 142M images are already richer than anything learnable from 1,895 jaguar photos. Freezing forces the system to use pre-learned knowledge, making training stable and fast.</p>
-
-            <h3>B. Lightweight Projection Head</h3>
-            <p>On top of the frozen features, a small trainable head learns to reshape 1536-d vectors into jaguar-specific 256-d embeddings:</p>
-            <pre><code>Linear(1536→512) → BatchNorm → ReLU → Dropout(0.3) → Linear(512→256) → BatchNorm → L2-normalise</code></pre>
-            <p>This head contains only ~1M parameters (about a thousandth of the backbone), ensuring it cannot overfit the 1,895 training images. The L2-normalisation places all embeddings on a unit sphere, enabling angle-based comparison (cosine similarity).</p>
-
-            <h3>C. Metric Learning: Triplet Loss + Batch-Hard Mining</h3>
-            <p>Training optimizes a single objective: <strong>triplet loss with hard-negative mining</strong>. The system processes training data in structured mini-batches (P=8 identities × K=4 images = 32 per batch), guaranteeing multiple same-identity pairs and diverse different-identity pairs. For each anchor image, the loss pulls the hardest-to-match same-identity photo closer and pushes the most deceptively similar different-identity photo farther away.</p>
-            <p>No ArcFace, no auxiliary losses, no LLRD required—the frozen features and the small head are already well-matched.</p>
-
-            <h3>D. Optimization & Training Efficiency</h3>
-            <p><strong>Adagrad</strong> optimizer (learning rate 5×10⁻²) with a plateau learning-rate scheduler. Training runs up to 300 epochs with early stopping (patience 20). Each run completes in minutes, not hours, because:</p>
-            <ul>
-                <li>Features are cached once (frozen backbone computed once at the start)</li>
-                <li>Only the small head trains (gradient backprop is fast on 1M vs 1.1B parameters)</li>
-                <li>Any GPU or even CPU can run the training loop</li>
-            </ul>
-        </section>
-        <section>
-            <h2>4. Results & Performance</h2>
-            <p>The frozen-backbone approach delivered a decisive improvement over months of fine-tuning attempts:</p>
-
-            <div class="table-wrap">
-                <table class="model-card-table">
-                    <thead>
-                        <tr>
-                            <th>Approach</th>
-                            <th>Backbone</th>
-                            <th>Private LB</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Frozen DINOv2-Giant + Triplet Head</strong></td>
-                            <td>DINOv2-Giant (1.1B, frozen)</td>
-                            <td style="color: #4ade80; font-weight: 600;">0.950</td>
-                            <td><strong>✓ Champion</strong></td>
-                        </tr>
-                        <tr>
-                            <td>MegaDescriptor-L (fine-tuned)</td>
-                            <td>MegaDescriptor-L (0.2B, ft)</td>
-                            <td>0.817</td>
-                            <td>Previous champion</td>
-                        </tr>
-                        <tr>
-                            <td>EVA-02-L (fine-tuned, 40 ep)</td>
-                            <td>EVA-02-L (0.3B, ft)</td>
-                            <td>≤0.245 CV</td>
-                            <td>Rejected</td>
-                        </tr>
-                        <tr>
-                            <td>Public Reference (0.959)</td>
-                            <td>DINOv2-Giant (1.1B, frozen)</td>
-                            <td>0.959</td>
-                            <td>External benchmark</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <main>
+        <header class="project-cover">
+            <div class="project-cover__inner shell">
+                <div class="project-cover__copy">
+                    <p class="eyebrow">Computer vision · Conservation · Case study 02</p>
+                    <h1>Jaguar re-identification.</h1>
+                    <p class="project-cover__dek">How a frozen 1.1-billion-parameter foundation model and a lightweight metric-learning head achieved 0.950 private mAP on scarce wildlife data.</p>
+                    <div class="tech-pills" aria-label="Technologies used">
+                        <span class="tech-pill">DINOv2-Giant</span>
+                        <span class="tech-pill">Triplet Loss</span>
+                        <span class="tech-pill">Batch-Hard Mining</span>
+                        <span class="tech-pill">L2 Embeddings</span>
+                        <span class="tech-pill">Identity-Balanced mAP</span>
+                    </div>
+                </div>
+                <figure class="project-cover__image">
+                    <img src="../assets/images/jaguar.jpg" alt="Close view of a jaguar whose unique coat patterns can be used for computer vision re-identification" width="1408" height="768" fetchpriority="high">
+                    <figcaption class="image-caption">Pattern as identity</figcaption>
+                </figure>
             </div>
+        </header>
 
-            <h3>Key Metrics</h3>
-            <ul>
-                <li><strong>Improvement:</strong> +0.133 private LB (0.817 → 0.950)</li>
-                <li><strong>Gap to reference:</strong> 0.009 (0.950 vs 0.959)</li>
-                <li><strong>Public score:</strong> 0.935 (vs 0.950 private)</li>
-                <li><strong>Training time per run:</strong> ~5 minutes (vs ~2 hours for fine-tuning)</li>
-                <li><strong>Validation:</strong> Identity-balanced mean Average Precision (macro-averaged across 31 jaguars)</li>
-            </ul>
-
-            <h3>The Core Lesson: Frozen Beats Fine-Tuning on Small Data</h3>
-            <p>The journey involved three eras of experimentation:</p>
-            <ul>
-                <li><strong>v1 (MegaDescriptor):</strong> Fine-tuned a wildlife-pretrained backbone. Reached 0.817 with heavy post-processing (TTA, AQE, k-reciprocal reranking).</li>
-                <li><strong>v2 (EVA-02-L):</strong> Fine-tuned a larger foundation model. Overfitting was severe: cross-validation mAP deteriorated with training (0.160 → 0.185 → 0.245 across 1, 20, 40 epochs). The problem was fundamental—1,895 images cannot fine-tune a 300M–1.1B parameter model without memorisation.</li>
-                <li><strong>v3 (Frozen DINOv2-Giant):</strong> Locked the weights of a 1.1B-parameter model pretrained on 142M images. Trained only a 1M-parameter head on frozen features. Result: 0.950, no overfitting, no post-processing needed.</li>
-            </ul>
-            <p><span class="example-tag">Rule of thumb</span> On datasets of ~1K–5K images with backbones of ≥100M parameters: <strong>freeze the backbone</strong>. The pretrained knowledge is richer than the small dataset can teach; training a small head ensures stability and leverages that knowledge efficiently.</p>
-        </section>
-        <section>
-            <h2>5. Inference & Simplicity</h2>
-            <p>One of the virtues of the frozen-backbone approach is its simplicity at inference time. The system requires no post-processing tricks:</p>
-            <ul>
-                <li><strong>Feature Extraction:</strong> Every test image passes through the frozen DINOv2-Giant backbone once to produce a 1536-d vector (done at the start; results cached).</li>
-                <li><strong>Projection:</strong> The cached feature is passed through the learned head, producing a 256-d L2-normalised embedding.</li>
-                <li><strong>Comparison:</strong> For each query–gallery image pair, the system computes cosine similarity of the 256-d embeddings. Values are clipped to [0,1] and reported directly—no post-processing, no TTA, no reranking.</li>
-                <li><strong>Ranking:</strong> Test images are ranked by their similarity scores. Evaluation uses <strong>identity-balanced mean Average Precision (mAP)</strong>, which averages precision per individual jaguar equally, preventing common jaguars from dominating the metric.</li>
-            </ul>
-            <p>The fact that 0.950 mAP is reached without post-processing tricks (unlike the earlier v1 system which required TTA, AQE, and k-reciprocal reranking to reach 0.817) demonstrates that representation strength is the primary lever, not inference machinery.</p>
-        </section>
-        <section>
-            <h2>6. Transfer & Broader Horizons</h2>
-            <p>The frozen-backbone paradigm is domain-general and transfers cleanly across any species or domain where identity is encoded in texture or pattern:</p>
-
-            <h3>A. Why This Approach Transfers</h3>
-            <ul>
-                <li>The frozen DINOv2-Giant backbone learned on 142M general images—it captures universal visual concepts (texture, edges, patterns) that apply across any domain.</li>
-                <li>The projection head is lightweight and task-specific, so retraining it on a new species is fast and stable (minutes, not hours).</li>
-                <li>No fine-tuning of the backbone means no domain-specific overfitting; the method generalises wherever pattern matching applies.</li>
-            </ul>
-
-            <h3>B. Ecological & Wildlife Monitoring</h3>
-            <p>This pipeline directly transfers to other pattern-identified species: leopards (rosette patterns), zebras (stripe uniqueness), whale sharks (spot patterns), giraffes (blotch patterns), individual whales (fluke shapes). Train the same architecture on your species—the frozen DINOv2 features already encode the pattern texture you need.</p>
-
-            <h3>C. Agriculture & Livestock</h3>
-            <p><span class="example-tag">Example</span> Cattle farms use physical ear tags for individual tracking. Instead, this architecture can identify individual cows or horses via unique facial markings and coat patterns, using standard farm cameras. The frozen backbone captures facial texture naturally; only the projection head retrains on your cattle photographs.</p>
-
-            <h3>D. Industrial & Supply Chain</h3>
-            <p>Manufacturing components often lack clear serial numbers but carry unique surface textures (wood grain, metal imperfections, wear patterns). This re-ID system becomes a visual search engine: match parts by texture similarity, detect counterfeits, track components across logistics networks.</p>
-
-            <h3>Rule of Thumb for New Domains</h3>
-            <p>If identity or uniqueness is encoded in <strong>texture or spatial pattern</strong> (coat patterns, facial markings, surface imperfections), this frozen-backbone approach works directly. If identity is encoded in <strong>shape or contour</strong> (ear shape, fluke geometry), add a lightweight detection or keypoint module atop the frozen features. Either way, freezing the foundation model keeps the system stable and efficient on small, new datasets.</p>
-        </section>
-        <p>
-            <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-        </p>
-        <section class="publications-section">
-            <h2>Published Articles</h2>
-            <p class="publications-intro">
-                A collection of my writing and working tools across applied AI and machine learning — from accessible
-                introductions to detailed methods papers and live apps you can try in your browser.
-            </p>
-            <div class="publications-grid">
-                <a href="https://medium.com/@rommelsharma" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Medium</span>
-                        <span class="pub-icon" aria-hidden="true">&#9998;</span>
-                    </div>
-                    <h3>Articles on Machine Learning</h3>
-                    <p>My ongoing collection of applied AI and machine learning writing on Medium.</p>
-                    <span class="pub-link">Read on Medium &rarr;</span>
-                </a>
-                <a href="https://medium.com/ai-in-plain-english/the-jaguar-spotter-how-ai-tells-one-big-cat-from-another-2764d19ddd5a" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Article</span>
-                        <span class="pub-icon" aria-hidden="true">🐆</span>
-                    </div>
-                    <h3>The Jaguar Spotter</h3>
-                    <p>How AI identifies individual jaguars for conservation. Frozen foundation models as a pathway to precision wildlife monitoring.</p>
-                    <span class="pub-link">Read the article &rarr;</span>
-                </a>
-                <a href="https://medium.com/@rommelsharma/a-beginners-guide-to-bioacoustics-how-computer-vision-helps-identify-wildlife-by-sound-c517983547d4" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Article</span>
-                        <span class="pub-icon" aria-hidden="true">&#128016;</span>
-                    </div>
-                    <h3>A Beginner&rsquo;s Guide to Bioacoustics</h3>
-                    <p>How computer vision helps identify wildlife by sound — an accessible introduction to the field.</p>
-                    <span class="pub-link">Read the guide &rarr;</span>
-                </a>
-                <a href="https://www.researchsquare.com/article/rs-10188304/v1" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge pub-badge-paper">Research Paper</span>
-                        <span class="pub-icon" aria-hidden="true">&#128220;</span>
-                    </div>
-                    <h3>Deep-Learning Model Selection, Optimization &amp; Deployment</h3>
-                    <p>A detailed methods paper on wildlife sound classification for edge devices (Research Square).</p>
-                    <span class="pub-link">Read the paper &rarr;</span>
-                </a>
-                <a href="https://huggingface.co/spaces/rommelsharma/wildlife-id-by-sound" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge pub-badge-app">Live App</span>
-                        <span class="pub-icon" aria-hidden="true">&#127925;</span>
-                    </div>
-                    <h3>Wildlife ID by Sound</h3>
-                    <p>Try the Bioacoustics solution live — upload a clip and get ranked species detections.</p>
-                    <span class="pub-link">Launch the app &rarr;</span>
-                </a>
+        <section class="article-meta" aria-label="Article details">
+            <div class="article-meta__inner shell">
+                <div class="article-meta__item"><span>Author</span><strong>Rommel Sharma</strong></div>
+                <div class="article-meta__item"><span>Published</span><strong>10 June 2026</strong></div>
+                <div class="article-meta__item"><span>Dataset</span><strong>1,895 images</strong></div>
+                <div class="article-meta__item"><span>Outcome</span><strong>0.950 private mAP</strong></div>
             </div>
         </section>
-        <section class="connect-section">
-            <h2>Let's Connect</h2>
-            <p>
-                Always happy to chat about advances in AI, ML applications, innovations, and new methods to do things better.
-            </p>
-            <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" class="btn-primary">Connect on LinkedIn</a>
+
+        <div class="article-layout shell">
+            <aside class="article-toc" aria-label="On this page">
+                <p class="article-toc__label">On this page</p>
+                <ol>
+                    <li><a href="#objective">Objective</a></li>
+                    <li><a href="#challenge">Challenge</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#results">Results</a></li>
+                    <li><a href="#inference">Inference</a></li>
+                    <li><a href="#transfer">Transfer</a></li>
+                </ol>
+                <a class="article-toc__back" href="../index.html">← Portfolio index</a>
+            </aside>
+
+            <article class="article-body" id="article-content">
+                <p class="article-lead">The central finding is counterintuitive but repeatable: on a small, high-variance wildlife dataset, preserving a foundation model’s learned representation produced a stronger and simpler system than fine-tuning it.</p>
+
+                <section id="objective">
+                    <h2><span class="section-number">01 / OBJECTIVE</span>From camera trap to individual identity</h2>
+                    <p>Wildlife monitoring relies heavily on camera traps to track endangered animal populations. Historically, researchers have manually inspected thousands of photographs to match individual animals by their unique coat markings. This project establishes an automated deep-learning pipeline for <strong>jaguar re-identification</strong>, transforming visual pattern matching into a high-dimensional metric-learning task.</p>
+                    <p>Instead of assigning an image to a fixed set of labels, the system converts each camera-trap image into a compact numerical embedding. Images of the same jaguar should occupy nearby positions in the resulting vector space; images of different jaguars should remain far apart.</p>
+                </section>
+
+                <section id="challenge">
+                    <h2><span class="section-number">02 / CHALLENGE</span>Small data, open populations</h2>
+                    <p>Standard classification networks are poorly matched to ecological research. The population is dynamic: newly observed animals should be identifiable without changing a classification head and retraining the full model.</p>
+                    <p>Real-world imagery also introduces difficult sources of variation:</p>
+                    <ul>
+                        <li><strong>Extremely limited data.</strong> The training set contains only 1,895 images across a few dozen individuals; some animals have as few as three photographs.</li>
+                        <li><strong>Environmental distortion.</strong> Night flashes, changing posture, camera angles, motion blur and foliage occlusion all obscure the identifying coat pattern.</li>
+                        <li><strong>Class imbalance.</strong> A naïve aggregate score can overstate performance by allowing frequently observed individuals to dominate the metric.</li>
+                    </ul>
+                </section>
+
+                <section id="architecture">
+                    <h2><span class="section-number">03 / ARCHITECTURE</span>Freeze the knowledge, train the task</h2>
+                    <p>After testing fine-tuned MegaDescriptor-L and end-to-end EVA-02-L approaches, the breakthrough came from using a <strong>frozen DINOv2-Giant backbone</strong>: 1.1 billion parameters pretrained on approximately 142 million unlabelled images.</p>
+
+                    <h3>A. Frozen foundation features</h3>
+                    <p>The backbone is loaded and locked before training. Each image passes through it once to produce a 1,536-dimensional feature vector, which is cached to disk. This single feature-extraction pass is the only large-scale computation required.</p>
+                    <div class="callout">
+                        <span class="callout__label">Why freezing worked</span>
+                        <p>With just 1,895 training images, the pretrained representation contains richer and more general visual knowledge than the small dataset can teach a billion-parameter network. Freezing protects that knowledge from memorisation.</p>
+                    </div>
+
+                    <h3>B. Lightweight projection head</h3>
+                    <p>A small trainable head reshapes the generic 1,536-dimensional features into jaguar-specific 256-dimensional embeddings:</p>
+                    <pre class="architecture"><code>Linear(1536 → 512) → BatchNorm → ReLU → Dropout(0.3)
+→ Linear(512 → 256) → BatchNorm → L2 normalise</code></pre>
+                    <p>The head contains approximately one million parameters—about one-thousandth of the backbone. L2 normalisation places each embedding on a unit sphere, making cosine similarity a natural comparison measure.</p>
+
+                    <h3>C. Triplet loss with batch-hard mining</h3>
+                    <p>Training optimises a single objective: triplet loss with hard-negative mining. Structured mini-batches contain eight identities and four images per identity. For each anchor, the loss pulls the most difficult positive match closer and pushes the most deceptively similar negative farther away.</p>
+
+                    <h3>D. Efficient optimisation</h3>
+                    <p>Adagrad at a learning rate of 5 × 10<sup>−2</sup>, a plateau scheduler and early stopping train the small head in minutes. Cached features remove repeat backbone computation, and the workflow can run on a modest GPU or CPU.</p>
+                </section>
+
+                <section id="results">
+                    <h2><span class="section-number">04 / RESULTS</span>A decisive change in model strategy</h2>
+                    <p>The frozen-backbone system improved private leaderboard performance from 0.817 to 0.950 while removing the need for test-time augmentation, query expansion and reranking.</p>
+
+                    <div class="metric-grid" aria-label="Key results">
+                        <div class="metric-card"><strong>0.950</strong><span>Private identity-balanced mAP</span></div>
+                        <div class="metric-card"><strong>+0.133</strong><span>Gain over the previous champion</span></div>
+                        <div class="metric-card"><strong>~5 min</strong><span>Training time per head run</span></div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="research-table">
+                            <thead>
+                                <tr><th>Approach</th><th>Backbone</th><th>Private LB</th><th>Decision</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Frozen DINOv2-Giant + triplet head</strong></td><td>DINOv2-Giant, 1.1B frozen</td><td class="champion">0.950</td><td class="champion">Champion</td></tr>
+                                <tr><td>MegaDescriptor-L, fine-tuned</td><td>MegaDescriptor-L, 0.2B</td><td>0.817</td><td>Previous champion</td></tr>
+                                <tr><td>EVA-02-L, 40 epochs</td><td>EVA-02-L, 0.3B fine-tuned</td><td>≤0.245 CV</td><td>Rejected</td></tr>
+                                <tr><td>Public reference</td><td>DINOv2-Giant, 1.1B frozen</td><td>0.959</td><td>External benchmark</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <figure>
+                        <img src="../assets/images/telemetry_frozen_dinov2g_panels.png" alt="Training telemetry panels for frozen DINOv2-Giant across three experimental eras">
+                        <figcaption>Frozen DINOv2-Giant training telemetry</figcaption>
+                    </figure>
+
+                    <h3>Three eras of experimentation</h3>
+                    <ol>
+                        <li><strong>v1 — specialist fine-tuning.</strong> MegaDescriptor-L reached 0.817 with extensive post-processing.</li>
+                        <li><strong>v2 — larger end-to-end model.</strong> EVA-02-L overfit severely; cross-validation mAP remained at or below 0.245 after 40 epochs.</li>
+                        <li><strong>v3 — frozen generalist.</strong> DINOv2-Giant plus a one-million-parameter head achieved 0.950 without post-processing.</li>
+                    </ol>
+                    <div class="callout">
+                        <span class="callout__label">Practical rule of thumb</span>
+                        <p>For roughly 1,000–5,000 images and a backbone above 100 million parameters, start with the backbone frozen. Test whether a small task-specific head can extract the signal before accepting the cost and instability of fine-tuning.</p>
+                    </div>
+                </section>
+
+                <section id="inference">
+                    <h2><span class="section-number">05 / INFERENCE</span>Strength through simplicity</h2>
+                    <p>The final inference path needs no post-processing tricks:</p>
+                    <ol>
+                        <li><strong>Extract.</strong> Pass each image through the frozen backbone once and cache the 1,536-dimensional feature.</li>
+                        <li><strong>Project.</strong> Transform the cached feature into a 256-dimensional L2-normalised embedding.</li>
+                        <li><strong>Compare.</strong> Calculate cosine similarity for query–gallery pairs and clip values to [0, 1].</li>
+                        <li><strong>Rank.</strong> Evaluate with identity-balanced mean Average Precision, giving each jaguar equal weight.</li>
+                    </ol>
+                    <p>Reaching 0.950 mAP without test-time augmentation, query expansion or k-reciprocal reranking indicates that representation strength—not inference machinery—was the primary lever.</p>
+                </section>
+
+                <section id="transfer">
+                    <h2><span class="section-number">06 / TRANSFER</span>Beyond jaguars</h2>
+                    <p>The same frozen-backbone paradigm can transfer wherever identity is encoded in texture or spatial pattern.</p>
+
+                    <h3>Ecology and wildlife monitoring</h3>
+                    <p>Leopards, zebras, whale sharks, giraffes and individual whales all carry visually distinctive patterns. The backbone already captures texture and structure; only the projection head needs to learn the species-specific task.</p>
+
+                    <h3>Agriculture and livestock</h3>
+                    <p>Unique facial markings and coat patterns can provide a camera-based complement to physical tags for cattle or horses, with the task-specific head retrained on farm imagery.</p>
+
+                    <h3>Industrial traceability</h3>
+                    <p>Wood grain, metal imperfections and wear patterns can act as natural fingerprints for parts matching, counterfeit detection and asset tracking across a supply chain.</p>
+
+                    <div class="callout">
+                        <span class="callout__label">Transfer boundary</span>
+                        <p>If identity is encoded mainly in texture, the approach transfers directly. If it depends on shape or contour, add lightweight detection or keypoint localisation while keeping the foundation representation stable.</p>
+                    </div>
+                </section>
+            </article>
+        </div>
+
+        <section class="article-related" aria-labelledby="related-title">
+            <div class="shell">
+                <p class="eyebrow">Continue exploring</p>
+                <h2 id="related-title">Related research &amp; writing</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="https://medium.com/ai-in-plain-english/the-jaguar-spotter-how-ai-tells-one-big-cat-from-another-2764d19ddd5a" target="_blank" rel="noopener noreferrer">
+                        <span>Accessible case study</span>
+                        <h3>The Jaguar Spotter</h3>
+                        <p>How AI tells one big cat from another.</p>
+                    </a>
+                    <a class="related-card" href="bio-acoustics.html">
+                        <span>Applied research</span>
+                        <h3>Wildlife ID by Sound</h3>
+                        <p>Offline acoustic identification across 234 Pantanal species.</p>
+                    </a>
+                    <a class="related-card" href="../index.html#research">
+                        <span>Portfolio index</span>
+                        <h3>All AI/ML systems</h3>
+                        <p>Browse conservation, decision, voice and finance projects.</p>
+                    </a>
+                </div>
+            </div>
         </section>
-        <footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-            <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful impact."</p>
-        </footer>
-    </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner shell">
+            <div>
+                <p class="eyebrow">Rommel Sharma · Sydney, Australia</p>
+                <p class="site-footer__statement">Building thoughtful technology and publishing the evidence behind it.</p>
+            </div>
+            <small>© 2026 Rommel Sharma · <a href="../feed.xml">RSS</a></small>
+        </div>
+    </footer>
 </body>
-
 </html>

@@ -1,29 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="en-AU">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voice Synthesis and Cloning | Rommel Sharma</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SonarAI: Voice Synthesis and Cloning | Rommel Sharma</title>
     <meta name="description" content="Privacy-preserving text-to-speech engine by Rommel Sharma. XTTS v2, Kokoro-82M models with SSML parsing and EBU R128 normalization for broadcast quality.">
-    <meta name="keywords" content="Rommel Sharma, Rommel Sharma Sydney, Voice Synthesis, Text-to-Speech, TTS, Voice Cloning, XTTS v2, Kokoro-82M, PyTorch Audio, MLOps Australia, EBU R128">
+    <meta name="keywords" content="Rommel Sharma, Voice Synthesis, Text-to-Speech, TTS, Voice Cloning, XTTS v2, Kokoro-82M, PyTorch Audio, MLOps Australia, EBU R128">
     <meta name="author" content="Rommel Sharma">
     <meta name="geo.region" content="AU-NSW">
     <meta name="geo.placename" content="Sydney">
+    <meta name="geo.position" content="-33.8688;151.2093">
+    <meta name="ICBM" content="-33.8688, 151.2093">
     <link rel="canonical" href="https://rommelsharma.github.io/projects/voice-synthesis.html">
     <link rel="alternate" type="application/rss+xml" title="Rommel Sharma — Applied AI Articles" href="https://rommelsharma.github.io/feed.xml">
     <link rel="author" href="https://rommelsharma.github.io/">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="SonarAI Voice Synthesis | Rommel Sharma">
+    <meta property="og:title" content="SonarAI: Voice Synthesis and Zero-Shot Cloning">
     <meta property="og:description" content="Technical deep dive into SonarAI, a broadcast-quality text-to-speech engine architected by Rommel Sharma.">
     <meta property="og:url" content="https://rommelsharma.github.io/projects/voice-synthesis.html">
     <meta property="og:site_name" content="Rommel Sharma — Applied AI Portfolio">
     <meta property="og:image" content="https://rommelsharma.github.io/assets/images/tts.jpg">
+    <meta property="og:image:alt" content="SonarAI voice synthesis case study">
+    <meta property="og:locale" content="en_AU">
     <meta property="article:author" content="Rommel Sharma">
+    <meta property="article:published_time" content="2026-06-10">
+    <meta property="article:modified_time" content="2026-06-24">
+    <meta property="article:section" content="Generative Audio">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SonarAI Voice Synthesis | Rommel Sharma">
+    <meta name="twitter:title" content="SonarAI: Voice Synthesis and Zero-Shot Cloning">
     <meta name="twitter:description" content="Technical deep dive into SonarAI, a broadcast-quality text-to-speech engine architected by Rommel Sharma.">
     <meta name="twitter:image" content="https://rommelsharma.github.io/assets/images/tts.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -33,36 +43,15 @@
                 "@id": "https://rommelsharma.github.io/#person",
                 "name": "Rommel Sharma",
                 "url": "https://rommelsharma.github.io/",
-                "jobTitle": "Senior AI Leader & Enterprise Architect",
-                "description": "Senior AI business development and go-to-market leader with 25+ years' experience, focused on building and scaling commercial AI initiatives — particularly agentic customer experience orchestration at Adobe.",
-                "worksFor": {
-                    "@type": "Organization",
-                    "name": "Adobe",
-                    "url": "https://www.adobe.com/"
-                },
-                "knowsAbout": [
-                    "Applied Machine Learning",
-                    "Generative AI",
-                    "MLOps",
-                    "Computer Vision",
-                    "Bio-Acoustics",
-                    "Voice Synthesis",
-                    "Retrieval-Augmented Generation",
-                    "Quantitative Finance"
-                ],
+                "jobTitle": "Enterprise AI Go-to-Market and Business Development Leader",
+                "worksFor": { "@type": "Organization", "name": "Adobe", "url": "https://www.adobe.com/" },
                 "sameAs": [
                     "https://www.linkedin.com/in/rommelsharma",
                     "https://github.com/rommelsharma",
                     "https://medium.com/@rommelsharma",
-                    "https://orcid.org/0009-0005-6819-6219",
-                    "https://www.skills.google/public_profiles/a8728b82-b98c-4e37-a9f4-f9b77782fb30"
+                    "https://orcid.org/0009-0005-6819-6219"
                 ],
-                "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "Sydney",
-                    "addressRegion": "NSW",
-                    "addressCountry": "Australia"
-                }
+                "address": { "@type": "PostalAddress", "addressLocality": "Sydney", "addressRegion": "NSW", "addressCountry": "AU" }
             },
             {
                 "@type": "TechArticle",
@@ -70,157 +59,177 @@
                 "headline": "SonarAI: Production-Grade Voice Synthesis and Zero-Shot Cloning",
                 "description": "Technical deep dive into SonarAI, a broadcast-quality text-to-speech engine architected by Rommel Sharma.",
                 "url": "https://rommelsharma.github.io/projects/voice-synthesis.html",
-                "mainEntityOfPage": "https://rommelsharma.github.io/projects/voice-synthesis.html",
+                "mainEntityOfPage": { "@type": "WebPage", "@id": "https://rommelsharma.github.io/projects/voice-synthesis.html" },
                 "inLanguage": "en-AU",
                 "datePublished": "2026-06-10",
                 "dateModified": "2026-06-24",
-                "keywords": "Rommel Sharma, Voice Synthesis, Text-to-Speech, TTS, Voice Cloning, XTTS v2, Kokoro-82M, EBU R128",
-                "image": "https://rommelsharma.github.io/assets/images/tts.jpg",
+                "keywords": ["Voice Synthesis", "Text-to-Speech", "Voice Cloning", "XTTS v2", "Kokoro-82M", "EBU R128"],
+                "image": { "@type": "ImageObject", "url": "https://rommelsharma.github.io/assets/images/tts.jpg" },
                 "author": { "@id": "https://rommelsharma.github.io/#person" },
                 "creator": { "@id": "https://rommelsharma.github.io/#person" },
                 "publisher": { "@id": "https://rommelsharma.github.io/#person" }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://rommelsharma.github.io/" },
+                    { "@type": "ListItem", "position": 2, "name": "SonarAI Voice Synthesis", "item": "https://rommelsharma.github.io/projects/voice-synthesis.html" }
+                ]
             }
         ]
     }
     </script>
-    <link rel="stylesheet" href="../css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <header class="project-hero" style="background-image: url('../assets/images/tts.jpg');">
-        <div class="container project-hero-centered">
-            <h1>SonarAI: Voice Synthesis & Zero-Shot Cloning</h1>
-            <div class="meta-strip">
-                <div class="meta-item"><strong>Author:</strong> Rommel Sharma</div>
-                <div class="meta-item"><strong>Location:</strong> Sydney, NSW, Australia</div>
-                <div class="meta-item"><strong>Domain:</strong> Generative Audio & Deep Learning</div>
-            </div>
-            <div class="tech-pill-box">
-                <span class="tech-pill">XTTS v2</span>
-                <span class="tech-pill">Kokoro-82M</span>
-                <span class="tech-pill">PyTorch Audio</span>
-                <span class="tech-pill">EBU R128</span>
-                <span class="tech-pill">FastAPI</span>
-                <span class="tech-pill">SSML Parsing</span>
-            </div>
-        </div>
-    </header>
-    <article class="article-body">
-        <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-        <p class="article-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a> · <a href="https://www.linkedin.com/in/rommelsharma" rel="me">LinkedIn</a></p>
-        <section>
-            <h2>1. Introduction & Project Objective</h2>
-            <p>Modern media production, training formulation, and documentary narration frequently require high-quality voiceovers. However, utilizing commercial cloud APIs presents strict limitations regarding data privacy, ongoing subscription costs, and restricted offline capabilities.</p>
-            <p><strong>SonarAI</strong> was engineered to solve these constraints. It is a production-grade, 100% locally deployed text-to-speech (TTS) system. By running inference entirely on local hardware (supporting CUDA, Apple MPS, and CPU fallback), the system ensures that voice clips and proprietary scripts never leave the host machine while still delivering broadcast-ready audio.</p>
-        </section>
-        <section>
-            <h2>2. Dual-Engine Architecture</h2>
-            <p>A resilient TTS system cannot rely on a single model. Different use cases require different approaches to latency, consistency, and flexibility. SonarAI implements a unified routing layer over two distinct open-weight models:</p>
-            <ul>
-                <li><strong>Kokoro-82M (Apache 2.0):</strong> Serves as the primary engine for high-consistency, fixed-voice tasks. It provides 54 built-in professional voices across 9 languages. It is highly optimized and requires no reference audio.</li>
-                <li><strong>XTTS v2 (Coqui CPML):</strong> Powers the system's dynamic capabilities via <strong>zero-shot voice cloning</strong>. By analyzing a brief 5–12 second reference audio clip, the model extracts a speaker embedding and conditions its autoregressive decoder to replicate the voice's timbre and prosody across 17 different languages—without any fine-tuning.</li>
-            </ul>
-        </section>
-        <section>
-            <h2>3. Audio Engineering & Broadcast Pipeline</h2>
-            <p>Raw output from machine learning acoustic models is rarely suitable for immediate media integration. SonarAI implements a robust 7-step post-processing pipeline to ensure the audio is ready to drop into NLE software (like Premiere Pro or DaVinci Resolve) without manual equalization.</p>
-            <h3>The EBU R128 Pipeline</h3>
-            <p>Every generated waveform undergoes automated refinement:</p>
-            <ol>
-                <li><strong>Resampling:</strong> Conversion from the engine's native 24 kHz to an anti-aliased 44.1 kHz stereo output.</li>
-                <li><strong>Spectral Noise Reduction:</strong> Subtracts latent artifact hum introduced by the neural vocoder.</li>
-                <li><strong>Frequency Sculpting:</strong> Applies an 80 Hz high-pass filter to remove low-frequency rumble, paired with a +2 dB presence shelf at 3 kHz to dramatically improve vocal intelligibility.</li>
-                <li><strong>Loudness Normalization:</strong> Utilizes `pyloudnorm` to hit target LUFS profiles (e.g., -23 LUFS for broadcast, -14 LUFS for streaming) protected by a -1.0 dBTP true-peak limiter to prevent clipping.</li>
-            </ol>
-        </section>
-        <section>
-            <h2>4. Engineering Insights & Problem Solving</h2>
-            <p>Deploying large language and audio models locally uncovers several complex software engineering challenges. Key mitigations designed into SonarAI include:</p>
-            <h3>A. Thread Safety in Autoregressive Models</h3>
-            <p>The XTTS v2 model's internal attention-layer tensor buffers are fundamentally not thread-safe. Concurrent synthesis calls result in immediate memory corruption. To enable batch processing of long documentary scripts, a strict <code>threading.Lock</code> mechanism was engineered to serialize inference calls safely without crashing the FastAPI server.</p>
-            <h3>B. Cross-Lingual Text Segmentation</h3>
-            <p>Neural TTS models have strict context window limits (e.g., 250 characters). Standard English text splitters fail on non-Latin scripts. <span class="example-tag">Example</span> The system was engineered to pre-split Hindi text specifically on Danda characters (<code>।</code>, <code>॥</code>) and Japanese text on specific punctuations (<code>。！？</code>) before passing chunks to the model, completely eliminating the garbled or truncated audio that usually plagues multilingual generation.</p>
-            <h3>C. Multi-Reference Speaker Averaging</h3>
-            <p>A single 5-second audio clip often fails to capture a speaker's full emotional range. SonarAI's architecture was extended to allow multi-reference audio conditioning. By extracting speaker latents from 2 to 4 distinct clips and mathematically averaging them into a composite representation, the system dramatically improves clone stability and resemblance.</p>
-        </section>
-        <section>
-            <h2>5. Narration Control via SSML</h2>
-            <p>To provide directors with granular control over pacing, SonarAI integrates an SSML (Speech Synthesis Markup Language) preprocessor. Before text reaches the acoustic model, tags are parsed to dynamically instruct the engine:</p>
-            <ul>
-                <li><code>&lt;pause ms="500"/&gt;</code> physically injects precise milliseconds of silence into the output tensor array.</li>
-                <li><code>&lt;emphasis level="strong"&gt;</code> mathematically resamples that specific word snippet to play at 0.85× speed, emphasizing the term naturally.</li>
-                <li><code>&lt;say-as interpret-as="characters"&gt;NASA&lt;/say-as&gt;</code> forces the normalizer to read N-A-S-A rather than treating it as a single word.</li>
-            </ul>
-        </section>
-        <p>
-            <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-        </p>
-        <section class="publications-section">
-            <h2>Published Articles</h2>
-            <p class="publications-intro">
-                A collection of my writing and working tools across applied AI and machine learning — from accessible
-                introductions to detailed methods papers and live apps you can try in your browser.
-            </p>
-            <div class="publications-grid">
-                <a href="https://medium.com/ai-in-plain-english/the-jaguar-spotter-how-ai-tells-one-big-cat-from-another-2764d19ddd5a" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Article</span>
-                        <span class="pub-icon" aria-hidden="true">🐆</span>
-                    </div>
-                    <h3>The Jaguar Spotter</h3>
-                    <p>How AI identifies individual jaguars for conservation. Frozen foundation models as a pathway to precision wildlife monitoring.</p>
-                    <span class="pub-link">Read the article &rarr;</span>
-                </a>
-                <a href="https://medium.com/@rommelsharma" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Medium</span>
-                        <span class="pub-icon" aria-hidden="true">&#9998;</span>
-                    </div>
-                    <h3>Articles on Machine Learning</h3>
-                    <p>My ongoing collection of applied AI and machine learning writing on Medium.</p>
-                    <span class="pub-link">Read on Medium &rarr;</span>
-                </a>
-                <a href="https://medium.com/@rommelsharma/a-beginners-guide-to-bioacoustics-how-computer-vision-helps-identify-wildlife-by-sound-c517983547d4" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Article</span>
-                        <span class="pub-icon" aria-hidden="true">&#128016;</span>
-                    </div>
-                    <h3>A Beginner&rsquo;s Guide to Bioacoustics</h3>
-                    <p>How computer vision helps identify wildlife by sound — an accessible introduction to the field.</p>
-                    <span class="pub-link">Read the guide &rarr;</span>
-                </a>
-                <a href="https://www.researchsquare.com/article/rs-10188304/v1" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge pub-badge-paper">Research Paper</span>
-                        <span class="pub-icon" aria-hidden="true">&#128220;</span>
-                    </div>
-                    <h3>Deep-Learning Model Selection, Optimization &amp; Deployment</h3>
-                    <p>A detailed methods paper on wildlife sound classification for edge devices (Research Square).</p>
-                    <span class="pub-link">Read the paper &rarr;</span>
-                </a>
-                <a href="https://huggingface.co/spaces/rommelsharma/wildlife-id-by-sound" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge pub-badge-app">Live App</span>
-                        <span class="pub-icon" aria-hidden="true">&#127925;</span>
-                    </div>
-                    <h3>Wildlife ID by Sound</h3>
-                    <p>Try the Bioacoustics solution live — upload a clip and get ranked species detections.</p>
-                    <span class="pub-link">Launch the app &rarr;</span>
-                </a>
-            </div>
-        </section>
-        <section class="connect-section">
-            <h2>Let's Connect</h2>
-            <p>
-                Always happy to chat about advances in AI, ML applications, innovations, and new methods to do things better.
-            </p>
-            <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" class="btn-primary">Connect on LinkedIn</a>
-        </section>
-        <footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-            <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful impact."</p>
-        </footer>
-    </article>
-</body>
+    <a class="skip-link" href="#article-content">Skip to article</a>
 
+    <header class="site-header">
+        <nav class="site-nav shell" aria-label="Primary navigation">
+            <a class="wordmark" href="../index.html" aria-label="Rommel Sharma, portfolio home">Rommel Sharma</a>
+            <ul class="nav-links">
+                <li><a href="../index.html#research">Research</a></li>
+                <li><a href="../index.html#writing">Writing</a></li>
+                <li><a class="nav-cta" href="https://www.linkedin.com/in/rommelsharma" rel="me noopener" target="_blank">Connect ↗</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class="project-cover">
+            <div class="project-cover__inner shell">
+                <div class="project-cover__copy">
+                    <p class="eyebrow">Generative audio · Privacy · Case study 04</p>
+                    <h1>SonarAI voice synthesis.</h1>
+                    <p class="project-cover__dek">A production-grade, 100% locally deployed text-to-speech system with zero-shot cloning, SSML control and broadcast-ready EBU R128 output.</p>
+                    <div class="tech-pills" aria-label="Technologies used">
+                        <span class="tech-pill">XTTS v2</span>
+                        <span class="tech-pill">Kokoro-82M</span>
+                        <span class="tech-pill">PyTorch Audio</span>
+                        <span class="tech-pill">EBU R128</span>
+                        <span class="tech-pill">FastAPI</span>
+                        <span class="tech-pill">SSML Parsing</span>
+                    </div>
+                </div>
+                <figure class="project-cover__image">
+                    <img src="../assets/images/tts.jpg" alt="Abstract visual representing voice synthesis and text-to-speech technology" width="1408" height="768" fetchpriority="high">
+                    <figcaption class="image-caption">Local by design</figcaption>
+                </figure>
+            </div>
+        </header>
+
+        <section class="article-meta" aria-label="Article details">
+            <div class="article-meta__inner shell">
+                <div class="article-meta__item"><span>Author</span><strong>Rommel Sharma</strong></div>
+                <div class="article-meta__item"><span>Published</span><strong>10 June 2026</strong></div>
+                <div class="article-meta__item"><span>Deployment</span><strong>100% local</strong></div>
+                <div class="article-meta__item"><span>Location</span><strong>Sydney, NSW</strong></div>
+            </div>
+        </section>
+
+        <div class="article-layout shell">
+            <aside class="article-toc" aria-label="On this page">
+                <p class="article-toc__label">On this page</p>
+                <ol>
+                    <li><a href="#objective">Objective</a></li>
+                    <li><a href="#architecture">Dual-engine architecture</a></li>
+                    <li><a href="#pipeline">Broadcast pipeline</a></li>
+                    <li><a href="#insights">Engineering insights</a></li>
+                    <li><a href="#ssml">SSML control</a></li>
+                </ol>
+                <a class="article-toc__back" href="../index.html">← Portfolio index</a>
+            </aside>
+
+            <article class="article-body" id="article-content">
+                <p class="article-lead"><strong>SonarAI</strong> is a production-grade, 100% locally deployed text-to-speech system. By running inference entirely on local hardware, voice clips and proprietary scripts never leave the host machine while still delivering broadcast-ready audio.</p>
+
+                <section id="objective">
+                    <h2><span class="section-number">01 / OBJECTIVE</span>Introduction &amp; project objective</h2>
+                    <p>Modern media production, training formulation, and documentary narration frequently require high-quality voiceovers. However, utilizing commercial cloud APIs presents strict limitations regarding data privacy, ongoing subscription costs, and restricted offline capabilities.</p>
+                    <p><strong>SonarAI</strong> was engineered to solve these constraints. It is a production-grade, 100% locally deployed text-to-speech (TTS) system. By running inference entirely on local hardware (supporting CUDA, Apple MPS, and CPU fallback), the system ensures that voice clips and proprietary scripts never leave the host machine while still delivering broadcast-ready audio.</p>
+                </section>
+
+                <section id="architecture">
+                    <h2><span class="section-number">02 / ARCHITECTURE</span>Dual-engine architecture</h2>
+                    <p>A resilient TTS system cannot rely on a single model. Different use cases require different approaches to latency, consistency, and flexibility. SonarAI implements a unified routing layer over two distinct open-weight models:</p>
+                    <ul>
+                        <li><strong>Kokoro-82M (Apache 2.0):</strong> Serves as the primary engine for high-consistency, fixed-voice tasks. It provides 54 built-in professional voices across 9 languages. It is highly optimized and requires no reference audio.</li>
+                        <li><strong>XTTS v2 (Coqui CPML):</strong> Powers the system's dynamic capabilities via <strong>zero-shot voice cloning</strong>. By analyzing a brief 5–12 second reference audio clip, the model extracts a speaker embedding and conditions its autoregressive decoder to replicate the voice's timbre and prosody across 17 different languages—without any fine-tuning.</li>
+                    </ul>
+                </section>
+
+                <section id="pipeline">
+                    <h2><span class="section-number">03 / PIPELINE</span>Audio engineering &amp; broadcast pipeline</h2>
+                    <p>Raw output from machine learning acoustic models is rarely suitable for immediate media integration. SonarAI implements a robust 7-step post-processing pipeline to ensure the audio is ready to drop into NLE software (like Premiere Pro or DaVinci Resolve) without manual equalization.</p>
+
+                    <h3>The EBU R128 pipeline</h3>
+                    <p>Every generated waveform undergoes automated refinement:</p>
+                    <ol>
+                        <li><strong>Resampling:</strong> Conversion from the engine's native 24 kHz to an anti-aliased 44.1 kHz stereo output.</li>
+                        <li><strong>Spectral Noise Reduction:</strong> Subtracts latent artifact hum introduced by the neural vocoder.</li>
+                        <li><strong>Frequency Sculpting:</strong> Applies an 80 Hz high-pass filter to remove low-frequency rumble, paired with a +2 dB presence shelf at 3 kHz to dramatically improve vocal intelligibility.</li>
+                        <li><strong>Loudness Normalization:</strong> Utilizes <code>pyloudnorm</code> to hit target LUFS profiles (e.g., -23 LUFS for broadcast, -14 LUFS for streaming) protected by a -1.0 dBTP true-peak limiter to prevent clipping.</li>
+                    </ol>
+                </section>
+
+                <section id="insights">
+                    <h2><span class="section-number">04 / INSIGHTS</span>Engineering insights &amp; problem solving</h2>
+                    <p>Deploying large language and audio models locally uncovers several complex software engineering challenges. Key mitigations designed into SonarAI include:</p>
+
+                    <h3>A. Thread safety in autoregressive models</h3>
+                    <p>The XTTS v2 model's internal attention-layer tensor buffers are fundamentally not thread-safe. Concurrent synthesis calls result in immediate memory corruption. To enable batch processing of long documentary scripts, a strict <code>threading.Lock</code> mechanism was engineered to serialize inference calls safely without crashing the FastAPI server.</p>
+
+                    <h3>B. Cross-lingual text segmentation</h3>
+                    <p>Neural TTS models have strict context window limits (e.g., 250 characters). Standard English text splitters fail on non-Latin scripts. The system was engineered to pre-split Hindi text specifically on Danda characters (<code>।</code>, <code>॥</code>) and Japanese text on specific punctuations (<code>。！？</code>) before passing chunks to the model, completely eliminating the garbled or truncated audio that usually plagues multilingual generation.</p>
+
+                    <h3>C. Multi-reference speaker averaging</h3>
+                    <p>A single 5-second audio clip often fails to capture a speaker's full emotional range. SonarAI's architecture was extended to allow multi-reference audio conditioning. By extracting speaker latents from 2 to 4 distinct clips and mathematically averaging them into a composite representation, the system dramatically improves clone stability and resemblance.</p>
+                </section>
+
+                <section id="ssml">
+                    <h2><span class="section-number">05 / SSML</span>Narration control via SSML</h2>
+                    <p>To provide directors with granular control over pacing, SonarAI integrates an SSML (Speech Synthesis Markup Language) preprocessor. Before text reaches the acoustic model, tags are parsed to dynamically instruct the engine:</p>
+                    <ul>
+                        <li><code>&lt;pause ms="500"/&gt;</code> physically injects precise milliseconds of silence into the output tensor array.</li>
+                        <li><code>&lt;emphasis level="strong"&gt;</code> mathematically resamples that specific word snippet to play at 0.85× speed, emphasizing the term naturally.</li>
+                        <li><code>&lt;say-as interpret-as="characters"&gt;NASA&lt;/say-as&gt;</code> forces the normalizer to read N-A-S-A rather than treating it as a single word.</li>
+                    </ul>
+                </section>
+            </article>
+        </div>
+
+        <section class="article-related" aria-labelledby="related-title">
+            <div class="shell">
+                <p class="eyebrow">Continue exploring</p>
+                <h2 id="related-title">Related research &amp; writing</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="bio-acoustics.html">
+                        <span>Applied research</span>
+                        <h3>Wildlife ID by Sound</h3>
+                        <p>Offline acoustic identification across 234 Pantanal species.</p>
+                    </a>
+                    <a class="related-card" href="decision-lens.html">
+                        <span>Applied research</span>
+                        <h3>Decision Lens</h3>
+                        <p>Evidence-grounded decision intelligence using RAG and behavioral science.</p>
+                    </a>
+                    <a class="related-card" href="../index.html#research">
+                        <span>Portfolio index</span>
+                        <h3>All AI/ML systems</h3>
+                        <p>Browse conservation, decision, voice and finance projects.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner shell">
+            <div>
+                <p class="eyebrow">Rommel Sharma · Sydney, Australia</p>
+                <p class="site-footer__statement">Building thoughtful technology and publishing the evidence behind it.</p>
+            </div>
+            <small>© 2026 Rommel Sharma · <a href="../feed.xml">RSS</a></small>
+        </div>
+    </footer>
+</body>
 </html>

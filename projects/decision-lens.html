@@ -1,29 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="en-AU">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decision Lens: Decision Intelligence | Rommel Sharma</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Decision Lens: Evidence-Grounded Decision Intelligence | Rommel Sharma</title>
     <meta name="description" content="Decision intelligence system by Rommel Sharma. RAG-based tool surfacing cognitive biases in executive strategy using behavioral science.">
-    <meta name="keywords" content="Rommel Sharma, Rommel Sharma Sydney, Decision Intelligence, RAG Architecture, Proxy-Pointer RAG, Cognitive Bias Mitigation, Behavioral Science AI, Claude for Legal Plugin, MLOps Australia">
+    <meta name="keywords" content="Rommel Sharma, Decision Intelligence, RAG Architecture, Proxy-Pointer RAG, Cognitive Bias Mitigation, Behavioral Science AI, Claude for Legal Plugin, MLOps Australia">
     <meta name="author" content="Rommel Sharma">
     <meta name="geo.region" content="AU-NSW">
     <meta name="geo.placename" content="Sydney">
+    <meta name="geo.position" content="-33.8688;151.2093">
+    <meta name="ICBM" content="-33.8688, 151.2093">
     <link rel="canonical" href="https://rommelsharma.github.io/projects/decision-lens.html">
     <link rel="alternate" type="application/rss+xml" title="Rommel Sharma — Applied AI Articles" href="https://rommelsharma.github.io/feed.xml">
     <link rel="author" href="https://rommelsharma.github.io/">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Decision Lens | Rommel Sharma">
+    <meta property="og:title" content="Decision Lens: Evidence-Grounded Decision Intelligence">
     <meta property="og:description" content="Technical deep dive into Decision Lens, a decision intelligence system architected by Rommel Sharma.">
     <meta property="og:url" content="https://rommelsharma.github.io/projects/decision-lens.html">
     <meta property="og:site_name" content="Rommel Sharma — Applied AI Portfolio">
     <meta property="og:image" content="https://rommelsharma.github.io/assets/images/decisionlens.jpg">
+    <meta property="og:image:alt" content="Decision Lens decision intelligence case study">
+    <meta property="og:locale" content="en_AU">
     <meta property="article:author" content="Rommel Sharma">
+    <meta property="article:published_time" content="2026-06-10">
+    <meta property="article:modified_time" content="2026-06-24">
+    <meta property="article:section" content="Decision Intelligence">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Decision Lens | Rommel Sharma">
+    <meta name="twitter:title" content="Decision Lens: Evidence-Grounded Decision Intelligence">
     <meta name="twitter:description" content="Technical deep dive into Decision Lens, a decision intelligence system architected by Rommel Sharma.">
     <meta name="twitter:image" content="https://rommelsharma.github.io/assets/images/decisionlens.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -33,36 +43,15 @@
                 "@id": "https://rommelsharma.github.io/#person",
                 "name": "Rommel Sharma",
                 "url": "https://rommelsharma.github.io/",
-                "jobTitle": "Senior AI Leader & Enterprise Architect",
-                "description": "Senior AI business development and go-to-market leader with 25+ years' experience, focused on building and scaling commercial AI initiatives — particularly agentic customer experience orchestration at Adobe.",
-                "worksFor": {
-                    "@type": "Organization",
-                    "name": "Adobe",
-                    "url": "https://www.adobe.com/"
-                },
-                "knowsAbout": [
-                    "Applied Machine Learning",
-                    "Generative AI",
-                    "MLOps",
-                    "Computer Vision",
-                    "Bio-Acoustics",
-                    "Voice Synthesis",
-                    "Retrieval-Augmented Generation",
-                    "Quantitative Finance"
-                ],
+                "jobTitle": "Enterprise AI Go-to-Market and Business Development Leader",
+                "worksFor": { "@type": "Organization", "name": "Adobe", "url": "https://www.adobe.com/" },
                 "sameAs": [
                     "https://www.linkedin.com/in/rommelsharma",
                     "https://github.com/rommelsharma",
                     "https://medium.com/@rommelsharma",
-                    "https://orcid.org/0009-0005-6819-6219",
-                    "https://www.skills.google/public_profiles/a8728b82-b98c-4e37-a9f4-f9b77782fb30"
+                    "https://orcid.org/0009-0005-6819-6219"
                 ],
-                "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "Sydney",
-                    "addressRegion": "NSW",
-                    "addressCountry": "Australia"
-                }
+                "address": { "@type": "PostalAddress", "addressLocality": "Sydney", "addressRegion": "NSW", "addressCountry": "AU" }
             },
             {
                 "@type": "TechArticle",
@@ -70,158 +59,178 @@
                 "headline": "Decision Lens: Evidence-Grounded Decision Intelligence",
                 "description": "Technical deep dive into Decision Lens, a decision intelligence system architected by Rommel Sharma.",
                 "url": "https://rommelsharma.github.io/projects/decision-lens.html",
-                "mainEntityOfPage": "https://rommelsharma.github.io/projects/decision-lens.html",
+                "mainEntityOfPage": { "@type": "WebPage", "@id": "https://rommelsharma.github.io/projects/decision-lens.html" },
                 "inLanguage": "en-AU",
                 "datePublished": "2026-06-10",
                 "dateModified": "2026-06-24",
-                "keywords": "Rommel Sharma, Decision Intelligence, RAG Architecture, Proxy-Pointer RAG, Cognitive Bias Mitigation, Behavioral Science AI",
-                "image": "https://rommelsharma.github.io/assets/images/decisionlens.jpg",
+                "keywords": ["Decision Intelligence", "RAG Architecture", "Proxy-Pointer RAG", "Cognitive Bias Mitigation", "Behavioral Science AI"],
+                "image": { "@type": "ImageObject", "url": "https://rommelsharma.github.io/assets/images/decisionlens.jpg" },
                 "author": { "@id": "https://rommelsharma.github.io/#person" },
                 "creator": { "@id": "https://rommelsharma.github.io/#person" },
                 "publisher": { "@id": "https://rommelsharma.github.io/#person" }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://rommelsharma.github.io/" },
+                    { "@type": "ListItem", "position": 2, "name": "Decision Lens", "item": "https://rommelsharma.github.io/projects/decision-lens.html" }
+                ]
             }
         ]
     }
     </script>
-    <link rel="stylesheet" href="../css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <header class="project-hero" style="background-image: url('../assets/images/decisionlens.jpg');">
-        <div class="container project-hero-centered">
-            <h1>Decision Lens: Evidence-Grounded Decision Intelligence</h1>
-            <div class="meta-strip">
-                <div class="meta-item"><strong>Author:</strong> Rommel Sharma</div>
-                <div class="meta-item"><strong>Location:</strong> Sydney, NSW, Australia</div>
-                <div class="meta-item"><strong>Domain:</strong> Decision Intelligence & Applied Behavioral Science</div>
-            </div>
-            <div class="tech-pill-box">
-                <span class="tech-pill">Proxy-Pointer RAG</span>
-                <span class="tech-pill">Dual-Inference Comparison</span>
-                <span class="tech-pill">Hybrid Retrieval (RRF/MMR)</span>
-                <span class="tech-pill">Human-in-the-Loop Curation</span>
-                <span class="tech-pill">Evidence Provenance</span>
-            </div>
-        </div>
-    </header>
-    <article class="article-body">
-        <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-        <p class="article-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a> · <a href="https://www.linkedin.com/in/rommelsharma" rel="me">LinkedIn</a></p>
-        <section>
-            <h2>1. Introduction & Objective</h2>
-            <p>Decision Lens is an advisory system designed to ground AI-generated recommendations in peer-reviewed behavioral science and cognitive psychology literature. It assists professionals facing high-stakes decisions—such as executive strategy, governance, and investment—where the quality and consistency of judgment directly impact outcomes.</p>
-            <p>The system moves beyond generic AI responses by performing a <strong>dual-inference comparison</strong>: it generates a baseline answer (using the model's internal knowledge) alongside an evidence-grounded answer (retrieved from a curated corpus). This creates a measurable "bias lift," ensuring every recommendation is backed by traceable, verbatim source attribution.</p>
-        </section>
-        <section>
-            <h2>2. The Challenge: Managing High-Stakes Judgment</h2>
-            <p>High-stakes decision-making is often plagued by cognitive biases, such as confirmation bias or overconfidence. Traditional AI models may provide confident-sounding but unverified advice. The core challenges addressed include:</p>
-            <ul>
-                <li><strong>Lack of Provenance:</strong> AI models typically struggle to explain *why* they suggest a specific intervention, leaving the human decision-maker without a defensible audit trail.</li>
-                <li><strong>Ingestion Noise:</strong> Broad knowledge bases often contain repetitive boilerplate, making it difficult to retrieve specific frameworks or study results efficiently.</li>
-                <li><strong>Context Blindness:</strong> Generic advice often fails to account for the specific organizational risk posture or practice profiles of the user.</li>
-            </ul>
-        </section>
-        <section>
-            <h2>3. Technical Architecture</h2>
-            <p>The system architecture integrates three distinct layers to ensure output reliability and domain relevance:</p>
-            <h3>A. Evidence-Grounded RAG Pipeline</h3>
-            <p>The inference engine employs a hybrid retrieval strategy, combining dense vector search (Amazon Titan v2) with sparse keyword retrieval (BM25). These are merged using <strong>Reciprocal Rank Fusion (RRF)</strong> and <strong>MMR diversification</strong> to ensure that retrieved evidence is both highly relevant and structurally diverse.</p>
-            <h3>B. Proxy-Pointer RAG & Knowledge Curation</h3>
-            <p>To optimize performance, the system employs <strong>Proxy-Pointer RAG</strong>. Instead of blindly indexing raw text, a structure-guided pipeline parses and classifies passages (e.g., classifying text as "Studies," "Frameworks," or "Prescriptions"). This allows the retriever to prioritize high-yield content and prevents ingestion noise from diluting the retrieval precision.</p>
-            <h3>C. Governance & Plugin Integration</h3>
-            <p>Packaging the engine as a first-party plugin for platforms like <strong>Claude for Legal</strong> enables the use of strict practice-profile onboarding and reviewer-note discipline. This creates a governed workflow where output guardrails and taxonomic tagging make every advisory note auditable and defensible.</p>
-        </section>
-        <div class="highlight-box">
-            <p><strong>Curation Strategy:</strong> By creating a human-in-the-loop <em>Corpus Curator</em> interface, the system ensures that only vetted knowledge enters the index. This shifts knowledge base maintenance from an automated (and error-prone) task to a deliberate engineering workflow that focuses on high-fidelity, trusted content.</p>
-        </div>
-        <section>
-            <h2>4. Engineering Insights</h2>
-            <p>Development cycles focused heavily on making the "value of evidence" transparent and measurable. Key learnings included:</p>
-            <ul>
-                <li><strong>Bias Lift Measurement:</strong> By comparing baseline inference against grounded retrieval, the system provides a clear metric of how much external evidence improved the decision-making context.</li>
-                <li><strong>Structured Chunking:</strong> The most significant retrieval gains came not from tuning embeddings, but from implementing structure-aware chunking that respects chapters and section logic rather than arbitrary word counts.</li>
-                <li><strong>Traceability Requirements:</strong> Implementing strict JSON schemas for run cards ensured that all findings are linked to specific provenance tags, preventing the system from producing unsupported "hallucinated" advice.</li>
-            </ul>
-        </section>
-        <section>
-            <h2>5. Broader Applications</h2>
-            <p>Decision Lens establishes a blueprint for governed decision intelligence that can be adapted for any domain requiring measurable, audit-trail-backed judgment:</p>
-            <ul>
-                <li><strong>Clinical and Medical Diagnostics:</strong> Adapting the curation engine to index clinical guidelines and peer-reviewed journals, allowing doctors to surface evidence-based treatment protocols alongside diagnostic suggestions.</li>
-                <li><strong>HR and Talent Acquisition:</strong> Leveraging the intervention playbook to help hiring managers mitigate unconscious bias during interview assessments by surfacing objective evaluation rubrics.</li>
-                <li><strong>Supply Chain and Risk Management:</strong> Using the RAG pipeline to ingest operational policy documents and risk frameworks, enabling supply chain leaders to generate structured, evidence-backed impact assessments when faced with logistics disruptions.</li>
-            </ul>
-        </section>
-        <p>
-            <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-        </p>
-        <section class="publications-section">
-            <h2>Published Articles</h2>
-            <p class="publications-intro">
-                A collection of my writing and working tools across applied AI and machine learning — from accessible
-                introductions to detailed methods papers and live apps you can try in your browser.
-            </p>
-            <div class="publications-grid">
-                <a href="https://medium.com/ai-in-plain-english/the-jaguar-spotter-how-ai-tells-one-big-cat-from-another-2764d19ddd5a" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Article</span>
-                        <span class="pub-icon" aria-hidden="true">🐆</span>
-                    </div>
-                    <h3>The Jaguar Spotter</h3>
-                    <p>How AI identifies individual jaguars for conservation. Frozen foundation models as a pathway to precision wildlife monitoring.</p>
-                    <span class="pub-link">Read the article &rarr;</span>
-                </a>
-                <a href="https://medium.com/@rommelsharma" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Medium</span>
-                        <span class="pub-icon" aria-hidden="true">&#9998;</span>
-                    </div>
-                    <h3>Articles on Machine Learning</h3>
-                    <p>My ongoing collection of applied AI and machine learning writing on Medium.</p>
-                    <span class="pub-link">Read on Medium &rarr;</span>
-                </a>
-                <a href="https://medium.com/@rommelsharma/a-beginners-guide-to-bioacoustics-how-computer-vision-helps-identify-wildlife-by-sound-c517983547d4" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Article</span>
-                        <span class="pub-icon" aria-hidden="true">&#128016;</span>
-                    </div>
-                    <h3>A Beginner&rsquo;s Guide to Bioacoustics</h3>
-                    <p>How computer vision helps identify wildlife by sound — an accessible introduction to the field.</p>
-                    <span class="pub-link">Read the guide &rarr;</span>
-                </a>
-                <a href="https://www.researchsquare.com/article/rs-10188304/v1" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge pub-badge-paper">Research Paper</span>
-                        <span class="pub-icon" aria-hidden="true">&#128220;</span>
-                    </div>
-                    <h3>Deep-Learning Model Selection, Optimization &amp; Deployment</h3>
-                    <p>A detailed methods paper on wildlife sound classification for edge devices (Research Square).</p>
-                    <span class="pub-link">Read the paper &rarr;</span>
-                </a>
-                <a href="https://huggingface.co/spaces/rommelsharma/wildlife-id-by-sound" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge pub-badge-app">Live App</span>
-                        <span class="pub-icon" aria-hidden="true">&#127925;</span>
-                    </div>
-                    <h3>Wildlife ID by Sound</h3>
-                    <p>Try the Bioacoustics solution live — upload a clip and get ranked species detections.</p>
-                    <span class="pub-link">Launch the app &rarr;</span>
-                </a>
-            </div>
-        </section>
-        <section class="connect-section">
-            <h2>Let's Connect</h2>
-            <p>
-                Always happy to chat about advances in AI, ML applications, innovations, and new methods to do things better.
-            </p>
-            <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" class="btn-primary">Connect on LinkedIn</a>
-        </section>
-        <footer style="margin-top: 60px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-            <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful
-                impact."</p>
-        </footer>
-    </article>
-</body>
+    <a class="skip-link" href="#article-content">Skip to article</a>
 
+    <header class="site-header">
+        <nav class="site-nav shell" aria-label="Primary navigation">
+            <a class="wordmark" href="../index.html" aria-label="Rommel Sharma, portfolio home">Rommel Sharma</a>
+            <ul class="nav-links">
+                <li><a href="../index.html#research">Research</a></li>
+                <li><a href="../index.html#writing">Writing</a></li>
+                <li><a class="nav-cta" href="https://www.linkedin.com/in/rommelsharma" rel="me noopener" target="_blank">Connect ↗</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class="project-cover">
+            <div class="project-cover__inner shell">
+                <div class="project-cover__copy">
+                    <p class="eyebrow">Decision intelligence · Behavioral science · Case study 03</p>
+                    <h1>Decision Lens.</h1>
+                    <p class="project-cover__dek">An advisory system that grounds AI recommendations in peer-reviewed behavioral science through dual-inference comparison and traceable source attribution.</p>
+                    <div class="tech-pills" aria-label="Technologies used">
+                        <span class="tech-pill">Proxy-Pointer RAG</span>
+                        <span class="tech-pill">Dual-Inference Comparison</span>
+                        <span class="tech-pill">Hybrid Retrieval (RRF/MMR)</span>
+                        <span class="tech-pill">Human-in-the-Loop Curation</span>
+                        <span class="tech-pill">Evidence Provenance</span>
+                    </div>
+                </div>
+                <figure class="project-cover__image">
+                    <img src="../assets/images/decisionlens.jpg" alt="Abstract visual representing evidence-grounded decision intelligence" width="1408" height="768" fetchpriority="high">
+                    <figcaption class="image-caption">Bias lift, measured</figcaption>
+                </figure>
+            </div>
+        </header>
+
+        <section class="article-meta" aria-label="Article details">
+            <div class="article-meta__inner shell">
+                <div class="article-meta__item"><span>Author</span><strong>Rommel Sharma</strong></div>
+                <div class="article-meta__item"><span>Published</span><strong>10 June 2026</strong></div>
+                <div class="article-meta__item"><span>Domain</span><strong>Decision intelligence</strong></div>
+                <div class="article-meta__item"><span>Location</span><strong>Sydney, NSW</strong></div>
+            </div>
+        </section>
+
+        <div class="article-layout shell">
+            <aside class="article-toc" aria-label="On this page">
+                <p class="article-toc__label">On this page</p>
+                <ol>
+                    <li><a href="#objective">Objective</a></li>
+                    <li><a href="#challenge">Challenge</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#insights">Insights</a></li>
+                    <li><a href="#transfer">Applications</a></li>
+                </ol>
+                <a class="article-toc__back" href="../index.html">← Portfolio index</a>
+            </aside>
+
+            <article class="article-body" id="article-content">
+                <p class="article-lead">Decision Lens moves beyond generic AI responses by performing a dual-inference comparison: a baseline answer alongside an evidence-grounded answer retrieved from a curated corpus, creating a measurable bias lift with traceable attribution.</p>
+
+                <section id="objective">
+                    <h2><span class="section-number">01 / OBJECTIVE</span>Introduction &amp; objective</h2>
+                    <p>Decision Lens is an advisory system designed to ground AI-generated recommendations in peer-reviewed behavioral science and cognitive psychology literature. It assists professionals facing high-stakes decisions—such as executive strategy, governance, and investment—where the quality and consistency of judgment directly impact outcomes.</p>
+                    <p>The system moves beyond generic AI responses by performing a <strong>dual-inference comparison</strong>: it generates a baseline answer (using the model's internal knowledge) alongside an evidence-grounded answer (retrieved from a curated corpus). This creates a measurable "bias lift," ensuring every recommendation is backed by traceable, verbatim source attribution.</p>
+                </section>
+
+                <section id="challenge">
+                    <h2><span class="section-number">02 / CHALLENGE</span>Managing high-stakes judgment</h2>
+                    <p>High-stakes decision-making is often plagued by cognitive biases, such as confirmation bias or overconfidence. Traditional AI models may provide confident-sounding but unverified advice. The core challenges addressed include:</p>
+                    <ul>
+                        <li><strong>Lack of Provenance:</strong> AI models typically struggle to explain *why* they suggest a specific intervention, leaving the human decision-maker without a defensible audit trail.</li>
+                        <li><strong>Ingestion Noise:</strong> Broad knowledge bases often contain repetitive boilerplate, making it difficult to retrieve specific frameworks or study results efficiently.</li>
+                        <li><strong>Context Blindness:</strong> Generic advice often fails to account for the specific organizational risk posture or practice profiles of the user.</li>
+                    </ul>
+                </section>
+
+                <section id="architecture">
+                    <h2><span class="section-number">03 / ARCHITECTURE</span>Technical architecture</h2>
+                    <p>The system architecture integrates three distinct layers to ensure output reliability and domain relevance:</p>
+
+                    <h3>A. Evidence-Grounded RAG Pipeline</h3>
+                    <p>The inference engine employs a hybrid retrieval strategy, combining dense vector search (Amazon Titan v2) with sparse keyword retrieval (BM25). These are merged using <strong>Reciprocal Rank Fusion (RRF)</strong> and <strong>MMR diversification</strong> to ensure that retrieved evidence is both highly relevant and structurally diverse.</p>
+
+                    <h3>B. Proxy-Pointer RAG &amp; Knowledge Curation</h3>
+                    <p>To optimize performance, the system employs <strong>Proxy-Pointer RAG</strong>. Instead of blindly indexing raw text, a structure-guided pipeline parses and classifies passages (e.g., classifying text as "Studies," "Frameworks," or "Prescriptions"). This allows the retriever to prioritize high-yield content and prevents ingestion noise from diluting the retrieval precision.</p>
+
+                    <h3>C. Governance &amp; Plugin Integration</h3>
+                    <p>Packaging the engine as a first-party plugin for platforms like <strong>Claude for Legal</strong> enables the use of strict practice-profile onboarding and reviewer-note discipline. This creates a governed workflow where output guardrails and taxonomic tagging make every advisory note auditable and defensible.</p>
+
+                    <div class="callout">
+                        <span class="callout__label">Curation strategy</span>
+                        <p>By creating a human-in-the-loop <em>Corpus Curator</em> interface, the system ensures that only vetted knowledge enters the index. This shifts knowledge base maintenance from an automated (and error-prone) task to a deliberate engineering workflow that focuses on high-fidelity, trusted content.</p>
+                    </div>
+                </section>
+
+                <section id="insights">
+                    <h2><span class="section-number">04 / INSIGHTS</span>Engineering insights</h2>
+                    <p>Development cycles focused heavily on making the "value of evidence" transparent and measurable. Key learnings included:</p>
+                    <ul>
+                        <li><strong>Bias Lift Measurement:</strong> By comparing baseline inference against grounded retrieval, the system provides a clear metric of how much external evidence improved the decision-making context.</li>
+                        <li><strong>Structured Chunking:</strong> The most significant retrieval gains came not from tuning embeddings, but from implementing structure-aware chunking that respects chapters and section logic rather than arbitrary word counts.</li>
+                        <li><strong>Traceability Requirements:</strong> Implementing strict JSON schemas for run cards ensured that all findings are linked to specific provenance tags, preventing the system from producing unsupported "hallucinated" advice.</li>
+                    </ul>
+                </section>
+
+                <section id="transfer">
+                    <h2><span class="section-number">05 / APPLICATIONS</span>Broader applications</h2>
+                    <p>Decision Lens establishes a blueprint for governed decision intelligence that can be adapted for any domain requiring measurable, audit-trail-backed judgment:</p>
+                    <ul>
+                        <li><strong>Clinical and Medical Diagnostics:</strong> Adapting the curation engine to index clinical guidelines and peer-reviewed journals, allowing doctors to surface evidence-based treatment protocols alongside diagnostic suggestions.</li>
+                        <li><strong>HR and Talent Acquisition:</strong> Leveraging the intervention playbook to help hiring managers mitigate unconscious bias during interview assessments by surfacing objective evaluation rubrics.</li>
+                        <li><strong>Supply Chain and Risk Management:</strong> Using the RAG pipeline to ingest operational policy documents and risk frameworks, enabling supply chain leaders to generate structured, evidence-backed impact assessments when faced with logistics disruptions.</li>
+                    </ul>
+                </section>
+            </article>
+        </div>
+
+        <section class="article-related" aria-labelledby="related-title">
+            <div class="shell">
+                <p class="eyebrow">Continue exploring</p>
+                <h2 id="related-title">Related research &amp; writing</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="jaguar-identification.html">
+                        <span>Applied research</span>
+                        <h3>Wildlife ID by Vision</h3>
+                        <p>Frozen DINOv2 features and metric learning for jaguar re-identification at 0.950 mAP.</p>
+                    </a>
+                    <a class="related-card" href="bio-acoustics.html">
+                        <span>Applied research</span>
+                        <h3>Wildlife ID by Sound</h3>
+                        <p>Offline acoustic identification across 234 Pantanal species.</p>
+                    </a>
+                    <a class="related-card" href="../index.html#research">
+                        <span>Portfolio index</span>
+                        <h3>All AI/ML systems</h3>
+                        <p>Browse conservation, decision, voice and finance projects.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner shell">
+            <div>
+                <p class="eyebrow">Rommel Sharma · Sydney, Australia</p>
+                <p class="site-footer__statement">Building thoughtful technology and publishing the evidence behind it.</p>
+            </div>
+            <small>© 2026 Rommel Sharma · <a href="../feed.xml">RSS</a></small>
+        </div>
+    </footer>
+</body>
 </html>

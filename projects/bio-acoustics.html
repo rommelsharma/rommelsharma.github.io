@@ -1,29 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="en-AU">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Wildlife Identification by Sound | Rommel Sharma</title>
     <meta name="description" content="BirdCLEF+ 2026 acoustic species ID by Rommel Sharma. Achieved 0.92041 private LB with 6-member ONNX ensemble, MLOps pipeline for 234 Pantanal species.">
     <meta name="keywords" content="Rommel Sharma, BirdCLEF 2026, Bioacoustics, Sound Event Detection, Perch v2, ECA-NFNet, ONNX Runtime, Noisy Student, Ensemble Decorrelation, Wildlife Conservation AI, Pantanal, MLOps">
     <meta name="author" content="Rommel Sharma">
     <meta name="geo.region" content="AU-NSW">
     <meta name="geo.placename" content="Sydney">
+    <meta name="geo.position" content="-33.8688;151.2093">
+    <meta name="ICBM" content="-33.8688, 151.2093">
     <link rel="canonical" href="https://rommelsharma.github.io/projects/bio-acoustics.html">
     <link rel="alternate" type="application/rss+xml" title="Rommel Sharma — Applied AI Articles" href="https://rommelsharma.github.io/feed.xml">
     <link rel="author" href="https://rommelsharma.github.io/">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Wildlife Identification by Sound | Rommel Sharma">
-    <meta property="og:description" content="BirdCLEF+ 2026 Pantanal acoustic species identification by Rommel Sharma: from a 0.50 baseline to 0.92041 private LB with a 6-member ONNX ensemble (ECA-NFNet-L0 + native Perch v2), Site-22 harness gates, an MLOps run registry, and a deployable CPU app.">
+    <meta property="og:title" content="Wildlife Identification by Sound">
+    <meta property="og:description" content="BirdCLEF+ 2026 Pantanal acoustic species identification: from a 0.50 baseline to 0.92041 private LB with a 6-member ONNX ensemble.">
     <meta property="og:url" content="https://rommelsharma.github.io/projects/bio-acoustics.html">
     <meta property="og:site_name" content="Rommel Sharma — Applied AI Portfolio">
     <meta property="og:image" content="https://rommelsharma.github.io/assets/images/bioacoustics.jpg">
+    <meta property="og:image:alt" content="Bioacoustic wildlife identification case study">
+    <meta property="og:locale" content="en_AU">
     <meta property="article:author" content="Rommel Sharma">
+    <meta property="article:published_time" content="2026-06-24">
+    <meta property="article:modified_time" content="2026-07-03">
+    <meta property="article:section" content="Bio-Acoustics">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Wildlife Identification by Sound | Rommel Sharma">
-    <meta name="twitter:description" content="BirdCLEF+ 2026 Pantanal acoustic species identification by Rommel Sharma: from a 0.50 baseline to 0.92041 private LB with a 6-member ONNX ensemble (ECA-NFNet-L0 + native Perch v2), Site-22 harness gates, an MLOps run registry, and a deployable CPU app.">
+    <meta name="twitter:title" content="Wildlife Identification by Sound">
+    <meta name="twitter:description" content="BirdCLEF+ 2026 Pantanal acoustic species identification: from a 0.50 baseline to 0.92041 private LB with a 6-member ONNX ensemble.">
     <meta name="twitter:image" content="https://rommelsharma.github.io/assets/images/bioacoustics.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -33,732 +43,428 @@
                 "@id": "https://rommelsharma.github.io/#person",
                 "name": "Rommel Sharma",
                 "url": "https://rommelsharma.github.io/",
-                "jobTitle": "Senior AI Leader & Enterprise Architect",
-                "description": "Senior AI business development and go-to-market leader with 25+ years' experience, focused on building and scaling commercial AI initiatives — particularly agentic customer experience orchestration at Adobe.",
-                "worksFor": {
-                    "@type": "Organization",
-                    "name": "Adobe",
-                    "url": "https://www.adobe.com/"
-                },
-                "knowsAbout": [
-                    "Applied Machine Learning",
-                    "Generative AI",
-                    "MLOps",
-                    "Computer Vision",
-                    "Bio-Acoustics",
-                    "Voice Synthesis",
-                    "Retrieval-Augmented Generation",
-                    "Quantitative Finance"
-                ],
+                "jobTitle": "Enterprise AI Go-to-Market and Business Development Leader",
+                "worksFor": { "@type": "Organization", "name": "Adobe", "url": "https://www.adobe.com/" },
                 "sameAs": [
                     "https://www.linkedin.com/in/rommelsharma",
                     "https://github.com/rommelsharma",
                     "https://medium.com/@rommelsharma",
-                    "https://orcid.org/0009-0005-6819-6219",
-                    "https://www.skills.google/public_profiles/a8728b82-b98c-4e37-a9f4-f9b77782fb30"
+                    "https://orcid.org/0009-0005-6819-6219"
                 ],
-                "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "Sydney",
-                    "addressRegion": "NSW",
-                    "addressCountry": "Australia"
-                }
+                "address": { "@type": "PostalAddress", "addressLocality": "Sydney", "addressRegion": "NSW", "addressCountry": "AU" }
             },
             {
                 "@type": "TechArticle",
                 "@id": "https://rommelsharma.github.io/projects/bio-acoustics.html#article",
                 "headline": "Wildlife Identification by Sound: Bio-Acoustic Species Identification",
-                "description": "BirdCLEF+ 2026 Pantanal acoustic species identification by Rommel Sharma: from a 0.50 baseline to 0.92041 private LB with a 6-member ONNX ensemble (ECA-NFNet-L0 + native Perch v2), Site-22 harness gates, an MLOps run registry, and a deployable CPU app.",
+                "description": "BirdCLEF+ 2026 Pantanal acoustic species identification by Rommel Sharma: from a 0.50 baseline to 0.92041 private LB with a 6-member ONNX ensemble.",
                 "url": "https://rommelsharma.github.io/projects/bio-acoustics.html",
-                "mainEntityOfPage": "https://rommelsharma.github.io/projects/bio-acoustics.html",
+                "mainEntityOfPage": { "@type": "WebPage", "@id": "https://rommelsharma.github.io/projects/bio-acoustics.html" },
                 "inLanguage": "en-AU",
                 "datePublished": "2026-06-24",
                 "dateModified": "2026-07-03",
-                "keywords": "Rommel Sharma, BirdCLEF 2026, Bioacoustics, Sound Event Detection, Perch v2, ECA-NFNet, ONNX Runtime, Noisy Student, Ensemble Decorrelation, Wildlife Conservation AI, Pantanal, MLOps",
-                "image": "https://rommelsharma.github.io/assets/images/bioacoustics.jpg",
+                "keywords": ["BirdCLEF 2026", "Bioacoustics", "Sound Event Detection", "Perch v2", "ECA-NFNet", "ONNX Runtime", "MLOps"],
+                "image": { "@type": "ImageObject", "url": "https://rommelsharma.github.io/assets/images/bioacoustics.jpg" },
                 "author": { "@id": "https://rommelsharma.github.io/#person" },
                 "creator": { "@id": "https://rommelsharma.github.io/#person" },
                 "publisher": { "@id": "https://rommelsharma.github.io/#person" }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://rommelsharma.github.io/" },
+                    { "@type": "ListItem", "position": 2, "name": "Wildlife Identification by Sound", "item": "https://rommelsharma.github.io/projects/bio-acoustics.html" }
+                ]
             }
         ]
     }
     </script>
-    <link rel="stylesheet" href="../css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <header class="project-hero" style="background-image: url('../assets/images/bioacoustics.jpg');">
-        <div class="container project-hero-centered">
-            <h1>Bioacoustics - Wildlife identification by Sound</h1>
-            <div class="meta-strip">
-                <div class="meta-item"><strong>Author:</strong> Rommel Sharma</div>
-                <div class="meta-item"><strong>Primary Source Dataset:</strong> BirdCLEF+ 2026 (Kaggle)</div>
-                <div class="meta-item"><strong>Domain:</strong> Bio-Acoustics &amp; Wildlife Conservation</div>
-            </div>
-            <div class="tech-pill-box">
-                <span class="tech-pill">MLOps</span>
-                <span class="tech-pill">CNN Ensemble</span>
-                <span class="tech-pill">Sound Event Detection (SED)</span>
-                <span class="tech-pill">Perch v2 (native + distill)</span>
-                <span class="tech-pill">ECA-NFNet-L0</span>
-                <span class="tech-pill">Noisy Student</span>
-                <span class="tech-pill">ONNX Runtime</span>
-                <span class="tech-pill">Test Harness</span>
-                <span class="tech-pill">Gradio App</span>
-            </div>
-        </div>
-    </header>
-    <article class="article-body">
-        <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-        <p class="article-byline">By <a href="https://rommelsharma.github.io/">Rommel Sharma</a> · <a href="https://www.linkedin.com/in/rommelsharma" rel="me">LinkedIn</a></p>
-        <section>
-            <h2>Project Overview</h2>
-            <p>
-                This project builds an offline acoustic wildlife identification system for Brazil’s Pantanal—supporting field biologists, rangers, and citizen scientists who need reliable species detections without cloud connectivity. From short audio clips, the application estimates presence across 234 taxa (birds, amphibians, mammals, reptiles, and insects), including overlapping calls in noisy, far-field soundscapes. The core challenge is ecological, not cosmetic: most training examples are clean, close-range recordings, while real deployments face distant microphones, wind, insects, and multiple species calling at once. The pipeline combines efficient on-device models, teacher-guided learning from unlabeled soundscapes, and ensemble inference tuned for robust ranking scores in the UI—turning competition-grade research into a practical tool for biodiversity monitoring and conservation workflows.
-            </p>
-            <p>
-                <a href="https://www.kaggle.com/writeups/rommelsharma/sound-event-detection-for-wildlife-identification" class="back-btn" target="_blank" rel="noopener noreferrer">Read the Kaggle writeup &rarr;</a>
-            </p>
-        </section>
-        <section>
-            <p>
-                <img src="images/bioacoustics-ui-app.png" alt="Mel spectrogram example of a species vocalization" class="project-image" />
-            </p>
-        </section>
-        <section>
-            <h2>Source Dataset</h2>
-            <p>
-                <img src="images/bio_eda_overview.png" alt="Dataset and taxonomy breakdown" class="project-image" />
-            </p>
-            <p>Data comes from the Kaggle BirdCLEF+ 2026 competition:</p>
-            <ul>
-                <li><strong>Focal clips:</strong> short, single-species, close-mic training recordings (~35k used in the full pipeline)</li>
-                <li><strong>Soundscapes:</strong> long-form, multi-species field recordings (10,658 labeled segments for pseudo-labeling)</li>
-                <li><strong>234 taxonomic classes</strong> across 161 genera, monitored at multiple Pantanal sites</li>
-                <li><strong>Site-22</strong> held out as the leak-free generalisation proxy throughout training and harness gating</li>
-            </ul>
-        </section>
-        <section>
-            <h2>Architectural Evolution</h2>
-            <p>
-                From Phase 1 onward the CNN front-end was fixed: 128-mel log-spectrograms, 5 s windows @ 32 kHz, per-sample
-                z-score, feeding an EfficientNet backbone with fp32-guarded GEM frequency pooling and an SED attention head.
-                Training followed supervised → Noisy Student iter1 → Noisy Student iter2 on focal + labeled-soundscape streams.
-            </p>
-            <ul>
-                <li>
-                    <strong>Phase 0 — Minimal CPU baseline (EfficientNet-V2-B0, ImageNet pretraining):</strong>
-                    <p>
-                        Deliberately stripped pipeline to meet the 90-minute budget: 64 mels, min–max norm, global-average pool +
-                        linear head (no SED/GEM), 6 epochs on ≤3,000 focal clips, no self-training. Result:
-                        <strong>Private 0.499 / Public 0.555</strong> — near-random, but proved the harness worked.
-                    </p>
-                </li>
-                <li>
-                    <strong>Phase 1 — Full ML stack (EfficientNet-B0, large-scale pretraining):</strong>
-                    <p>
-                        Rebuilt everything: ns_jft B0 backbone (JFT-300M + Noisy Student pretraining), 128-mel z-score front-end,
-                        ThreePoolHead + frame-max aux loss, fp32 GEM guard, BN recalibration, full focal + LSS data, 36 epochs with
-                        Noisy Student on 10,658 soundscapes. Result: <strong>Private 0.831 / Public 0.799</strong> (+0.332 private vs Phase 0).
-                    </p>
-                </li>
-                <li>
-                    <strong>Phase 2 — B0 + Perch distillation:</strong>
-                    <p>
-                        Added Google Perch v8 cosine distillation via 36,073 precomputed embeddings (dim 1280) during supervised
-                        training only — zero inference cost. Best <strong>single CNN model</strong>:
-                        <strong>Private 0.84846 / Public 0.82698</strong>. Site-22 0.731; per-taxon: Amph 0.740, Aves 0.704, Mamm 0.756.
-                    </p>
-                </li>
-                <li>
-                    <strong>Phase 3 — EfficientNetV2-S + export bug (v3):</strong>
-                    <p>
-                        Swapped to V2-S backbone; scored Private 0.777 — an <strong>export bug</strong> shipped the
-                        early supervised-only model snapshot instead of the final self-trained checkpoint after two
-                        rounds of soundscape learning, not a backbone failure. Clean rerun (Phase 3 without Perch): Private 0.78679.
-                    </p>
-                </li>
-                <li>
-                    <strong>Phase 4 — V2-S + Perch + export fix (v4):</strong>
-                    <p>
-                        Added Perch distillation and a <strong>deterministic checkpoint-selection policy</strong> so the
-                        fully self-trained model is always packaged for submission — never an earlier supervised-only snapshot.
-                        Largest internal lift on greedy coverage (+0.064) but LB <strong>Private 0.803</strong> — still below B0 baseline. The 2×2 ablation confirmed:
-                        B0 beats V2-S regardless of Perch; Perch adds a consistent ~+0.017 private lift on both backbones.
-                    </p>
-                </li>
-                <li>
-                    <strong>Phase 5 — Measure-first ensemble (v5):</strong>
-                    <p>
-                        No new training. Blended existing members on the Site-22 harness; fixed fractional time-shift TTA
-                        (+0.0165 Site-22 lift). No free blend beat the B0+Perch anchor. A coverage cap bug (200/10,658 files)
-                        suppressed one local smoke run — lesson carried forward for full-soundscape inference.
-                    </p>
-                </li>
-                <li>
-                    <strong>Phase 6 — Ensemble + rank-vs-prob bug (v6):</strong>
-                    <p>
-                        Trained a second B0 model without Perch distillation (provenance decorrelation, harness +TTA 0.7323). Two-member Kaggle submit scored
-                        Private 0.816 — flat vs v5 because <strong>rank blending</strong> was paired with probability-tuned post-processing.
-                        Fix: switched to <strong>probability-space blending</strong> so ensemble scores stay compatible with
-                        calibrated post-processing. Best PyTorch 2-member blend: <strong>Private 0.81465</strong>.
-                        PyTorch single-model champion (B0+Perch + TTA fix): <strong>Private 0.86259</strong>.
-                    </p>
-                </li>
-                <li>
-                    <strong>Phase 7 — ONNX 4-member ensemble (v7):</strong>
-                    <p>
-                        Replaced PyTorch forwards with <strong>ONNX Runtime</strong> to fit 4 models + TTA in the CPU budget.
-                        Members: B0+Perch (Phase 2), B0 without Perch (Phase 6), V2-S+Perch (Phase 4), and <strong>native Perch v2</strong>
-                        at inference. Champion: <strong>Private 0.89774</strong>. D1/D2+D3 confirmatory submits regressed
-                        (0.89004 / 0.89348) — local Site-22 proxies did not predict LB for post-proc tuning.
-                    </p>
-                </li>
-                <li>
-                    <strong>Phase 8 — ONNX 5-member, diversity member (v8):</strong>
-                    <p>
-                        Added a <strong>distilled-SED EfficientNet-B0</strong> that was weak alone (Site-22 ~0.727) but highly
-                        decorrelated from the anchor (correlation 0.243). Gating on <strong>diversity rather than solo strength</strong>
-                        lifted the stack to <strong>Private 0.91111</strong> — the first configuration over the 0.90 target — with no
-                        change to the inference recipe.
-                    </p>
-                </li>
-                <li>
-                    <strong>Phase 9 — ONNX 6-member + selective TTA (v9, final champion):</strong>
-                    <p>
-                        Added a normalizer-free <strong>ECA-NFNet-L0</strong> backbone family — the most decorrelated member on record
-                        (correlation <strong>0.199</strong>), which lifted the ensemble ~+0.011 to <strong>Private 0.91802</strong> at full
-                        coverage. A CPU-throughput spike then showed the pipeline is dominated by two heavy members (Perch, ECA), so
-                        <strong>selective TTA</strong> — augmenting only the three cheap B0s — recovered a further increment to
-                        <strong>Private 0.92041 / Public 0.90552</strong> while staying inside the 90-minute budget. A key correctness fix
-                        this cycle: a fail-loud <strong>coverage guardrail</strong>, after a silently truncated (uniform-filled) test tail
-                        had masqueraded as a modelling regression. OpenVINO / INT8 acceleration was investigated and closed (Perch and ECA
-                        are unconvertible; net 1.00× speedup), so inference scaling is exhausted at this ceiling.
-                    </p>
-                </li>
-            </ul>
-            <p>
-                <img src="images/bio_perch_train_sup.png" alt="Supervised training results" class="project-image" />
-            </p>
-            <p>
-                <img src="images/bio_perch_train_iter1.png" alt="Noisy Student iteration 1 training results" class="project-image" />
-            </p>
-            <p>
-                <img src="images/bio_perch_train_iter2.png" alt="Noisy Student iteration 2 training results" class="project-image" />
-            </p>
-            <div class="champion-callout">
-                <h3>Final champion model-ensemble (project closed, July 2026)</h3>
-                <p>
-                    <strong>v9 ONNX 6-member ensemble</strong> — Private LB <strong>0.92041</strong> / Public <strong>0.90552</strong>
-                    (+0.0227 private vs the former v7 4-member champion). Five CNNs — including a deliberately decorrelated,
-                    normalizer-free <strong>ECA-NFNet-L0</strong> (correlation 0.199 vs the anchor, the most decorrelated member on
-                    record) — plus a <strong>live native Perch v2</strong>, blended in probability space via ONNX Runtime on CPU with
-                    <strong>selective test-time augmentation</strong> (TTA on the cheap members only, to stay inside the 90-minute budget).
-                </p>
-                <p>
-                    This cleared the 0.90 target. The gains came from <strong>error decorrelation and inference engineering</strong>,
-                    not a bigger network. The champion is now packaged in a deployable <strong>CPU identification app</strong>, and the
-                    project concludes here — remaining accuracy levers (XC-pretrained backbones, more families, soft pseudo-labeling)
-                    are documented as future work.
-                </p>
-            </div>
-        </section>
-        <section class="model-card-section">
-            <h2>Model Card</h2>
-            <p>
-                Verified clean runs and scored inference submissions. Metric: macro-averaged ROC-AUC over 234 species on
-                5-second windows. Erroneous exports (e.g. the original Phase 3 packaging mistake) and rejected harness runs (e.g. the failed pseudo-label training experiment) excluded.
-            </p>
-            <h3>Leaderboard ranking (Private LB)</h3>
-            <div class="table-wrap">
-                <table class="model-card-table">
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Run</th>
-                            <th>Private</th>
-                            <th>Public</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><strong>v9 ONNX 6-member</strong> (5 CNN incl. ECA-NFNet-L0 @0.16 ⊕ native Perch) — selective TTA, full coverage <strong>· CHAMPION</strong></td>
-                            <td><strong>0.92041</strong></td>
-                            <td>0.90552</td>
-                        </tr>
-                        <tr>
-                            <td>1a</td>
-                            <td>v9 6-member — TTA-off, full coverage (same stack)</td>
-                            <td>0.91802</td>
-                            <td>0.90477</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>v8 ONNX 5-member (+ distilled-SED diversity member) — first over 0.90</td>
-                            <td>0.91111</td>
-                            <td>0.90247</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>v7 ONNX 4-member (B0+Perch ⊕ B0 no-Perch ⊕ V2-S+Perch ⊕ native Perch)</td>
-                            <td>0.89774</td>
-                            <td>0.89535</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>PyTorch single-model (B0+Perch + TTA)</td>
-                            <td>0.86259</td>
-                            <td>0.84613</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Phase 2 (B0 + Perch distill, single CNN)</td>
-                            <td>0.84846</td>
-                            <td>0.82698</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Phase 1 (B0, no Perch)</td>
-                            <td>0.831</td>
-                            <td>0.799</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>2-member prob-blend (B0+Perch + B0 no-Perch)</td>
-                            <td>0.81465</td>
-                            <td>0.80270</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Phase 4 (V2-S + Perch)</td>
-                            <td>0.803</td>
-                            <td>0.797</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Phase 3 clean rerun (V2-S, no Perch)</td>
-                            <td>0.78679</td>
-                            <td>0.78683</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>Phase 0 baseline (minimal submit)</td>
-                            <td>0.499</td>
-                            <td>0.555</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <h3>Training validation (final self-trained checkpoint)</h3>
-            <div class="table-wrap">
-                <table class="model-card-table">
-                    <thead>
-                        <tr>
-                            <th>Run</th>
-                            <th>Focal</th>
-                            <th>Site-22</th>
-                            <th>Greedy</th>
-                            <th>LSS</th>
-                            <th>Site-22 taxon (Amph / Aves / Mamm)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Phase 1 (B0, no Perch)</td>
-                            <td>0.943</td>
-                            <td>0.683</td>
-                            <td>0.767</td>
-                            <td>0.725</td>
-                            <td>0.757 / 0.604 / 0.700</td>
-                        </tr>
-                        <tr>
-                            <td>Phase 2 (B0 + Perch)</td>
-                            <td>0.952</td>
-                            <td>0.731</td>
-                            <td>0.745</td>
-                            <td>0.738</td>
-                            <td>0.740 / 0.704 / 0.756</td>
-                        </tr>
-                        <tr>
-                            <td>Phase 3 clean rerun (V2-S, no Perch)</td>
-                            <td>—</td>
-                            <td>0.652</td>
-                            <td>0.767</td>
-                            <td>0.709</td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td>Phase 4 (V2-S + Perch)</td>
-                            <td>0.958</td>
-                            <td>0.654</td>
-                            <td>0.824</td>
-                            <td>0.739</td>
-                            <td>0.735 / 0.590 / 0.431</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <h3>Evaluation layers</h3>
-            <div class="table-wrap">
-                <table class="model-card-table">
-                    <thead>
-                        <tr>
-                            <th>Layer</th>
-                            <th>Protocol</th>
-                            <th>Use for</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Training notebook</td>
-                            <td>Site-22 macro-AUC, no TTA, per-phase peaks</td>
-                            <td>Training progress, export decisions</td>
-                        </tr>
-                        <tr>
-                            <td>Site-22 harness</td>
-                            <td>954 windows, BN recal, prob-space TTA, real post-proc</td>
-                            <td>Ensemble gate, blend A/B, promotion decisions</td>
-                        </tr>
-                        <tr>
-                            <td>Kaggle LB</td>
-                            <td>Hidden test set, CPU-only submit</td>
-                            <td>Authoritative final score</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p class="model-card-note">
-                <em>Site-22</em> is the held-out monitoring site. Harness and LB can disagree on ensembles — the V2-S+Perch and
-                ECA-NFNet members were modest standalone yet lifted the ensemble, because the payoff is error <em>decorrelation</em>,
-                not solo accuracy. Note also that the hidden evaluation proved non-stationary (byte-identical submits varied by ~±0.006),
-                so members were compared back-to-back rather than against a stored number.
-            </p>
-        </section>
-        <section>
-            <h2>Inference Stack (Champion)</h2>
-            <p>
-                The 0.92041 score came from <strong>inference engineering</strong>, not new CNN training. Six pre-exported ONNX
-                members from earlier clean runs are combined at submit time:
-            </p>
-            <div class="table-wrap">
-                <table class="model-card-table">
-                    <thead>
-                        <tr>
-                            <th>Member</th>
-                            <th>Source run</th>
-                            <th>Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>B0 + Perch (anchor CNN)</td>
-                            <td>Phase 2 training run</td>
-                            <td>Primary distilled model</td>
-                        </tr>
-                        <tr>
-                            <td>B0 without Perch</td>
-                            <td>Phase 6 training run</td>
-                            <td>Decorrelated second opinion (different training recipe)</td>
-                        </tr>
-                        <tr>
-                            <td>V2-S + Perch</td>
-                            <td>Phase 4 training run</td>
-                            <td>Backbone-family diversity</td>
-                        </tr>
-                        <tr>
-                            <td>B0 distilled-SED</td>
-                            <td>Phase 8 training run (v8)</td>
-                            <td>Low-correlation diversity member (corr 0.243)</td>
-                        </tr>
-                        <tr>
-                            <td>ECA-NFNet-L0 @0.16</td>
-                            <td>Phase 9 training run (v9)</td>
-                            <td>Normalizer-free family — most decorrelated member (corr 0.199)</td>
-                        </tr>
-                        <tr>
-                            <td>Native Perch v2</td>
-                            <td>Google Perch v2 (external)</td>
-                            <td>Live acoustic classifier mapped to 234 competition classes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p><strong>Pipeline at score time:</strong></p>
-            <ol class="pipeline-list">
-                <li><strong>Decode once</strong> per soundscape; build log-mel for CNN members, raw waveform for Perch</li>
-                <li><strong>ONNX Runtime</strong> on CPU (offline wheels — Kaggle submit has no internet)</li>
-                <li><strong>Selective prob-space TTA</strong> — ±0.5 s time shift ×3 on the three cheap B0 members only; the heavy members (Perch, ECA, V2-S) run single-pass to stay in budget</li>
-                <li><strong>Prob-blend</strong> the five CNN members; apply <strong>Perch rank gate</strong> on combined output</li>
-                <li><strong>Post-processing</strong> at champion settings: genus-level score mirroring, temporal continuity smoothing, and moderate Perch gating on the blended CNN output</li>
-                <li><strong>Coverage guardrail</strong> — fail-loud if the full hidden test set is not processed within budget (never silently uniform-fill an unprocessed tail)</li>
-            </ol>
-            <p>
-                PyTorch is retained only for audio I/O (decode + mel); all forward passes run through ORT. Pure PyTorch cannot
-                fit six members in the CPU budget — ONNX was load-bearing, not optional. A CPU-throughput profile showed the two
-                heaviest members (Perch ~44%, ECA ~22%) dominate, which is exactly why TTA is applied <em>selectively</em>.
-            </p>
-        </section>
-        <section>
-            <h2>MLOps &amp; Reproducibility</h2>
-            <h3>Why MLOps mattered here</h3>
-            <p>
-                This was a months-long solo research effort spanning dozens of training runs, ensemble experiments, and
-                Kaggle submissions. Without disciplined experiment tracking, it is easy to ship the wrong model snapshot,
-                confuse a local validation win with a real leaderboard gain, or repeat an expensive GPU run with no clear
-                hypothesis. MLOps — in the practical sense of <em>machine learning operations</em> — turned ad-hoc notebook
-                work into a repeatable, auditable process: every run has a stated goal, measured outcome, promotion decision,
-                and a single place to see what the current champion is.
-            </p>
-            <p>
-                The v3 export bug is the clearest example: the model looked weaker than it was because the submission
-                packaged an early checkpoint. Formal checkpoint-selection rules and a run registry prevent that class of
-                silent failure from reaching production or competition submits.
-            </p>
-            <h3>Best practices incorporated</h3>
-            <ul>
-                <li><strong>Hypothesis before heavy training</strong> — each experiment states what it is testing and when to stop, avoiding open-ended GPU spend</li>
-                <li><strong>Central run registry</strong> — every experiment records its goal, configuration, metrics, artifacts, and final promote/reject/hold decision in one auditable place</li>
-                <li><strong>Site-22 promotion gate</strong> — no model joins the submission ensemble unless it clears a standalone quality bar on held-out audio and improves the blend in probability space with test-time augmentation</li>
-                <li><strong>Two-layer evaluation</strong> — training-time Site-22 tracks learning progress; a separate submission-parity harness mirrors real inference (recalibration, TTA, post-processing) before any Kaggle submit</li>
-                <li><strong>Deterministic packaging</strong> — submission bundles always prefer the final self-trained checkpoint over earlier supervised-only snapshots, regardless of misleading intermediate scores</li>
-                <li><strong>Champion tracking</strong> — a living dashboard shows the current best submission, timeline of runs, gate pass/fail status, and training curves without digging through notebooks</li>
-                <li><strong>Pre-submit checklist</strong> — blend mode, coverage, and inference budget are verified before a competition submit is allowed</li>
-                <li><strong>Documented invariants</strong> — non-negotiable rules earned through debugging (BatchNorm recalibration, fp32 guard on fragile pooling, train/inference front-end parity) are enforced across every run</li>
-            </ul>
-            <h3>Outcome</h3>
-            <p>
-                The champion ONNX ensemble (Private LB 0.92041) is the direct result of this discipline: only verified,
-                correctly packaged models entered the six-member stack; rejected candidates — the failed pseudo-label training
-                run, and an HGNetV2-B0 member that was well-decorrelated but too weak solo — never reached submission. The
-                discipline also caught two subtle late failures: a <strong>silently truncated test tail</strong> (fixed with a
-                fail-loud coverage guardrail) and a <strong>non-stationary evaluation</strong> (handled by comparing candidates
-                back-to-back). The project closes at 0.92041, above the 0.90 target.
-            </p>
-        </section>
-        <section class="insight-section">
-            <h2>Key Lessons</h2>
-            <div class="highlight-box lesson-summary">
-                <p>
-                    The two largest early wins were <strong>debugging wins, not tuning wins</strong>: fp16 overflow in GEM
-                    pooling (<code>pow(p≈3)</code> under AMP) and BatchNorm statistics mismatch at inference both collapsed
-                    AUC to ≈0.5. Fixing them unlocked the Phase 0 → Phase 1 jump (+0.332 private LB) alongside the full
-                    stack rebuild — better backbone, z-score 128-mel front-end, soundscape self-training, and SED head.
-                </p>
-            </div>
-            <ol class="lesson-list">
-                <li>
-                    <h3>Trust Site-22, not focal AUC or the public leaderboard</h3>
-                    <p>
-                        Focal AUC (~0.94) and greedy coverage were optimistic; Site-22 (held-out monitoring site) was the
-                        honest generalisation proxy. The harness extends this with submission-parity TTA and post-processing.
-                    </p>
-                </li>
-                <li>
-                    <h3>The export path is as load-bearing as the model</h3>
-                    <p>
-                        v3's regression was an export bug: the submission packaged an early supervised-only snapshot instead
-                        of the final self-trained model after two rounds of soundscape learning. A deterministic
-                        checkpoint-selection policy fixed this — always ship the fully trained model, never an intermediate
-                        snapshot. Several runs peaked mid-training but still exported a later, weaker checkpoint until export
-                        policy was aligned with validation peaks.
-                    </p>
-                </li>
-                <li>
-                    <h3>Prob blend, not rank blend, for post-processed ensembles</h3>
-                    <p>
-                        v6 scored flat because rank-uniform scores were fed into probability-tuned post-processing (site/hour
-                        priors, score boosting, taxonomy smoothing). Switching to probability-space blending recovered the loss.
-                    </p>
-                </li>
-                <li>
-                    <h3>Native Perch &gt; distillation-only; harness ≠ LB for ensembles</h3>
-                    <p>
-                        Running Perch live at inference diversifies error vs B0+Perch distill alone — the largest conceptual
-                        shift since the prob-blend fix. V2-S+Perch failed Site-22 standalone yet helped the 4-member ONNX stack
-                        reach 0.898; treat harness as a coarse gate, not an LB oracle.
-                    </p>
-                </li>
-                <li>
-                    <h3>B0 + ns_jft pretraining beats V2-S on this task</h3>
-                    <p>
-                        The 2×2 ablation showed pretraining provenance (+0.044 private) matters more than architecture depth.
-                        Perch distillation adds a consistent ~+0.017 lift regardless of backbone.
-                    </p>
-                </li>
-                <li>
-                    <h3>Ensemble headroom is decorrelation, not solo peak accuracy</h3>
-                    <p>
-                        The decisive late members were weak alone but complementary: a distilled-SED B0 (corr 0.243) took the
-                        stack over 0.90, and a normalizer-free ECA-NFNet-L0 (corr 0.199, the most decorrelated on record) added
-                        ~+0.011 more. A rejected HGNetV2-B0 was well-decorrelated too, but too weak solo to help — decorrelation
-                        cannot rescue a member that is individually too weak.
-                    </p>
-                </li>
-                <li>
-                    <h3>Coverage is a correctness bug, and the eval can move under you</h3>
-                    <p>
-                        A silently truncated test tail (uniform-filled when inference ran out of budget) looked like a modelling
-                        regression for weeks; a fail-loud coverage guardrail plus TTA applied only to cheap members fixed it. The
-                        hidden test also proved non-stationary (byte-identical submits varied ~±0.006), so candidates are compared
-                        back-to-back, never against a stored number.
-                    </p>
-                </li>
-                <li>
-                    <h3>Single-model ceiling; ensemble + inference stack close the gap</h3>
-                    <p>
-                        Best single CNN: 0.848. PyTorch 1-member + TTA: 0.863. ONNX 4-member: 0.898; 5-member: 0.911;
-                        6-member + selective TTA: <strong>0.92041</strong>. Every gain from v7 onward came from recomposing existing
-                        checkpoints under a submission-parity ONNX spec — not from a stronger single model.
-                    </p>
-                </li>
-            </ol>
-        </section>
-        <section class="concept-section">
-            <h2>Key Concepts</h2>
-            <p class="section-intro">Plain-English glossary for terms used above.</p>
-            <div class="concept-grid">
-                <article class="concept-card">
-                    <h3>GEM pooling &amp; fp16 overflow</h3>
-                    <p>
-                        Generalized mean pooling raises feature values to a power (~3), averages, then takes the root — between
-                        average and max pooling. With <code>p≈3</code>, values like <code>50³ = 125,000</code> overflow fp16 under AMP.
-                        Fix: run GEM/head in fp32 while the rest uses mixed precision.
-                    </p>
-                </article>
-                <article class="concept-card">
-                    <h3>BatchNorm recalibration</h3>
-                    <p>
-                        BN running stats learned on augmented training audio mismatch clean inference inputs, collapsing
-                        predictions. Recalibrate on clean soundscape-like audio before every eval/submit pass.
-                    </p>
-                    <p class="analogy"><strong>Analogy:</strong> calibrating a scale while wearing a backpack, then weighing without it.</p>
-                </article>
-                <article class="concept-card">
-                    <h3>Noisy Student self-training</h3>
-                    <p>
-                        Pseudo-label unlabeled soundscapes with the current model, then retrain on those labels with noise
-                        augmentation. Exposes the model to the far-field, multi-species domain it will be tested on.
-                    </p>
-                </article>
-                <article class="concept-card">
-                    <h3>Perch distillation vs native Perch</h3>
-                    <p>
-                        <strong>Distillation:</strong> precomputed Perch embeddings guide CNN training; teacher not run at inference.
-                        <strong>Native:</strong> Perch runs live as a fourth ensemble member at inference — diversifies errors beyond
-                        what distillation alone captures.
-                    </p>
-                </article>
-                <article class="concept-card">
-                    <h3>Prob blend vs rank blend</h3>
-                    <p>
-                        <strong>Prob blend</strong> averages sigmoid probabilities — compatible with logit-space post-processing.
-                        <strong>Rank blend</strong> converts scores to uniform ranks per class — breaks priors and smoothing tuned
-                        for probabilities. The v6 regression came from mixing these.
-                    </p>
-                </article>
-                <article class="concept-card">
-                    <h3>SED head &amp; frame-max loss</h3>
-                    <p>
-                        The SED attention head weights each time frame; frame-max auxiliary loss supervises the loudest frame so
-                        brief calls (e.g. one 0.4 s vocalization in 5 s) are not drowned by global average pooling.
-                    </p>
-                </article>
-            </div>
-        </section>
-        <section>
-            <h2>The Deployed App</h2>
-            <p>
-                The champion is packaged in a lightweight, CPU-only identification app. An <strong>Identify</strong> tab returns
-                ranked species detections with a mel-spectrogram (defaulting to the 6-member champion, with single-model options
-                retained for comparison); a <strong>Browse</strong> tab explores the labeled sample library by taxon, then species.
-                In a stress test, a composite clip overlaying two focal recordings on a night-time soundscape was still correctly
-                resolved to its focal species — a qualitative check on the focal-to-soundscape robustness the whole project targets.
-            </p>
-        </section>
-        <section>
-            <h2>What's Next</h2>
-            <p>
-                The project is <strong>closed</strong> at the 6-member champion (Private 0.92041), above the 0.90 target. Inference
-                scaling is exhausted (OpenVINO / INT8 closed as a dead end), so the remaining gap to the top solutions (~0.95–0.96)
-                is an accuracy question. Three levers were scoped and evidence-ranked but not executed — the recommended path for
-                anyone resuming the work:
-            </p>
-            <ul>
-                <li><strong>XC-pretrained backbones:</strong> initialise from public Xeno-Canto-pretrained bioacoustic weights instead of ImageNet — the most consistent single-model lever among medalists</li>
-                <li><strong>More backbone families:</strong> add further decorrelated families (SwinV2, HGNetV2 with in-domain init, ConvNeXt, RegNetY)</li>
-                <li><strong>Soft pseudo-labeling:</strong> proper multi-round soft pseudo-labeling with a foundation-model (Perch) teacher and soundscape substitution</li>
-            </ul>
-        </section>
-        <p>
-            <a href="../index.html" class="back-btn">&larr; Return to Portfolio</a>
-        </p>
-        <section class="publications-section">
-            <h2>Published Articles</h2>
-            <p class="publications-intro">
-                Explore the writing and working tools behind this project — from an accessible introduction to bioacoustics,
-                to a detailed methods paper, to a live app you can try in your browser.
-            </p>
-            <div class="publications-grid">
-                <a href="https://medium.com/ai-in-plain-english/the-jaguar-spotter-how-ai-tells-one-big-cat-from-another-2764d19ddd5a" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Article</span>
-                        <span class="pub-icon" aria-hidden="true">🐆</span>
-                    </div>
-                    <h3>The Jaguar Spotter</h3>
-                    <p>How AI identifies individual jaguars for conservation. Frozen foundation models as a pathway to precision wildlife monitoring.</p>
-                    <span class="pub-link">Read the article &rarr;</span>
-                </a>
-                <a href="https://medium.com/@rommelsharma" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Medium</span>
-                        <span class="pub-icon" aria-hidden="true">&#9998;</span>
-                    </div>
-                    <h3>Articles on Machine Learning</h3>
-                    <p>My ongoing collection of applied AI and machine learning writing on Medium.</p>
-                    <span class="pub-link">Read on Medium &rarr;</span>
-                </a>
-                <a href="https://medium.com/@rommelsharma/a-beginners-guide-to-bioacoustics-how-computer-vision-helps-identify-wildlife-by-sound-c517983547d4" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge">Article</span>
-                        <span class="pub-icon" aria-hidden="true">&#128016;</span>
-                    </div>
-                    <h3>A Beginner&rsquo;s Guide to Bioacoustics</h3>
-                    <p>How computer vision helps identify wildlife by sound — an accessible introduction to the field.</p>
-                    <span class="pub-link">Read the guide &rarr;</span>
-                </a>
-                <a href="https://www.researchsquare.com/article/rs-10188304/v1" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge pub-badge-paper">Research Paper</span>
-                        <span class="pub-icon" aria-hidden="true">&#128220;</span>
-                    </div>
-                    <h3>Deep-Learning Model Selection, Optimization &amp; Deployment</h3>
-                    <p>A detailed methods paper on wildlife sound classification for edge devices (Research Square).</p>
-                    <span class="pub-link">Read the paper &rarr;</span>
-                </a>
-                <a href="https://huggingface.co/spaces/rommelsharma/wildlife-id-by-sound" class="pub-card" target="_blank" rel="noopener noreferrer">
-                    <div class="pub-card-top">
-                        <span class="pub-badge pub-badge-app">Live App</span>
-                        <span class="pub-icon" aria-hidden="true">&#127925;</span>
-                    </div>
-                    <h3>Wildlife ID by Sound</h3>
-                    <p>Try the Bioacoustics solution live — upload a clip and get ranked species detections.</p>
-                    <span class="pub-link">Launch the app &rarr;</span>
-                </a>
-            </div>
-        </section>
-        <section class="connect-section">
-            <h2>Let's Connect</h2>
-            <p>
-                Always happy to chat about advances in AI, ML applications, innovations, and new methods to do things better.
-            </p>
-            <a href="https://www.linkedin.com/in/rommelsharma" target="_blank" rel="noopener" class="btn-primary">Connect on LinkedIn</a>
-        </section>
-        <footer class="article-footer">
-            <p>&copy; 2026 Rommel Sharma. Dedicated to building thoughtful technology that makes a quiet, meaningful impact.</p>
-        </footer>
-    </article>
-</body>
+    <a class="skip-link" href="#article-content">Skip to article</a>
 
+    <header class="site-header">
+        <nav class="site-nav shell" aria-label="Primary navigation">
+            <a class="wordmark" href="../index.html" aria-label="Rommel Sharma, portfolio home">Rommel Sharma</a>
+            <ul class="nav-links">
+                <li><a href="../index.html#research">Research</a></li>
+                <li><a href="../index.html#writing">Writing</a></li>
+                <li><a class="nav-cta" href="https://www.linkedin.com/in/rommelsharma" rel="me noopener" target="_blank">Connect ↗</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class="project-cover">
+            <div class="project-cover__inner shell">
+                <div class="project-cover__copy">
+                    <p class="eyebrow">Bio-acoustics · Conservation · Case study 01</p>
+                    <h1>Wildlife identification by sound.</h1>
+                    <p class="project-cover__dek">An offline acoustic identification system for Brazil's Pantanal — from a 0.50 baseline to 0.92041 private LB with a 6-member ONNX ensemble and deployable CPU app.</p>
+                    <div class="tech-pills" aria-label="Technologies used">
+                        <span class="tech-pill">MLOps</span>
+                        <span class="tech-pill">CNN Ensemble</span>
+                        <span class="tech-pill">Sound Event Detection</span>
+                        <span class="tech-pill">Perch v2</span>
+                        <span class="tech-pill">ECA-NFNet-L0</span>
+                        <span class="tech-pill">ONNX Runtime</span>
+                    </div>
+                </div>
+                <figure class="project-cover__image">
+                    <img src="../assets/images/bioacoustics.jpg" alt="Pantanal soundscape illustrating bioacoustic wildlife identification" width="1408" height="768" fetchpriority="high">
+                    <figcaption class="image-caption">Sound as signal</figcaption>
+                </figure>
+            </div>
+        </header>
+
+        <section class="article-meta" aria-label="Article details">
+            <div class="article-meta__inner shell">
+                <div class="article-meta__item"><span>Author</span><strong>Rommel Sharma</strong></div>
+                <div class="article-meta__item"><span>Published</span><strong>24 June 2026</strong></div>
+                <div class="article-meta__item"><span>Dataset</span><strong>234 taxa</strong></div>
+                <div class="article-meta__item"><span>Outcome</span><strong>0.92041 private LB</strong></div>
+            </div>
+        </section>
+
+        <div class="article-layout shell">
+            <aside class="article-toc" aria-label="On this page">
+                <p class="article-toc__label">On this page</p>
+                <ol>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#dataset">Source dataset</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#results">Model card</a></li>
+                    <li><a href="#inference">Inference stack</a></li>
+                    <li><a href="#mlops">MLOps</a></li>
+                    <li><a href="#lessons">Key lessons</a></li>
+                    <li><a href="#concepts">Key concepts</a></li>
+                    <li><a href="#app">Deployed app</a></li>
+                    <li><a href="#next">What's next</a></li>
+                </ol>
+                <a class="article-toc__back" href="../index.html">← Portfolio index</a>
+            </aside>
+
+            <article class="article-body" id="article-content">
+                <p class="article-lead">The core challenge is ecological, not cosmetic: most training examples are clean, close-range recordings, while real deployments face distant microphones, wind, insects, and multiple species calling at once. The pipeline combines efficient on-device models, teacher-guided learning from unlabeled soundscapes, and ensemble inference tuned for robust ranking scores.</p>
+
+                <section id="overview">
+                    <h2><span class="section-number">01 / OVERVIEW</span>Project overview</h2>
+                    <p>This project builds an offline acoustic wildlife identification system for Brazil's Pantanal—supporting field biologists, rangers, and citizen scientists who need reliable species detections without cloud connectivity. From short audio clips, the application estimates presence across 234 taxa (birds, amphibians, mammals, reptiles, and insects), including overlapping calls in noisy, far-field soundscapes. The core challenge is ecological, not cosmetic: most training examples are clean, close-range recordings, while real deployments face distant microphones, wind, insects, and multiple species calling at once. The pipeline combines efficient on-device models, teacher-guided learning from unlabeled soundscapes, and ensemble inference tuned for robust ranking scores in the UI—turning competition-grade research into a practical tool for biodiversity monitoring and conservation workflows.</p>
+                    <p><a href="https://www.kaggle.com/writeups/rommelsharma/sound-event-detection-for-wildlife-identification" target="_blank" rel="noopener noreferrer">Read the Kaggle writeup →</a></p>
+                    <figure>
+                        <img src="images/bioacoustics-ui-app.png" alt="Mel spectrogram example of a species vocalization">
+                        <figcaption>Identification app UI with mel spectrogram</figcaption>
+                    </figure>
+                </section>
+
+                <section id="dataset">
+                    <h2><span class="section-number">02 / DATASET</span>Source dataset</h2>
+                    <figure>
+                        <img src="images/bio_eda_overview.png" alt="Dataset and taxonomy breakdown">
+                        <figcaption>Dataset and taxonomy breakdown</figcaption>
+                    </figure>
+                    <p>Data comes from the Kaggle BirdCLEF+ 2026 competition:</p>
+                    <ul>
+                        <li><strong>Focal clips:</strong> short, single-species, close-mic training recordings (~35k used in the full pipeline)</li>
+                        <li><strong>Soundscapes:</strong> long-form, multi-species field recordings (10,658 labeled segments for pseudo-labeling)</li>
+                        <li><strong>234 taxonomic classes</strong> across 161 genera, monitored at multiple Pantanal sites</li>
+                        <li><strong>Site-22</strong> held out as the leak-free generalisation proxy throughout training and harness gating</li>
+                    </ul>
+                </section>
+
+                <section id="architecture">
+                    <h2><span class="section-number">03 / ARCHITECTURE</span>Architectural evolution</h2>
+                    <p>From Phase 1 onward the CNN front-end was fixed: 128-mel log-spectrograms, 5 s windows @ 32 kHz, per-sample z-score, feeding an EfficientNet backbone with fp32-guarded GEM frequency pooling and an SED attention head. Training followed supervised → Noisy Student iter1 → Noisy Student iter2 on focal + labeled-soundscape streams.</p>
+                    <ul>
+                        <li>
+                            <strong>Phase 0 — Minimal CPU baseline (EfficientNet-V2-B0, ImageNet pretraining):</strong>
+                            <p>Deliberately stripped pipeline to meet the 90-minute budget: 64 mels, min–max norm, global-average pool + linear head (no SED/GEM), 6 epochs on ≤3,000 focal clips, no self-training. Result: <strong>Private 0.499 / Public 0.555</strong> — near-random, but proved the harness worked.</p>
+                        </li>
+                        <li>
+                            <strong>Phase 1 — Full ML stack (EfficientNet-B0, large-scale pretraining):</strong>
+                            <p>Rebuilt everything: ns_jft B0 backbone (JFT-300M + Noisy Student pretraining), 128-mel z-score front-end, ThreePoolHead + frame-max aux loss, fp32 GEM guard, BN recalibration, full focal + LSS data, 36 epochs with Noisy Student on 10,658 soundscapes. Result: <strong>Private 0.831 / Public 0.799</strong> (+0.332 private vs Phase 0).</p>
+                        </li>
+                        <li>
+                            <strong>Phase 2 — B0 + Perch distillation:</strong>
+                            <p>Added Google Perch v8 cosine distillation via 36,073 precomputed embeddings (dim 1280) during supervised training only — zero inference cost. Best <strong>single CNN model</strong>: <strong>Private 0.84846 / Public 0.82698</strong>. Site-22 0.731; per-taxon: Amph 0.740, Aves 0.704, Mamm 0.756.</p>
+                        </li>
+                        <li>
+                            <strong>Phase 3 — EfficientNetV2-S + export bug (v3):</strong>
+                            <p>Swapped to V2-S backbone; scored Private 0.777 — an <strong>export bug</strong> shipped the early supervised-only model snapshot instead of the final self-trained checkpoint after two rounds of soundscape learning, not a backbone failure. Clean rerun (Phase 3 without Perch): Private 0.78679.</p>
+                        </li>
+                        <li>
+                            <strong>Phase 4 — V2-S + Perch + export fix (v4):</strong>
+                            <p>Added Perch distillation and a <strong>deterministic checkpoint-selection policy</strong> so the fully self-trained model is always packaged for submission — never an earlier supervised-only snapshot. Largest internal lift on greedy coverage (+0.064) but LB <strong>Private 0.803</strong> — still below B0 baseline. The 2×2 ablation confirmed: B0 beats V2-S regardless of Perch; Perch adds a consistent ~+0.017 private lift on both backbones.</p>
+                        </li>
+                        <li>
+                            <strong>Phase 5 — Measure-first ensemble (v5):</strong>
+                            <p>No new training. Blended existing members on the Site-22 harness; fixed fractional time-shift TTA (+0.0165 Site-22 lift). No free blend beat the B0+Perch anchor. A coverage cap bug (200/10,658 files) suppressed one local smoke run — lesson carried forward for full-soundscape inference.</p>
+                        </li>
+                        <li>
+                            <strong>Phase 6 — Ensemble + rank-vs-prob bug (v6):</strong>
+                            <p>Trained a second B0 model without Perch distillation (provenance decorrelation, harness +TTA 0.7323). Two-member Kaggle submit scored Private 0.816 — flat vs v5 because <strong>rank blending</strong> was paired with probability-tuned post-processing. Fix: switched to <strong>probability-space blending</strong> so ensemble scores stay compatible with calibrated post-processing. Best PyTorch 2-member blend: <strong>Private 0.81465</strong>. PyTorch single-model champion (B0+Perch + TTA fix): <strong>Private 0.86259</strong>.</p>
+                        </li>
+                        <li>
+                            <strong>Phase 7 — ONNX 4-member ensemble (v7):</strong>
+                            <p>Replaced PyTorch forwards with <strong>ONNX Runtime</strong> to fit 4 models + TTA in the CPU budget. Members: B0+Perch (Phase 2), B0 without Perch (Phase 6), V2-S+Perch (Phase 4), and <strong>native Perch v2</strong> at inference. Champion: <strong>Private 0.89774</strong>. D1/D2+D3 confirmatory submits regressed (0.89004 / 0.89348) — local Site-22 proxies did not predict LB for post-proc tuning.</p>
+                        </li>
+                        <li>
+                            <strong>Phase 8 — ONNX 5-member, diversity member (v8):</strong>
+                            <p>Added a <strong>distilled-SED EfficientNet-B0</strong> that was weak alone (Site-22 ~0.727) but highly decorrelated from the anchor (correlation 0.243). Gating on <strong>diversity rather than solo strength</strong> lifted the stack to <strong>Private 0.91111</strong> — the first configuration over the 0.90 target — with no change to the inference recipe.</p>
+                        </li>
+                        <li>
+                            <strong>Phase 9 — ONNX 6-member + selective TTA (v9, final champion):</strong>
+                            <p>Added a normalizer-free <strong>ECA-NFNet-L0</strong> backbone family — the most decorrelated member on record (correlation <strong>0.199</strong>), which lifted the ensemble ~+0.011 to <strong>Private 0.91802</strong> at full coverage. A CPU-throughput spike then showed the pipeline is dominated by two heavy members (Perch, ECA), so <strong>selective TTA</strong> — augmenting only the three cheap B0s — recovered a further increment to <strong>Private 0.92041 / Public 0.90552</strong> while staying inside the 90-minute budget. A key correctness fix this cycle: a fail-loud <strong>coverage guardrail</strong>, after a silently truncated (uniform-filled) test tail had masqueraded as a modelling regression. OpenVINO / INT8 acceleration was investigated and closed (Perch and ECA are unconvertible; net 1.00× speedup), so inference scaling is exhausted at this ceiling.</p>
+                        </li>
+                    </ul>
+                    <figure>
+                        <img src="images/bio_perch_train_sup.png" alt="Supervised training results">
+                        <figcaption>Supervised training results</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/bio_perch_train_iter1.png" alt="Noisy Student iteration 1 training results">
+                        <figcaption>Noisy Student iteration 1</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/bio_perch_train_iter2.png" alt="Noisy Student iteration 2 training results">
+                        <figcaption>Noisy Student iteration 2</figcaption>
+                    </figure>
+                    <div class="callout">
+                        <span class="callout__label">Final champion ensemble</span>
+                        <p><strong>v9 ONNX 6-member ensemble</strong> — Private LB <strong>0.92041</strong> / Public <strong>0.90552</strong> (+0.0227 private vs the former v7 4-member champion). Five CNNs — including a deliberately decorrelated, normalizer-free <strong>ECA-NFNet-L0</strong> (correlation 0.199 vs the anchor, the most decorrelated member on record) — plus a <strong>live native Perch v2</strong>, blended in probability space via ONNX Runtime on CPU with <strong>selective test-time augmentation</strong> (TTA on the cheap members only, to stay inside the 90-minute budget).</p>
+                        <p>This cleared the 0.90 target. The gains came from <strong>error decorrelation and inference engineering</strong>, not a bigger network. The champion is now packaged in a deployable <strong>CPU identification app</strong>, and the project concludes here — remaining accuracy levers (XC-pretrained backbones, more families, soft pseudo-labeling) are documented as future work.</p>
+                    </div>
+                </section>
+
+                <section id="results">
+                    <h2><span class="section-number">04 / RESULTS</span>Model card</h2>
+                    <p>Verified clean runs and scored inference submissions. Metric: macro-averaged ROC-AUC over 234 species on 5-second windows. Erroneous exports (e.g. the original Phase 3 packaging mistake) and rejected harness runs (e.g. the failed pseudo-label training experiment) excluded.</p>
+
+                    <div class="metric-grid" aria-label="Key results">
+                        <div class="metric-card"><strong>0.92041</strong><span>Private LB (v9 champion)</span></div>
+                        <div class="metric-card"><strong>+0.421</strong><span>Gain over Phase 0 baseline</span></div>
+                        <div class="metric-card"><strong>6</strong><span>ONNX ensemble members</span></div>
+                    </div>
+
+                    <h3>Leaderboard ranking (Private LB)</h3>
+                    <div class="table-wrap">
+                        <table class="research-table">
+                            <thead>
+                                <tr><th>Rank</th><th>Run</th><th>Private</th><th>Public</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>v9 ONNX 6-member</strong> (5 CNN incl. ECA-NFNet-L0 @0.16 ⊕ native Perch) — selective TTA, full coverage <strong>· CHAMPION</strong></td><td class="champion"><strong>0.92041</strong></td><td>0.90552</td></tr>
+                                <tr><td>1a</td><td>v9 6-member — TTA-off, full coverage (same stack)</td><td>0.91802</td><td>0.90477</td></tr>
+                                <tr><td>2</td><td>v8 ONNX 5-member (+ distilled-SED diversity member) — first over 0.90</td><td>0.91111</td><td>0.90247</td></tr>
+                                <tr><td>3</td><td>v7 ONNX 4-member (B0+Perch ⊕ B0 no-Perch ⊕ V2-S+Perch ⊕ native Perch)</td><td>0.89774</td><td>0.89535</td></tr>
+                                <tr><td>4</td><td>PyTorch single-model (B0+Perch + TTA)</td><td>0.86259</td><td>0.84613</td></tr>
+                                <tr><td>5</td><td>Phase 2 (B0 + Perch distill, single CNN)</td><td>0.84846</td><td>0.82698</td></tr>
+                                <tr><td>6</td><td>Phase 1 (B0, no Perch)</td><td>0.831</td><td>0.799</td></tr>
+                                <tr><td>7</td><td>2-member prob-blend (B0+Perch + B0 no-Perch)</td><td>0.81465</td><td>0.80270</td></tr>
+                                <tr><td>8</td><td>Phase 4 (V2-S + Perch)</td><td>0.803</td><td>0.797</td></tr>
+                                <tr><td>9</td><td>Phase 3 clean rerun (V2-S, no Perch)</td><td>0.78679</td><td>0.78683</td></tr>
+                                <tr><td>10</td><td>Phase 0 baseline (minimal submit)</td><td>0.499</td><td>0.555</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Training validation (final self-trained checkpoint)</h3>
+                    <div class="table-wrap">
+                        <table class="research-table">
+                            <thead>
+                                <tr><th>Run</th><th>Focal</th><th>Site-22</th><th>Greedy</th><th>LSS</th><th>Site-22 taxon (Amph / Aves / Mamm)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Phase 1 (B0, no Perch)</td><td>0.943</td><td>0.683</td><td>0.767</td><td>0.725</td><td>0.757 / 0.604 / 0.700</td></tr>
+                                <tr><td>Phase 2 (B0 + Perch)</td><td>0.952</td><td>0.731</td><td>0.745</td><td>0.738</td><td>0.740 / 0.704 / 0.756</td></tr>
+                                <tr><td>Phase 3 clean rerun (V2-S, no Perch)</td><td>—</td><td>0.652</td><td>0.767</td><td>0.709</td><td>—</td></tr>
+                                <tr><td>Phase 4 (V2-S + Perch)</td><td>0.958</td><td>0.654</td><td>0.824</td><td>0.739</td><td>0.735 / 0.590 / 0.431</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Evaluation layers</h3>
+                    <div class="table-wrap">
+                        <table class="research-table">
+                            <thead>
+                                <tr><th>Layer</th><th>Protocol</th><th>Use for</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Training notebook</td><td>Site-22 macro-AUC, no TTA, per-phase peaks</td><td>Training progress, export decisions</td></tr>
+                                <tr><td>Site-22 harness</td><td>954 windows, BN recal, prob-space TTA, real post-proc</td><td>Ensemble gate, blend A/B, promotion decisions</td></tr>
+                                <tr><td>Kaggle LB</td><td>Hidden test set, CPU-only submit</td><td>Authoritative final score</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><em>Site-22</em> is the held-out monitoring site. Harness and LB can disagree on ensembles — the V2-S+Perch and ECA-NFNet members were modest standalone yet lifted the ensemble, because the payoff is error <em>decorrelation</em>, not solo accuracy. Note also that the hidden evaluation proved non-stationary (byte-identical submits varied by ~±0.006), so members were compared back-to-back rather than against a stored number.</p>
+                </section>
+
+                <section id="inference">
+                    <h2><span class="section-number">05 / INFERENCE</span>Inference stack (champion)</h2>
+                    <p>The 0.92041 score came from <strong>inference engineering</strong>, not new CNN training. Six pre-exported ONNX members from earlier clean runs are combined at submit time:</p>
+                    <div class="table-wrap">
+                        <table class="research-table">
+                            <thead>
+                                <tr><th>Member</th><th>Source run</th><th>Role</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>B0 + Perch (anchor CNN)</td><td>Phase 2 training run</td><td>Primary distilled model</td></tr>
+                                <tr><td>B0 without Perch</td><td>Phase 6 training run</td><td>Decorrelated second opinion (different training recipe)</td></tr>
+                                <tr><td>V2-S + Perch</td><td>Phase 4 training run</td><td>Backbone-family diversity</td></tr>
+                                <tr><td>B0 distilled-SED</td><td>Phase 8 training run (v8)</td><td>Low-correlation diversity member (corr 0.243)</td></tr>
+                                <tr><td>ECA-NFNet-L0 @0.16</td><td>Phase 9 training run (v9)</td><td>Normalizer-free family — most decorrelated member (corr 0.199)</td></tr>
+                                <tr><td>Native Perch v2</td><td>Google Perch v2 (external)</td><td>Live acoustic classifier mapped to 234 competition classes</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><strong>Pipeline at score time:</strong></p>
+                    <ol>
+                        <li><strong>Decode once</strong> per soundscape; build log-mel for CNN members, raw waveform for Perch</li>
+                        <li><strong>ONNX Runtime</strong> on CPU (offline wheels — Kaggle submit has no internet)</li>
+                        <li><strong>Selective prob-space TTA</strong> — ±0.5 s time shift ×3 on the three cheap B0 members only; the heavy members (Perch, ECA, V2-S) run single-pass to stay in budget</li>
+                        <li><strong>Prob-blend</strong> the five CNN members; apply <strong>Perch rank gate</strong> on combined output</li>
+                        <li><strong>Post-processing</strong> at champion settings: genus-level score mirroring, temporal continuity smoothing, and moderate Perch gating on the blended CNN output</li>
+                        <li><strong>Coverage guardrail</strong> — fail-loud if the full hidden test set is not processed within budget (never silently uniform-fill an unprocessed tail)</li>
+                    </ol>
+                    <p>PyTorch is retained only for audio I/O (decode + mel); all forward passes run through ORT. Pure PyTorch cannot fit six members in the CPU budget — ONNX was load-bearing, not optional. A CPU-throughput profile showed the two heaviest members (Perch ~44%, ECA ~22%) dominate, which is exactly why TTA is applied <em>selectively</em>.</p>
+                </section>
+
+                <section id="mlops">
+                    <h2><span class="section-number">06 / MLOPS</span>MLOps &amp; reproducibility</h2>
+                    <h3>Why MLOps mattered here</h3>
+                    <p>This was a months-long solo research effort spanning dozens of training runs, ensemble experiments, and Kaggle submissions. Without disciplined experiment tracking, it is easy to ship the wrong model snapshot, confuse a local validation win with a real leaderboard gain, or repeat an expensive GPU run with no clear hypothesis. MLOps — in the practical sense of <em>machine learning operations</em> — turned ad-hoc notebook work into a repeatable, auditable process: every run has a stated goal, measured outcome, promotion decision, and a single place to see what the current champion is.</p>
+                    <p>The v3 export bug is the clearest example: the model looked weaker than it was because the submission packaged an early checkpoint. Formal checkpoint-selection rules and a run registry prevent that class of silent failure from reaching production or competition submits.</p>
+                    <h3>Best practices incorporated</h3>
+                    <ul>
+                        <li><strong>Hypothesis before heavy training</strong> — each experiment states what it is testing and when to stop, avoiding open-ended GPU spend</li>
+                        <li><strong>Central run registry</strong> — every experiment records its goal, configuration, metrics, artifacts, and final promote/reject/hold decision in one auditable place</li>
+                        <li><strong>Site-22 promotion gate</strong> — no model joins the submission ensemble unless it clears a standalone quality bar on held-out audio and improves the blend in probability space with test-time augmentation</li>
+                        <li><strong>Two-layer evaluation</strong> — training-time Site-22 tracks learning progress; a separate submission-parity harness mirrors real inference (recalibration, TTA, post-processing) before any Kaggle submit</li>
+                        <li><strong>Deterministic packaging</strong> — submission bundles always prefer the final self-trained checkpoint over earlier supervised-only snapshots, regardless of misleading intermediate scores</li>
+                        <li><strong>Champion tracking</strong> — a living dashboard shows the current best submission, timeline of runs, gate pass/fail status, and training curves without digging through notebooks</li>
+                        <li><strong>Pre-submit checklist</strong> — blend mode, coverage, and inference budget are verified before a competition submit is allowed</li>
+                        <li><strong>Documented invariants</strong> — non-negotiable rules earned through debugging (BatchNorm recalibration, fp32 guard on fragile pooling, train/inference front-end parity) are enforced across every run</li>
+                    </ul>
+                    <h3>Outcome</h3>
+                    <p>The champion ONNX ensemble (Private LB 0.92041) is the direct result of this discipline: only verified, correctly packaged models entered the six-member stack; rejected candidates — the failed pseudo-label training run, and an HGNetV2-B0 member that was well-decorrelated but too weak solo — never reached submission. The discipline also caught two subtle late failures: a <strong>silently truncated test tail</strong> (fixed with a fail-loud coverage guardrail) and a <strong>non-stationary evaluation</strong> (handled by comparing candidates back-to-back). The project closes at 0.92041, above the 0.90 target.</p>
+                </section>
+
+                <section id="lessons">
+                    <h2><span class="section-number">07 / LESSONS</span>Key lessons</h2>
+                    <div class="callout">
+                        <span class="callout__label">Summary</span>
+                        <p>The two largest early wins were <strong>debugging wins, not tuning wins</strong>: fp16 overflow in GEM pooling (<code>pow(p≈3)</code> under AMP) and BatchNorm statistics mismatch at inference both collapsed AUC to ≈0.5. Fixing them unlocked the Phase 0 → Phase 1 jump (+0.332 private LB) alongside the full stack rebuild — better backbone, z-score 128-mel front-end, soundscape self-training, and SED head.</p>
+                    </div>
+                    <ol>
+                        <li>
+                            <h3>Trust Site-22, not focal AUC or the public leaderboard</h3>
+                            <p>Focal AUC (~0.94) and greedy coverage were optimistic; Site-22 (held-out monitoring site) was the honest generalisation proxy. The harness extends this with submission-parity TTA and post-processing.</p>
+                        </li>
+                        <li>
+                            <h3>The export path is as load-bearing as the model</h3>
+                            <p>v3's regression was an export bug: the submission packaged an early supervised-only snapshot instead of the final self-trained model after two rounds of soundscape learning. A deterministic checkpoint-selection policy fixed this — always ship the fully trained model, never an intermediate snapshot. Several runs peaked mid-training but still exported a later, weaker checkpoint until export policy was aligned with validation peaks.</p>
+                        </li>
+                        <li>
+                            <h3>Prob blend, not rank blend, for post-processed ensembles</h3>
+                            <p>v6 scored flat because rank-uniform scores were fed into probability-tuned post-processing (site/hour priors, score boosting, taxonomy smoothing). Switching to probability-space blending recovered the loss.</p>
+                        </li>
+                        <li>
+                            <h3>Native Perch &gt; distillation-only; harness ≠ LB for ensembles</h3>
+                            <p>Running Perch live at inference diversifies error vs B0+Perch distill alone — the largest conceptual shift since the prob-blend fix. V2-S+Perch failed Site-22 standalone yet helped the 4-member ONNX stack reach 0.898; treat harness as a coarse gate, not an LB oracle.</p>
+                        </li>
+                        <li>
+                            <h3>B0 + ns_jft pretraining beats V2-S on this task</h3>
+                            <p>The 2×2 ablation showed pretraining provenance (+0.044 private) matters more than architecture depth. Perch distillation adds a consistent ~+0.017 lift regardless of backbone.</p>
+                        </li>
+                        <li>
+                            <h3>Ensemble headroom is decorrelation, not solo peak accuracy</h3>
+                            <p>The decisive late members were weak alone but complementary: a distilled-SED B0 (corr 0.243) took the stack over 0.90, and a normalizer-free ECA-NFNet-L0 (corr 0.199, the most decorrelated on record) added ~+0.011 more. A rejected HGNetV2-B0 was well-decorrelated too, but too weak solo to help — decorrelation cannot rescue a member that is individually too weak.</p>
+                        </li>
+                        <li>
+                            <h3>Coverage is a correctness bug, and the eval can move under you</h3>
+                            <p>A silently truncated test tail (uniform-filled when inference ran out of budget) looked like a modelling regression for weeks; a fail-loud coverage guardrail plus TTA applied only to cheap members fixed it. The hidden test also proved non-stationary (byte-identical submits varied ~±0.006), so candidates are compared back-to-back, never against a stored number.</p>
+                        </li>
+                        <li>
+                            <h3>Single-model ceiling; ensemble + inference stack close the gap</h3>
+                            <p>Best single CNN: 0.848. PyTorch 1-member + TTA: 0.863. ONNX 4-member: 0.898; 5-member: 0.911; 6-member + selective TTA: <strong>0.92041</strong>. Every gain from v7 onward came from recomposing existing checkpoints under a submission-parity ONNX spec — not from a stronger single model.</p>
+                        </li>
+                    </ol>
+                </section>
+
+                <section id="concepts">
+                    <h2><span class="section-number">08 / CONCEPTS</span>Key concepts</h2>
+                    <p>Plain-English glossary for terms used above.</p>
+
+                    <h3>GEM pooling &amp; fp16 overflow</h3>
+                    <p>Generalized mean pooling raises feature values to a power (~3), averages, then takes the root — between average and max pooling. With <code>p≈3</code>, values like <code>50³ = 125,000</code> overflow fp16 under AMP. Fix: run GEM/head in fp32 while the rest uses mixed precision.</p>
+
+                    <h3>BatchNorm recalibration</h3>
+                    <p>BN running stats learned on augmented training audio mismatch clean inference inputs, collapsing predictions. Recalibrate on clean soundscape-like audio before every eval/submit pass.</p>
+                    <p><strong>Analogy:</strong> calibrating a scale while wearing a backpack, then weighing without it.</p>
+
+                    <h3>Noisy Student self-training</h3>
+                    <p>Pseudo-label unlabeled soundscapes with the current model, then retrain on those labels with noise augmentation. Exposes the model to the far-field, multi-species domain it will be tested on.</p>
+
+                    <h3>Perch distillation vs native Perch</h3>
+                    <p><strong>Distillation:</strong> precomputed Perch embeddings guide CNN training; teacher not run at inference. <strong>Native:</strong> Perch runs live as a fourth ensemble member at inference — diversifies errors beyond what distillation alone captures.</p>
+
+                    <h3>Prob blend vs rank blend</h3>
+                    <p><strong>Prob blend</strong> averages sigmoid probabilities — compatible with logit-space post-processing. <strong>Rank blend</strong> converts scores to uniform ranks per class — breaks priors and smoothing tuned for probabilities. The v6 regression came from mixing these.</p>
+
+                    <h3>SED head &amp; frame-max loss</h3>
+                    <p>The SED attention head weights each time frame; frame-max auxiliary loss supervises the loudest frame so brief calls (e.g. one 0.4 s vocalization in 5 s) are not drowned by global average pooling.</p>
+                </section>
+
+                <section id="app">
+                    <h2><span class="section-number">09 / APP</span>The deployed app</h2>
+                    <p>The champion is packaged in a lightweight, CPU-only identification app. An <strong>Identify</strong> tab returns ranked species detections with a mel-spectrogram (defaulting to the 6-member champion, with single-model options retained for comparison); a <strong>Browse</strong> tab explores the labeled sample library by taxon, then species. In a stress test, a composite clip overlaying two focal recordings on a night-time soundscape was still correctly resolved to its focal species — a qualitative check on the focal-to-soundscape robustness the whole project targets.</p>
+                </section>
+
+                <section id="next">
+                    <h2><span class="section-number">10 / NEXT</span>What's next</h2>
+                    <p>The project is <strong>closed</strong> at the 6-member champion (Private 0.92041), above the 0.90 target. Inference scaling is exhausted (OpenVINO / INT8 closed as a dead end), so the remaining gap to the top solutions (~0.95–0.96) is an accuracy question. Three levers were scoped and evidence-ranked but not executed — the recommended path for anyone resuming the work:</p>
+                    <ul>
+                        <li><strong>XC-pretrained backbones:</strong> initialise from public Xeno-Canto-pretrained bioacoustic weights instead of ImageNet — the most consistent single-model lever among medalists</li>
+                        <li><strong>More backbone families:</strong> add further decorrelated families (SwinV2, HGNetV2 with in-domain init, ConvNeXt, RegNetY)</li>
+                        <li><strong>Soft pseudo-labeling:</strong> proper multi-round soft pseudo-labeling with a foundation-model (Perch) teacher and soundscape substitution</li>
+                    </ul>
+                </section>
+            </article>
+        </div>
+
+        <section class="article-related" aria-labelledby="related-title">
+            <div class="shell">
+                <p class="eyebrow">Continue exploring</p>
+                <h2 id="related-title">Related research &amp; writing</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="https://medium.com/@rommelsharma/a-beginners-guide-to-bioacoustics-how-computer-vision-helps-identify-wildlife-by-sound-c517983547d4" target="_blank" rel="noopener noreferrer">
+                        <span>Accessible guide</span>
+                        <h3>A Beginner's Guide to Bioacoustics</h3>
+                        <p>How computer vision helps identify wildlife by sound.</p>
+                    </a>
+                    <a class="related-card" href="https://huggingface.co/spaces/rommelsharma/wildlife-id-by-sound" target="_blank" rel="noopener noreferrer">
+                        <span>Live app</span>
+                        <h3>Wildlife ID by Sound</h3>
+                        <p>Try the champion solution — upload a clip and get ranked species detections.</p>
+                    </a>
+                    <a class="related-card" href="jaguar-identification.html">
+                        <span>Applied research</span>
+                        <h3>Wildlife ID by Vision</h3>
+                        <p>Frozen DINOv2 features and metric learning for jaguar re-identification at 0.950 mAP.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner shell">
+            <div>
+                <p class="eyebrow">Rommel Sharma · Sydney, Australia</p>
+                <p class="site-footer__statement">Building thoughtful technology and publishing the evidence behind it.</p>
+            </div>
+            <small>© 2026 Rommel Sharma · <a href="../feed.xml">RSS</a></small>
+        </div>
+    </footer>
+</body>
 </html>
