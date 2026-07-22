@@ -24,7 +24,7 @@
     <meta property="og:locale" content="en_AU">
     <meta property="article:author" content="Rommel Sharma">
     <meta property="article:published_time" content="2026-06-10">
-    <meta property="article:modified_time" content="2026-07-17">
+    <meta property="article:modified_time" content="2026-07-22">
     <meta property="article:section" content="Computer Vision">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Jaguar Re-Identification: Frozen DINOv2 &amp; Metric Learning">
@@ -65,7 +65,7 @@
                 "mainEntityOfPage": { "@type": "WebPage", "@id": "https://rommelsharma.github.io/projects/jaguar-identification.html" },
                 "inLanguage": "en-AU",
                 "datePublished": "2026-06-10",
-                "dateModified": "2026-07-17",
+                "dateModified": "2026-07-22",
                 "proficiencyLevel": "Expert",
                 "keywords": ["Jaguar Re-Identification", "DINOv2", "Metric Learning", "Computer Vision for Conservation", "Triplet Loss", "MLOps"],
                 "image": { "@type": "ImageObject", "url": "https://rommelsharma.github.io/assets/images/jaguar.jpg", "caption": "Jaguar re-identification computer vision case study" },
@@ -76,7 +76,12 @@
                     { "@type": "Thing", "name": "Computer vision for wildlife conservation" },
                     { "@type": "Thing", "name": "Metric learning" },
                     { "@type": "Thing", "name": "Foundation models" }
-                ]
+                ],
+                "citation": {
+                    "@type": "ScholarlyArticle",
+                    "name": "Computer Vision - Model evaluation for Wildlife Re-Identification with Small Datasets",
+                    "url": "https://doi.org/10.21203/rs.3.rs-10427175/v1"
+                }
             },
             {
                 "@type": "BreadcrumbList",
@@ -155,6 +160,7 @@
                     <h2><span class="section-number">01 / OBJECTIVE</span>From camera trap to individual identity</h2>
                     <p>Wildlife monitoring relies heavily on camera traps to track endangered animal populations. Historically, researchers have manually inspected thousands of photographs to match individual animals by their unique coat markings. This project establishes an automated deep-learning pipeline for <strong>jaguar re-identification</strong>, transforming visual pattern matching into a high-dimensional metric-learning task.</p>
                     <p>Instead of assigning an image to a fixed set of labels, the system converts each camera-trap image into a compact numerical embedding. Images of the same jaguar should occupy nearby positions in the resulting vector space; images of different jaguars should remain far apart.</p>
+                    <p><a href="https://doi.org/10.21203/rs.3.rs-10427175/v1" target="_blank" rel="noopener noreferrer">Read the research paper →</a></p>
                 </section>
 
                 <section id="challenge">
@@ -271,6 +277,11 @@
                 <p class="eyebrow">Continue exploring</p>
                 <h2 id="related-title">Related research &amp; writing</h2>
                 <div class="related-grid">
+                    <a class="related-card" href="https://doi.org/10.21203/rs.3.rs-10427175/v1" target="_blank" rel="noopener noreferrer">
+                        <span>Research paper</span>
+                        <h3>Wildlife Re-Identification with Small Datasets</h3>
+                        <p>Fine-tuned vision models versus frozen foundation features with metric learning.</p>
+                    </a>
                     <a class="related-card" href="https://medium.com/ai-in-plain-english/the-jaguar-spotter-how-ai-tells-one-big-cat-from-another-2764d19ddd5a" target="_blank" rel="noopener noreferrer">
                         <span>Accessible case study</span>
                         <h3>The Jaguar Spotter</h3>
@@ -280,11 +291,6 @@
                         <span>Applied research</span>
                         <h3>Wildlife ID by Sound</h3>
                         <p>Offline acoustic identification across 234 Pantanal species.</p>
-                    </a>
-                    <a class="related-card" href="../index.html#research">
-                        <span>Portfolio index</span>
-                        <h3>All AI/ML systems</h3>
-                        <p>Browse conservation, decision, voice and finance projects.</p>
                     </a>
                 </div>
             </div>
