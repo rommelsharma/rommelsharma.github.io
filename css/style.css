@@ -494,16 +494,16 @@ a:hover {
 
 .credential {
     display: grid;
-    min-height: 118px;
+    aspect-ratio: 1 / 1;
     place-items: center;
-    padding: 18px;
+    padding: 10px;
     border: 1px solid var(--line);
     background: var(--white);
 }
 
 .credential img {
     max-width: 100%;
-    max-height: 66px;
+    max-height: 100%;
     object-fit: contain;
 }
 
@@ -529,8 +529,41 @@ a:hover {
     line-height: 1.35;
 }
 
+.site-footer__links {
+    display: flex;
+    gap: 24px;
+    margin-top: 18px;
+}
+
 .site-footer small {
     color: #9fb2ab;
+}
+
+.cert-rail {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.cert-rail__item {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
+    padding: 6px;
+    background: var(--white);
+    border-radius: 4px;
+}
+
+.cert-rail__item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 /* Project article */
@@ -1072,6 +1105,17 @@ a:hover {
     .site-footer small {
         display: block;
         margin-top: 28px;
+    }
+
+    .cert-rail {
+        justify-content: center;
+        margin-top: 28px;
+        padding-top: 24px;
+    }
+
+    .cert-rail__item {
+        width: 44px;
+        height: 44px;
     }
 
     .article-meta__inner {
