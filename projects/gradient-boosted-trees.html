@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gradient-Boosted Decision Trees: Practical Customer Ranking | Rommel Sharma</title>
+    <meta name="description" content="A practical guide to gradient-boosted decision trees for structured prediction and customer propensity ranking, with leakage-aware validation, decision-aligned metrics and careful limits on causal claims.">
+    <meta name="keywords" content="Rommel Sharma, Gradient-Boosted Decision Trees, GBDT, Tabular Machine Learning, Customer Propensity, Customer Ranking, Model Evaluation, Calibration">
+    <meta name="author" content="Rommel Sharma">
+    <meta name="geo.region" content="AU-NSW">
+    <meta name="geo.placename" content="Sydney">
+    <meta name="geo.position" content="-33.8688;151.2093">
+    <meta name="ICBM" content="-33.8688, 151.2093">
+    <link rel="canonical" href="https://rommelsharma.github.io/projects/gradient-boosted-trees.html">
+    <link rel="alternate" type="application/rss+xml" title="Rommel Sharma — Applied AI Articles" href="https://rommelsharma.github.io/feed.xml">
+    <link rel="author" href="https://rommelsharma.github.io/">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Gradient-Boosted Decision Trees: Practical Customer Ranking">
+    <meta property="og:description" content="A practical framework for leakage-aware tabular prediction, customer propensity ranking and careful campaign measurement.">
+    <meta property="og:url" content="https://rommelsharma.github.io/projects/gradient-boosted-trees.html">
+    <meta property="og:site_name" content="Rommel Sharma — Applied AI Portfolio">
+    <meta property="og:locale" content="en_AU">
+    <meta property="article:author" content="Rommel Sharma">
+    <meta property="article:section" content="Applied Machine Learning">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Gradient-Boosted Decision Trees: Practical Customer Ranking">
+    <meta name="twitter:description" content="A practical framework for leakage-aware tabular prediction, customer propensity ranking and careful campaign measurement.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": "https://rommelsharma.github.io/#person",
+                "name": "Rommel Sharma",
+                "url": "https://rommelsharma.github.io/",
+                "jobTitle": "Enterprise AI Go-to-Market and Business Development Leader",
+                "worksFor": { "@type": "Organization", "name": "Adobe", "url": "https://www.adobe.com/" },
+                "sameAs": [
+                    "https://www.linkedin.com/in/rommelsharma",
+                    "https://github.com/rommelsharma",
+                    "https://medium.com/@rommelsharma",
+                    "https://orcid.org/0009-0005-6819-6219"
+                ],
+                "address": { "@type": "PostalAddress", "addressLocality": "Sydney", "addressRegion": "NSW", "addressCountry": "AU" }
+            },
+            {
+                "@type": "TechArticle",
+                "@id": "https://rommelsharma.github.io/projects/gradient-boosted-trees.html#article",
+                "headline": "Gradient-Boosted Decision Trees: A Practical Framework for Smarter Ranking Decisions",
+                "description": "A practical guide to leakage-aware gradient-boosted tree prediction and customer propensity ranking, with benchmark-specific results and clear causal limitations.",
+                "url": "https://rommelsharma.github.io/projects/gradient-boosted-trees.html",
+                "mainEntityOfPage": { "@type": "WebPage", "@id": "https://rommelsharma.github.io/projects/gradient-boosted-trees.html" },
+                "inLanguage": "en-AU",
+                "keywords": ["Gradient-Boosted Decision Trees", "Tabular Machine Learning", "Customer Propensity", "Ranking", "Model Evaluation", "Calibration"],
+                "author": { "@id": "https://rommelsharma.github.io/#person" },
+                "creator": { "@id": "https://rommelsharma.github.io/#person" },
+                "publisher": { "@id": "https://rommelsharma.github.io/#person" },
+                "citation": [
+                    "https://zenodo.org/records/22952912",
+                    "https://medium.com/towards-artificial-intelligence/gradient-boosted-decision-trees-a-practical-tool-for-smarter-ranking-decisions-2fe995eb028f"
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://rommelsharma.github.io/" },
+                    { "@type": "ListItem", "position": 2, "name": "Gradient-Boosted Decision Trees", "item": "https://rommelsharma.github.io/projects/gradient-boosted-trees.html" }
+                ]
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a class="skip-link" href="#article-content">Skip to article</a>
+
+    <header class="site-header">
+        <nav class="site-nav shell" aria-label="Primary navigation">
+            <a class="wordmark" href="../index.html" aria-label="Rommel Sharma, portfolio home">Rommel Sharma</a>
+            <ul class="nav-links">
+                <li><a href="../index.html#work">Projects</a></li>
+                <li><a href="../index.html#credentials">Credentials</a></li>
+                <li><a class="nav-cta" href="https://www.linkedin.com/in/rommelsharma" rel="me noopener" target="_blank">Connect ↗</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class="project-cover">
+            <div class="project-cover__inner project-cover__inner--single shell">
+                <div class="project-cover__copy">
+                    <p class="eyebrow">Applied machine learning · Customer ranking · Case study 07</p>
+                    <h1>Gradient-boosted decision trees.</h1>
+                    <p class="project-cover__dek">A practical framework for structured prediction and customer propensity ranking—built around leakage-aware evaluation, decision-aligned metrics and evidence that stays within its limits.</p>
+                    <div class="tech-pills" aria-label="Topics covered">
+                        <span class="tech-pill">Tabular prediction</span>
+                        <span class="tech-pill">Leakage-safe validation</span>
+                        <span class="tech-pill">Top-K ranking</span>
+                        <span class="tech-pill">Calibration</span>
+                        <span class="tech-pill">Propensity vs uplift</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="article-meta" aria-label="Article details">
+            <div class="article-meta__inner shell">
+                <div class="article-meta__item"><span>Author</span><strong>Rommel Sharma</strong></div>
+                <div class="article-meta__item"><span>Model family</span><strong>Gradient-boosted trees</strong></div>
+                <div class="article-meta__item"><span>Problem type</span><strong>Structured prediction</strong></div>
+                <div class="article-meta__item"><span>Use case</span><strong>Customer prioritisation</strong></div>
+            </div>
+        </section>
+
+        <div class="article-layout shell">
+            <aside class="article-toc" aria-label="On this page">
+                <p class="article-toc__label">On this page</p>
+                <ol>
+                    <li><a href="#objective">Objective</a></li>
+                    <li><a href="#workflow">Practical workflow</a></li>
+                    <li><a href="#evaluation">Evaluation</a></li>
+                    <li><a href="#benchmarks">Benchmarks</a></li>
+                    <li><a href="#causal-limits">Propensity &amp; uplift</a></li>
+                    <li><a href="#reading">Read the articles</a></li>
+                </ol>
+                <a class="article-toc__back" href="../index.html">← Portfolio index</a>
+            </aside>
+
+            <article class="article-body" id="article-content">
+                <p class="article-lead">Gradient-boosted decision trees are a strong practical choice for structured data, where useful signals often live in a mix of numeric, categorical and behavioural features. The framework here treats prediction as one part of a decision workflow: the split must reflect the real use case, the metric must match the action, and model scores must not be mistaken for causal impact.</p>
+
+                <section id="objective">
+                    <h2><span class="section-number">01 / OBJECTIVE</span>Predictive scores for decisions</h2>
+                    <p>In customer ranking, a model can estimate which customers are more likely to take an action—such as purchasing a vehicle or leaving a service. A ranked list can help focus limited outreach capacity on the people with the highest predicted propensity. Gradient-boosted decision trees (GBDTs) are useful in this setting because they learn non-linear relationships and interactions from structured, tabular data without requiring every relationship to be specified in advance.</p>
+                    <p>A strong benchmark score is only evidence about performance on a particular dataset and evaluation design. It does not, by itself, establish that a campaign will create additional purchases, reduce churn or improve business outcomes.</p>
+                </section>
+
+                <section id="workflow">
+                    <h2><span class="section-number">02 / WORKFLOW</span>Build a trustworthy tabular workflow</h2>
+                    <h3>Start with leakage-safe validation</h3>
+                    <p>Define the prediction moment and the outcome window before preparing features. Every input must have been available at the time the prediction would be made. Keep target-derived fields and post-outcome information out of the feature set, and fit transformations using training data only. Use a validation design that respects the data-generating process—for example, keeping related records together or evaluating later periods when that matches deployment.</p>
+
+                    <h3>Engineer features that reflect the decision</h3>
+                    <p>Feature work should clarify customer history and context without smuggling in information that would not exist at scoring time. Useful candidates can include recency, frequency, tenure, changes in behaviour and carefully defined interactions. Check missingness and category handling, and keep every feature's availability and meaning auditable. More features are not automatically better; each should be defensible and reproducible.</p>
+
+                    <h3>Compare diverse models, then blend with discipline</h3>
+                    <p>Tree-boosting variants can behave differently across datasets, so compare candidates using the same leakage-safe split and the metric that matters. A blend or stack is worthwhile only when its gains are stable out of sample. Generate training predictions for a stack in an out-of-fold manner, reserve an untouched test set for final evaluation, and avoid repeatedly tuning against that final set. Added complexity is not a substitute for reliable validation.</p>
+                </section>
+
+                <section id="evaluation">
+                    <h2><span class="section-number">03 / EVALUATION</span>Choose metrics around the action</h2>
+                    <p>No single metric answers every operational question. The evaluation should reflect what the organisation will do with the predictions and how outcomes are measured:</p>
+                    <ul>
+                        <li><strong>ROC-AUC</strong> measures how well scores rank positive examples above negative examples across thresholds. It is useful for broad discrimination comparisons, but does not tell you how many positives appear in the limited group you can contact.</li>
+                        <li><strong>Top-K or precision/recall at K</strong> focuses on the highest-ranked customers when capacity is limited. Choose K to reflect a realistic contact budget, and compare against a transparent baseline.</li>
+                        <li><strong>Calibration</strong> checks whether predicted probabilities correspond to observed outcome frequencies. This matters when a decision depends on expected value, thresholds or communicating risk—not just ordering.</li>
+                        <li><strong>Accuracy</strong> can be informative at a specified threshold, but it may obscure class imbalance and is sensitive to the threshold chosen.</li>
+                    </ul>
+                    <p>Report the split strategy, baseline, sample context and metric definition alongside a score. If probabilities inform decisions, evaluate calibration on held-out data and recalibrate only using a process that preserves separation from the test set.</p>
+                </section>
+
+                <section id="benchmarks">
+                    <h2><span class="section-number">04 / BENCHMARKS</span>Read benchmark results in context</h2>
+                    <p>The article reports three dataset-specific examples. These scores illustrate the method on the evaluated datasets; they are not guarantees of future performance or evidence of live campaign impact.</p>
+                    <div class="table-wrap">
+                        <table class="research-table">
+                            <thead>
+                                <tr><th>Example</th><th>Reported metric</th><th>Result</th><th>Context</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>EV purchase propensity</td>
+                                    <td>ROC-AUC</td>
+                                    <td>0.9462</td>
+                                    <td>Synthetic benchmark dataset; measures ranking discrimination in that evaluation.</td>
+                                </tr>
+                                <tr>
+                                    <td>Titanic survival</td>
+                                    <td>Accuracy</td>
+                                    <td>About 0.794</td>
+                                    <td>Benchmark classification example; accuracy depends on the dataset split and decision threshold.</td>
+                                </tr>
+                                <tr>
+                                    <td>Telecom churn</td>
+                                    <td>ROC-AUC</td>
+                                    <td>0.9157</td>
+                                    <td>Synthetic benchmark dataset; not a field trial or measured retention lift.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="callout">
+                        <span class="callout__label">Interpretation boundary</span>
+                        <p>The EV purchase and telecom churn datasets are synthetic. Their metrics demonstrate benchmark performance under the stated evaluation setup; they do not show that targeting customers with a model caused more sales or prevented churn in a live market.</p>
+                    </div>
+                </section>
+
+                <section id="causal-limits">
+                    <h2><span class="section-number">05 / CAUSAL LIMITS</span>Propensity is not uplift</h2>
+                    <p>A propensity model estimates who is likely to act. Those customers may have acted even without contact. An uplift model instead aims to estimate how an intervention changes an individual's outcome relative to what would have happened without that intervention. The two rankings can differ: the most likely customers to purchase are not necessarily the customers whose purchase is most influenced by a campaign.</p>
+                    <p>To establish incremental campaign effect, run a controlled experiment with a suitable untreated comparison group, a pre-defined outcome and analysis plan, and enough observations to measure the effect with appropriate uncertainty. Monitor operational costs and guardrails as well as response. Predictive benchmark scores can inform a test; they cannot replace one.</p>
+                    <p>These distinctions make the GBDT workflow useful as a disciplined prioritisation tool while keeping the decision-maker clear about what has—and has not—been demonstrated.</p>
+                </section>
+
+                <section id="reading">
+                    <h2><span class="section-number">06 / READ THE ARTICLES</span>Further reading</h2>
+                    <p>The longer article covers the practical framework and benchmark examples in more detail; the shorter explainer offers a quick introduction to the ranking use case.</p>
+                    <ul>
+                        <li><a href="https://zenodo.org/records/22952912" target="_blank" rel="noopener noreferrer">Read the detailed GBDT article on Zenodo →</a></li>
+                        <li><a href="https://medium.com/towards-artificial-intelligence/gradient-boosted-decision-trees-a-practical-tool-for-smarter-ranking-decisions-2fe995eb028f" target="_blank" rel="noopener noreferrer">Read the quick explainer on Towards AI / Medium →</a></li>
+                    </ul>
+                </section>
+            </article>
+        </div>
+
+        <section class="article-related" aria-labelledby="related-title">
+            <div class="shell">
+                <p class="eyebrow">Continue exploring</p>
+                <h2 id="related-title">Related research &amp; writing</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="market-analysis.html">
+                        <span>Applied research</span>
+                        <h3>Stocks Value Investor</h3>
+                        <p>A rules-driven equity screener with an LLM-assisted investment thesis.</p>
+                    </a>
+                    <a class="related-card" href="../index.html#work">
+                        <span>Portfolio index</span>
+                        <h3>All AI/ML systems</h3>
+                        <p>Browse conservation, decision, voice, finance and tabular ML projects.</p>
+                    </a>
+                    <a class="related-card" href="../index.html#work">
+                        <span>Writing</span>
+                        <h3>More articles &amp; tools</h3>
+                        <p>Explore the full collection of applied AI writing and research resources.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner shell">
+            <div>
+                <p class="eyebrow">Rommel Sharma · Sydney, Australia</p>
+                <p class="site-footer__statement">Building thoughtful technology and publishing the evidence behind it.</p>
+                <div class="site-footer__links">
+                    <a class="text-link" href="https://www.skills.google/public_profiles/a8728b82-b98c-4e37-a9f4-f9b77782fb30" target="_blank" rel="noopener noreferrer">Google profile</a>
+                    <a class="text-link" href="https://www.credly.com/users/rommel-sharma" target="_blank" rel="me noopener noreferrer">Credly profile</a>
+                </div>
+            </div>
+            <small>© 2026 Rommel Sharma · <a href="../feed.xml">RSS</a></small>
+        </div>
+        <div class="cert-rail shell" id="cert-rail" aria-label="Certifications and badges"></div>
+        <script src="../assets/js/cert-rail.js" defer></script>
+    </footer>
+</body>
+</html>

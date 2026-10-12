@@ -578,11 +578,20 @@ a:hover {
     grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
 }
 
+.project-cover__inner--single {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 460px;
+}
+
 .project-cover__copy {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 68px 7vw 68px 0;
+}
+
+.project-cover__inner--single .project-cover__copy {
+    max-width: 900px;
 }
 
 .project-cover h1 {
